@@ -1,0 +1,12 @@
+In the past decades, several post-pruning algorithms have been introduced such as reduced-error pruning, error-complexity pruning, minimum-error pruning, and cost-based pruning. Most of the pruning methods such as reduced-error pruning and minimum-error pruning traverse the decision tree in bottom-up order estimating the misclassification errors for each node to reduce the tree size and to avoid the over-fitting problem.
+
+来自链接:
+https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0194168
+
+
+后剪枝类型:
+reduced-error pruning,需要单独的验证数据集,REP剪枝的一句是验证集说了算
+error-complexity pruning
+minimum-error pruning
+cost-based pruning
+Pessimistic Error Pruning (PEP，悲观剪枝）,PEP剪枝算法是在C4.5决策树算法中提出的,不需要单独的验证数据集

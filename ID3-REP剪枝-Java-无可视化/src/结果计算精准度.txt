@@ -1,0 +1,15 @@
+accuracy = (correctClassification)/(correctClassification+incorrectClassification+ 0.0)
+precision = truePositive/(truePositive+falsePositive+0.0)
+
+ID3剪枝前
+Training Time=1.979secs
+Accuracy=0.807874209200909
+Precision=0.8762364294330519 Recall=0.8727272727272727 F-Score=0.874478330658106
+No of nodes in tree = 33223
+
+ID3剪枝后
+Applying Reduced Error Pruning on the decision tree generated
+Training Time=10.7secs
+Accuracy=0.8404889134574043
+Precision=0.9467631684760756 Recall=0.8588415523781733 F-Score=0.9006617450177867
+No of nodes in tree = 2640

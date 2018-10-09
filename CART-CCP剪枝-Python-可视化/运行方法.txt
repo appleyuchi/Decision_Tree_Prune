@@ -1,0 +1,7 @@
+运行:
+python ticart.py
+
+这里使用的是代价复杂度剪枝
+
+参考链接:
+https://triangleinequality.wordpress.com/2013/09/01/decision-trees-part-3-pruning-your-tree/
