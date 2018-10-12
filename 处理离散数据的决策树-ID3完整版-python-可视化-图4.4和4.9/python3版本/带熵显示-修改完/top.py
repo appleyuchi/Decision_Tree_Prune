@@ -36,25 +36,25 @@ def createDataSet():
         # 4
         ['青绿', '蜷缩', '沉闷', '清晰', '凹陷', '硬滑', '好瓜'],
         # 5
-        ['浅白', '蜷缩', '浊响', '清晰', '凹陷', '硬滑', '好瓜'],
+        # ['浅白', '蜷缩', '浊响', '清晰', '凹陷', '硬滑', '好瓜'],
 #--------------------------------------------
         # 6
         ['青绿', '稍蜷', '浊响', '清晰', '稍凹', '软粘', '好瓜'],
         # 7
         ['乌黑', '稍蜷', '浊响', '稍糊', '稍凹', '软粘', '好瓜'],
         # 8
-        ['乌黑', '稍蜷', '浊响', '清晰', '稍凹', '硬滑', '好瓜'],
+        # ['乌黑', '稍蜷', '浊响', '清晰', '稍凹', '硬滑', '好瓜'],
         # 9
-        ['乌黑', '稍蜷', '沉闷', '稍糊', '稍凹', '硬滑', '坏瓜'],
+        # ['乌黑', '稍蜷', '沉闷', '稍糊', '稍凹', '硬滑', '坏瓜'],
         # 10
         ['青绿', '硬挺', '清脆', '清晰', '平坦', '软粘', '坏瓜'],
 #--------------------------------------------
         # 11
-        ['浅白', '硬挺', '清脆', '模糊', '平坦', '硬滑', '坏瓜'],
+        # ['浅白', '硬挺', '清脆', '模糊', '平坦', '硬滑', '坏瓜'],
         # 12
-        ['浅白', '蜷缩', '浊响', '模糊', '平坦', '软粘', '坏瓜'],
+        # ['浅白', '蜷缩', '浊响', '模糊', '平坦', '软粘', '坏瓜'],
         # 13
-        ['青绿', '稍蜷', '浊响', '稍糊', '凹陷', '硬滑', '坏瓜'],
+        # ['青绿', '稍蜷', '浊响', '稍糊', '凹陷', '硬滑', '坏瓜'],
         # 14
         ['浅白', '稍蜷', '沉闷', '稍糊', '凹陷', '硬滑', '坏瓜'],
         # 15
@@ -66,44 +66,44 @@ def createDataSet():
     ]
 
 # 西瓜数据集2.0α,,绘制周志华<机器学习>图4.9
-    dataSet = [
+    # dataSet = [
         # 1
-        ['-', '蜷缩', '浊响', '清晰', '凹陷', '硬滑', '好瓜'],
-        # 2
-        ['乌黑', '蜷缩', '沉闷', '清晰', '凹陷', '-', '好瓜'],
-        # 3
-        ['乌黑', '蜷缩', '-', '清晰', '凹陷', '硬滑', '好瓜'],
-        # 4
-        ['青绿', '蜷缩', '沉闷', '清晰', '凹陷', '硬滑', '好瓜'],
+        # ['-', '蜷缩', '浊响', '清晰', '凹陷', '硬滑', '好瓜'],
+        # # 2
+        # ['乌黑', '蜷缩', '沉闷', '清晰', '凹陷', '-', '好瓜'],
+        # # 3
+        # ['乌黑', '蜷缩', '-', '清晰', '凹陷', '硬滑', '好瓜'],
+        # # 4
+        # ['青绿', '蜷缩', '沉闷', '清晰', '凹陷', '硬滑', '好瓜'],
         # 5
-        ['-', '蜷缩', '浊响', '清晰', '凹陷', '硬滑', '好瓜'],
+        # ['-', '蜷缩', '浊响', '清晰', '凹陷', '硬滑', '好瓜'],
 #--------------------------------------------
         # 6
-        ['青绿', '稍蜷', '浊响', '清晰', '-', '软粘', '好瓜'],
-        # 7
-        ['乌黑', '稍蜷', '浊响', '稍糊', '稍凹', '软粘', '好瓜'],
+        # ['青绿', '稍蜷', '浊响', '清晰', '-', '软粘', '好瓜'],
+        # # 7
+        # ['乌黑', '稍蜷', '浊响', '稍糊', '稍凹', '软粘', '好瓜'],
         # 8
-        ['乌黑', '稍蜷', '浊响', '-', '稍凹', '硬滑', '好瓜'],
+        # ['乌黑', '稍蜷', '浊响', '-', '稍凹', '硬滑', '好瓜'],
         # 9
-        ['乌黑', '-', '沉闷', '稍糊', '稍凹', '硬滑', '坏瓜'],
+        # ['乌黑', '-', '沉闷', '稍糊', '稍凹', '硬滑', '坏瓜'],
         # 10
-        ['青绿', '硬挺', '清脆', '-', '平坦', '软粘', '坏瓜'],
+        # ['青绿', '硬挺', '清脆', '-', '平坦', '软粘', '坏瓜'],
 #--------------------------------------------
         # 11
-        ['浅白', '硬挺', '清脆', '模糊', '平坦', '-', '坏瓜'],
+        # ['浅白', '硬挺', '清脆', '模糊', '平坦', '-', '坏瓜'],
         # 12
-        ['浅白', '蜷缩', '-', '模糊', '平坦', '软粘', '坏瓜'],
+        # ['浅白', '蜷缩', '-', '模糊', '平坦', '软粘', '坏瓜'],
         # 13
-        ['-', '稍蜷', '浊响', '稍糊', '凹陷', '硬滑', '坏瓜'],
+        # ['-', '稍蜷', '浊响', '稍糊', '凹陷', '硬滑', '坏瓜'],
         # 14
-        ['浅白', '稍蜷', '沉闷', '稍糊', '凹陷', '硬滑', '坏瓜'],
-        # 15
-        ['乌黑', '稍蜷', '浊响', '清晰', '-', '软粘', '坏瓜'],
-        # 16
-        ['浅白', '蜷缩', '浊响', '模糊', '平坦', '硬滑', '坏瓜'],
-        # 17
-        ['青绿', '-', '沉闷', '稍糊', '稍凹', '硬滑', '坏瓜']
-    ]
+    #     ['浅白', '稍蜷', '沉闷', '稍糊', '凹陷', '硬滑', '坏瓜'],
+    #     # 15
+    #     ['乌黑', '稍蜷', '浊响', '清晰', '-', '软粘', '坏瓜'],
+    #     # 16
+    #     ['浅白', '蜷缩', '浊响', '模糊', '平坦', '硬滑', '坏瓜'],
+    #     # 17
+    #     ['青绿', '-', '沉闷', '稍糊', '稍凹', '硬滑', '坏瓜']
+    # ]
 
 
     #特征名称列表
@@ -468,7 +468,7 @@ def createTree(dataSet, labels, Wx):
     return myTree,ｅｎｔｒｏｐｙ＿Tree
 
 
-
+#注意每次递归都是在处理当前的根节点和下面的几个树枝
 def makeTreeFull(satisfy_lists,datasets,myTree, labels_full, parentClass, default):
     print("－－－－－－－－－－－－－－进入makeTreeFull函数－－－－－－－－－－－－－－－－－")
     print("１入口satisfy_lists=",satisfy_lists)
@@ -491,7 +491,7 @@ def makeTreeFull(satisfy_lists,datasets,myTree, labels_full, parentClass, defaul
             root_key=item
     # root_key = list(myTree.keys())[0]
     # 得到根节点对应的子树，也就是key对应的内容
-    sub_tree = myTree[root_key]
+    sub_tree = myTree[root_key]#这里是获取"根节点下面的所有树枝",也就是特征的所有取值
 
     # 如果是叶子节点就结束
     if isinstance(sub_tree, str):
@@ -500,10 +500,24 @@ def makeTreeFull(satisfy_lists,datasets,myTree, labels_full, parentClass, defaul
     
 
 ###########################################
+    if satisfy_lists!=[]:
+        print("-----------------进入most_class_computes------------------------")
+        print("satisfy_lists=",satisfy_lists)
+        datasete,most_class=most_class_computes(datasets,satisfy_lists)
+        print("most_class=",most_class)
+        print("-----------------离开most_class_computes-----------------------")
+        #等号左侧的ｄａｔａｓｅｔｓ是满足新的特征取值
+    else:
+        most_class = None
+    print("离开２入口satisfy_lists=",satisfy_lists)
+    print("most_class=",most_class)
+    parentClass=most_class
 
 
-    # 循环遍历全部特征标签，将不存在标签添加进去
-    for label in labels_full[root_key]:
+
+
+    # 遍历当前节点特征的所有取值，将不存在标签添加进去
+    for label in labels_full[root_key]:#①
         if label not in sub_tree.keys():
             print("parentClass=",parentClass)
             # 如果此时父标签最多的分类不为None，则将新的标签设置为父标签
@@ -530,25 +544,29 @@ def makeTreeFull(satisfy_lists,datasets,myTree, labels_full, parentClass, defaul
     # if len(current_class):
     #     most_class = collections.Counter(current_class).most_common(1)[0][0]
     print("２入口satisfy_lists=",satisfy_lists)
-    if satisfy_lists!=[]:
-        datasete,most_class=most_class_computes(datasets,satisfy_lists)
-        #等号左侧的ｄａｔａｓｅｔｓ是满足新的特征取值
-    else:
-        most_class = None
-    print("离开２入口satisfy_lists=",satisfy_lists)
-    print("most_class=",most_class)
+
+
     # 递归处理
 
-
+    print("当前sub_tree.keys()=",sub_tree.keys())
     for sub_key in sub_tree.keys():
         ｐｒｉｎｔ("－－－－－－－－－－－－－－－－进入ｆｏｒ循环－－－－－－－－－－－－－－")
+        print("当前的sub_key=",sub_key)
+        print("sub_tree[sub_key]=",sub_tree[sub_key])
+        print("sub_tree[sub_key]==未知",sub_tree[sub_key]=='未知')
+        print("type(sub_tree[sub_key])=",type(sub_tree[sub_key]))
+        print("isinstance(sub_tree[sub_key], dict)=",isinstance(sub_tree[sub_key], dict))
     #这里的ｓｕｂ_key是树枝的取值
     #所以这个ｆｏｒ循环在遍历当前根节点的每个树枝
     # 也就是在遍历当前特征的每种取值
+
+
+
         if isinstance(sub_tree[sub_key], dict):#如果子树不是叶子节点
-            ｐｒｉｎｔ("－－－－－－－－－－－－－－递归调用前－－－－－－－－－－－－－－")
+            ｐｒｉｎｔ("－－－－－－－－－－－－－－递归调用makeTreeFull前－－－－－－－－－－－－－－")
             temp=satisfy_lists.copy()
             ｐｒｉｎｔ("satisfy_lists=",satisfy_lists)
+            print("most_class=",most_class)
             satisfy_lists.append(sub_key)
             makeTreeFull(ｓａｔｉｓｆｙ＿ｌｉｓｔｓ,dataSet,myTree=sub_tree[sub_key], labels_full=labels_full, parentClass=most_class, default=default)
             satisfy_lists=temp

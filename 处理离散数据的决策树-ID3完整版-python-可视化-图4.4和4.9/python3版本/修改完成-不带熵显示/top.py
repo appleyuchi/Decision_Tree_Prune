@@ -327,7 +327,7 @@ def createTree(dataSet, labels, Wx):
     noHiatusWx = []
 
     # 遍历数据集，找到当前划分的特征值的所有非缺失值??????????????
-    for i in range(len(dataSet)):
+    for i in range(len(dataSet)):#bestFeat是纵坐标,i是横坐标
         example = dataSet[i]
         if example[bestFeat] != '-':
             noHiatusWx.append(Wx[i])

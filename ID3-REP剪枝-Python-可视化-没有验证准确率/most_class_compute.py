@@ -86,9 +86,9 @@ datasets=[['青绿', '蜷缩', '浊响', '清晰', '凹陷', '硬滑', '好瓜']
 #     ]
 
 def most_class_computes(datasets,satisfy_list):
-    print("-------------------most_class_computes--------------")
-    print("dataset=",datasets)
-    print("satisfiy_list=",satisfy_list)
+    print"-------------------most_class_computes--------------"
+    print"dataset=",datasets
+    print"satisfiy_list=",json.dumps(satisfy_list,ensure_ascii=False)
     m=numpy.matrix(datasets)
     results=[]#保存当前层中,满足所需"特征取值"的所有数据的[行号,列号]
     for item in satisfy_list:
@@ -98,7 +98,7 @@ def most_class_computes(datasets,satisfy_list):
         # print"------------"
     # print"results=",results
     # 把所有数据的[行号,列号]进行交集运算,找到"同时满足这些特征取值"的数据的下标
-
+    print"results=",results
 
     results2=[]#保存交集运算结果
     # [val for val in results2 if val in item]
@@ -119,8 +119,10 @@ def most_class_computes(datasets,satisfy_list):
 
 #统计满足＂特征取值组合＂要求的数量最多的类别并返回
     word_counts = Counter(result3)
+
     top_first = word_counts.most_common(1)
-    print("results2=",results2)
+    print"top_first=",top_first
+    print"results2=",results2
     #筛选后的数据集
     sub_datasets=[]
     for i in results2:
@@ -131,7 +133,7 @@ def most_class_computes(datasets,satisfy_list):
 
 #返回满足当前根节点的所有特征取值的数据中，占比例最大的分类名
 if __name__ == '__main__':
-    satisfy_list=['稍凹','硬挺']
+    satisfy_list=['稍凹']
     sub_datasets,result=most_class_computes(datasets,satisfy_list)
-    print("result=",result)
-    print("sub_datasets=",json.dumps(sub_datasets,ensure_ascii=False))
+    print"result=",result
+    print"sub_datasets=",json.dumps(sub_datasets,ensure_ascii=False)
