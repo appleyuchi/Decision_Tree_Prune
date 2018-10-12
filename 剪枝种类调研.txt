@@ -5,8 +5,11 @@ https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0194168
 
 
 后剪枝类型:
-reduced-error pruning,需要单独的验证数据集,REP剪枝的一句是验证集说了算
+CBP(cost-based pruning)(Google上面没看到有这个说法,百度有人在提)
+-------------------------------------------------
+reduced-error pruning,需要单独的验证数据集,REP剪枝的一句是验证集说了算√
 error-complexity pruning
+EBP(Error Based Pruning)(C4.5)
+CCP(cost-complexity pruning)(Cart树-分类-剪枝)√
 minimum-error pruning
-cost-based pruning
 Pessimistic Error Pruning (PEP，悲观剪枝）,PEP剪枝算法是在C4.5决策树算法中提出的,不需要单独的验证数据集

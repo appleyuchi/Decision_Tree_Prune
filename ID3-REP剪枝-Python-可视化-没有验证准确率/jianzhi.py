@@ -188,8 +188,7 @@ def createTree(dataSet,labels,data_full,labels_full,test_data,mode):
     if mode == "unpro" or mode == "post":
         myTree = {bestFeatLabel: {}}
     elif mode == "prev":
-        if testing_feat(bestFeatLabel, dataSet, test_data, labels_copy) < testingMajor(majorityCnt(classList),
-                                                                                       test_data):
+        if testing_feat(bestFeatLabel, dataSet, test_data, labels_copy) < testingMajor(majorityCnt(classList),test_data):
             myTree = {bestFeatLabel: {}}
         else:
             return majorityCnt(classList)
@@ -208,10 +207,7 @@ def createTree(dataSet,labels,data_full,labels_full,test_data,mode):
         if type(dataSet[0][bestFeat]).__name__ == 'unicode':
             uniqueValsFull.remove(value)
 
-        myTree[bestFeatLabel][value] = createTree(splitDataSet \
-                                                      (dataSet, bestFeat, value), subLabels, data_full, labels_full,
-                                                  splitDataSet \
-                                                      (test_data, bestFeat, value), mode=mode)
+        myTree[bestFeatLabel][value] = createTree(splitDataSet(dataSet, bestFeat, value), subLabels, data_full, labels_full,splitDataSet(test_data, bestFeat, value), mode=mode)
     if type(dataSet[0][bestFeat]).__name__ == 'unicode':
         for value in uniqueValsFull:
             myTree[bestFeatLabel][value] = majorityCnt(classList)
@@ -244,8 +240,8 @@ if __name__ == "__main__":
     labels_full = labels[:]
 
     mode="unpro"
-    mode = "prev"
-    mode="post"
+    # mode = "prev"
+    # mode="post"
     import treePlotter
     myTree = createTree(train_data, labels, data_full, labels_full, test_data, mode=mode)
     treePlotter.createPlot(myTree)
