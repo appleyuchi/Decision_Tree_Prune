@@ -19,7 +19,7 @@ Attention:
 
 For EBP(Error Based Pruning) of C4.5-Release8:
 
-    you will need two files:
+    For any datasets choosed,you need prepare two files:
     for example:crx.names,crx.data.
     and put them under the path: 
     Quinlan-C4.5-Release8_and_python_interface_for_EBP/Src/quinlan-src/
@@ -32,4 +32,4 @@ For EBP(Error Based Pruning) of C4.5-Release8:
 Attention:
 
     data who contains unknown value is Not supported to predict.
-    It's  an Python interface from C-type code http://www.rulequest.com/Personal/c4.5r8.tar.gz
+    It's  an Python interface for C-type code http://www.rulequest.com/Personal/c4.5r8.tar.gz
