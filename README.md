@@ -2,7 +2,9 @@ This repository is collecting popular pruning methods(Continuous updating)
 --------
 
 Environment
+
 Ubuntu Linux 16.04
+
 Python 2.7.12
 
 ---------------------------------------------------------
