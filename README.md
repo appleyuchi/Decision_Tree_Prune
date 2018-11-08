@@ -4,12 +4,15 @@ Python 2.7.12
 ---------------------------------------------------------
 
 For REP(Reduced Error Pruning) of ID3:
+
     cd ID3-REP-post_prune-Python-draw
     python jianzhi.py
 Attention:
+
     continuous feature and feature with unKnown value are both Not supported to deal currently.
 
 For EBP(Error Based Pruning) of C4.5-Release8:
+
     you will need two files:
     for example:crx.names,crx.data.
     and put them under the path: 
@@ -21,5 +24,6 @@ For EBP(Error Based Pruning) of C4.5-Release8:
     python predict.py
 
 Attention:
+
     data who contains unknown value is Not supported to predict.
     It's  an Python interface from C-type code http://www.rulequest.com/Personal/c4.5r8.tar.gz
