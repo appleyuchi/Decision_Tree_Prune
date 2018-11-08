@@ -1,0 +1,82 @@
+average
+consult.c用决策树来测试单条数据
+discr.c
+info.c计算离散特征的信息熵增益以及信息熵增益率
+average.c
+extern.i
+besttree.c
+consultr.c用树枝规则来测试单条数据
+genlogs.c产生log
+stats.c
+build.c调用Worth函数计算熵增益率的文件
+contin.c　包含论文中的修正项log2(N-1)
+
+genrules.c从决策树中抽取出规则
+makerules.c从决策树中抽取出规则
+
+st-thresh.c
+buildex.i定义一堆全局变量
+getdata.c
+prune.c这个文件不是用来剪枝的，而是评价剪枝效果，包括剪枝前后的改变程度，剪枝后对一棵树的错误率的评价
+subset.c
+getnames.c获取属性名字
+prunerule.c对规则进行裁剪
+testrules.c对规则的评价
+c4.5.c顶层文件,打印整个决策树
+getopt.c如果运行顶层文件时没有加入选项,那么这个文件中的getopt函数就可以忽略
+rules.c
+trees.c文件中，下面两句代码输出叶子节点：
+printf(" %s (%.1f", ClassName[T->Leaf], T->Items);//这里在输出叶子节点的相关信息
+if ( T->Errors > 0 ) printf("/%.1f", T->Errors);
+
+header.c最终结果输出时,输出一些装饰信息的作用
+rulex.i
+types.i复杂的变量类型定义文件
+defns.i复杂的变量类型定义文件
+c4.5rules.c顶层文件,用来输出树枝形成的规则
+siftrules.c
+userint.c
+classify.c
+sort.c
+confmat.c
+xval-prep.c准备数据文件用来交叉验证
+consult用来测试单条数据
+xval.sh交叉验证
+
+
+
+注意：
+一、
+根据Quinlan的实现代码
+MultiVal = MaxAttVal[a] >= 0.3 * (MaxItem + 1);
+离散特征的取值种数如果超过数据集（特指原始数据集，非子集）的30%+1，那么应当认为是连续取值特征
+二、
+缺失值应当在输入决策树前处理完毕，而不应该交给决策树来处理
+
+三、作者实现的代码中所有的Verbose以及相关代码都可以注释掉，不会影响最终程序运行结果
+
+SplitGain[i]，i∈[0,15]因为有16个候选的阈值
+SplitInfo[j]，j∈[0,14]因为头尾两个阈值被去掉了
+
+
+
+
+build.c调用info.c中的Worth函数来计算熵增益率。
+熵增益率的分母Info[Att]，
+分别由
+discr.c的EvalDiscreteAtt计算
+和
+contin.c的EvalContinuousAtt计算
+
+
+<C4.5:programs for machine learning>中，总共使用了４套数据集：
+ｌａｂｅｒ-neg
+hypo
+house-votes-84
+是否出去玩的数据集
+
+labor-neg的运行结果与<C4.5:programs for machine learning>中的Ｐ７完全一致
+
+
+设定剪枝的置信水平
+./c4.5 -c 36%

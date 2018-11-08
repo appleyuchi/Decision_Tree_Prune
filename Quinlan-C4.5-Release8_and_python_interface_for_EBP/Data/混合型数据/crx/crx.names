@@ -1,0 +1,21 @@
+|  This file concerns credit card applications.  All attribute names
+|  and values have been changed to meaningless symbols to protect
+|  confidentiality of the data.
+
++, -.	| classes
+
+A1:	b,a.
+A2:	continuous.
+A3:	continuous.
+A4:	u, y, l, t.
+A5:	g, p, gg.
+A6:	c, d, cc, i, j, k, m, r, q, w, x, e, aa, ff.
+A7:	v, h, bb, j, n, z, dd, ff, o.
+A8:	continuous.
+A9:	t,f.
+A10:	t,f.
+A11:	continuous.
+A12:	t,f.
+A13:	g, p, s.
+A14:	continuous.
+A15:	continuous.

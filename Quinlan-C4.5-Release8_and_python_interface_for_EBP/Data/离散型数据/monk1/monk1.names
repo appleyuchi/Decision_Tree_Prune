@@ -1,0 +1,65 @@
+|            *******************************************************
+|              ***************************************************
+|                 **********************************************
+|                   ******************************************
+|                     T H E   M O N K' S    P R O B L E M S
+|                   ******************************************
+|                 **********************************************
+|              ***************************************************
+|            *******************************************************
+|  
+|  
+|  
+|  The MONK's problems are a collection of three binary classification
+|  problems over a six-attribute discrete domain. Each training/test data
+|  is of the form
+|  
+|    <name>: <value1> <value2> <value3> <value4> <value5> <value6> -> <class>
+|  
+|  where <name> is an ASCII-string, <value n> represents the value of
+|  attribute # n, and <class> is either 0 or 1, depending on the class
+|  this example belongs to. The attributes may take the following values:
+|  
+|  	attribute#1 :   {1, 2, 3}
+|  	attribute#2 :   {1, 2, 3}
+|  	attribute#3 :   {1, 2}
+|  	attribute#4 :   {1, 2, 3}
+|  	attribute#5 :   {1, 2, 3, 4}
+|  	attribute#6 :   {1, 2}	
+|  
+|  Thus, the six attributes span a space of 432=3x3x2x3x4x2 examples.
+|  
+|  
+|  
+|  /*********************************************************************\
+|  ***********************************************************************
+|  \*********************************************************************/
+|  
+|  
+|  
+|  The "true" concepts underlying each MONK's problem are given by:
+|  
+|        MONK-1: (attribute_1 = attribute_2) or (attribute_5 = 1)
+|  
+|        MONK-2: (attribute_n = 1) for EXACTLY TWO choices of n (in {1,2,...,6})
+|  
+|        MONK-3: (attribute_5  = 3 and attribute_4  = 1) or
+|                (attribute_5 != 4 and attribute_2 != 3)
+|  
+|  (with "!=" denoting inequality).
+|  MONK-3 has 5% additional noise (misclassifications) in the training set.
+|  
+|  
+|  
+|  /*********************************************************************\
+|  ***********************************************************************
+|  \*********************************************************************/
+
+0, 1				|classes
+
+attribute#1 :   1, 2, 3
+attribute#2 :   1, 2, 3
+attribute#3 :   1, 2
+attribute#4 :   1, 2, 3
+attribute#5 :   1, 2, 3, 4
+attribute#6 :   1, 2	

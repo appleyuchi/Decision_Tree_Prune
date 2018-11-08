@@ -1,0 +1,258 @@
+prune.c:    BestClass = T->Leaf;
+prune.c:	T->Items = Cases;
+prune.c:	T->Leaf  = BestClass;
+prune.c:	memcpy(T->ClassDist, LocalClassDist, (MaxClass + 1) * sizeof(ItemCount));
+prune.c:    if ( ! T->NodeType )	/*  leaf  */
+prune.c:	    T->Errors = TreeErrors;
+prune.c:	    	printf("%s (%.2f:%.2f/%.2f)\n", ClassName[T->Leaf],
+prune.c:	    		T->Items, LeafErrors, T->Errors);
+prune.c:    ForEach(v, 1, T->Forks)
+prune.c:	    TreeErrors += EstimateErrors(T->Branch[v], Fp, Ep, Sh+1, UpdateTree);
+prune.c:    BranchErrors = EstimateErrors(T->Branch[MaxBr], Fp, Lp, -1000, false);
+prune.c:		AttName[T->Tested],
+prune.c:		(int) ((TreeErrors * 100) / (T->Items + 0.001)),
+prune.c:		T->Items, TreeErrors, LeafErrors, ExtraLeafErrors,
+prune.c:	    printf("Replaced with leaf %s\n", ClassName[T->Leaf]);
+prune.c:	T->NodeType = 0;
+prune.c:	T->Errors = LeafErrors + ExtraLeafErrors;
+prune.c:	EstimateErrors(T->Branch[MaxBr], Fp, Lp, Sh, true);
+prune.c:	memcpy((char *) T, (char *) T->Branch[MaxBr], sizeof(TreeRec));
+prune.c:	T->Errors = TreeErrors;
+prune.c:    return T->Errors;
+prune.c:    if ( T->NodeType == BrSubset )
+prune.c:	A = T->Tested;
+prune.c:	    T->Subset[T->Forks][b] &= PossibleValues[A][b];
+prune.c:	    Any |= T->Subset[T->Forks][b];
+prune.c:	    T->Forks--;
+prune.c:	ForEach(v, 1, T->Forks)
+prune.c:	    CopyBits(Bytes, T->Subset[v], PossibleValues[A]);
+prune.c:	    CheckPossibleValues(T->Branch[v]);
+prune.c:    if ( T->NodeType )
+prune.c:	ForEach(v, 1, T->Forks)
+prune.c:	    CheckPossibleValues(T->Branch[v]);
+classify.c:    switch ( T->NodeType )
+classify.c:	    if ( T->Items > 0 )
+classify.c:		    if ( T->ClassDist[c] )
+classify.c:			ClassSum[c] += Weight * T->ClassDist[c] / T->Items;
+classify.c:		ClassSum[T->Leaf] += Weight;
+classify.c:	    a = T->Tested;
+classify.c:	    if ( v && v <= T->Forks )	/*  Make sure not new discrete value  */
+classify.c:		Classify(CaseDesc, T->Branch[v], Weight);
+classify.c:		ForEach(v, 1, T->Forks)
+classify.c:		    Classify(CaseDesc, T->Branch[v], 
+classify.c:			     (Weight * T->Branch[v]->Items) / T->Items);
+classify.c:	    a = T->Tested;
+classify.c:		    Classify(CaseDesc, T->Branch[v], 
+classify.c:			     (Weight * T->Branch[v]->Items) / T->Items);
+classify.c:		v = ( Cv <= T->Cut ? 1 : 2 );
+classify.c:		Classify(CaseDesc, T->Branch[v], Weight);
+classify.c:	    a = T->Tested;
+classify.c:		ForEach(v, 1, T->Forks)
+classify.c:		    if ( In(dv, T->Subset[v]) )
+classify.c:			Classify(CaseDesc, T->Branch[v], Weight);
+classify.c:	    ForEach(v, 1, T->Forks)
+classify.c:		Classify(CaseDesc, T->Branch[v], 
+classify.c:		         (Weight * T->Branch[v]->Items) / T->Items);
+c4.5gt.c:    BestClass = T->Leaf;
+c4.5gt.c:	T->Items = Cases;
+c4.5gt.c:	T->Leaf  = BestClass;
+c4.5gt.c:	memcpy(T->ClassDist, LocalClassDist, (MaxClass + 1) * sizeof(ItemCount));
+c4.5gt.c:    if ( ! T->NodeType )	/*  leaf  */
+c4.5gt.c:	    T->Errors = TreeErrors;
+c4.5gt.c:	    	printf("%s (%.2f:%.2f/%.2f)\n", ClassName[T->Leaf],
+c4.5gt.c:	    		T->Items, LeafErrors, T->Errors);
+c4.5gt.c:    ForEach(v, 1, T->Forks)
+c4.5gt.c:	    TreeErrors += EstimateErrors(T->Branch[v], Fp, Ep, Sh+1, UpdateTree);
+c4.5gt.c:    BranchErrors = EstimateErrors(T->Branch[MaxBr], Fp, Lp, -1000, false);
+c4.5gt.c:		AttName[T->Tested],
+c4.5gt.c:		(int) ((TreeErrors * 100) / (T->Items + 0.001)),
+c4.5gt.c:		T->Items, TreeErrors, LeafErrors, ExtraLeafErrors,
+c4.5gt.c:	    printf("Replaced with leaf %s\n", ClassName[T->Leaf]);
+c4.5gt.c:	T->NodeType = 0;
+c4.5gt.c:	T->Errors = LeafErrors + ExtraLeafErrors;
+c4.5gt.c:	EstimateErrors(T->Branch[MaxBr], Fp, Lp, Sh, true);
+c4.5gt.c:	memcpy((char *) T, (char *) T->Branch[MaxBr], sizeof(TreeRec));
+c4.5gt.c:	T->Errors = TreeErrors;
+c4.5gt.c:    return T->Errors;
+c4.5gt.c:    if ( T->NodeType == BrSubset )
+c4.5gt.c:	A = T->Tested;
+c4.5gt.c:	    T->Subset[T->Forks][b] &= PossibleValues[A][b];
+c4.5gt.c:	    Any |= T->Subset[T->Forks][b];
+c4.5gt.c:	    T->Forks--;
+c4.5gt.c:	ForEach(v, 1, T->Forks)
+c4.5gt.c:	    CopyBits(Bytes, T->Subset[v], PossibleValues[A]);
+c4.5gt.c:	    CheckPossibleValues(T->Branch[v]);
+c4.5gt.c:    if ( T->NodeType )
+c4.5gt.c:	ForEach(v, 1, T->Forks)
+c4.5gt.c:	    CheckPossibleValues(T->Branch[v]);
+c4.5gt.c:    if ( ! T->NodeType ) return;
+c4.5gt.c:    Att = T->Tested;
+c4.5gt.c:    if ( T->NodeType == ThreshContin )
+c4.5gt.c:	printf("\nTest %s <> %g\n", AttName[Att], T->Cut);
+c4.5gt.c:	    Class1 = Category(CaseDesc, T->Branch[1]);
+c4.5gt.c:	    Class2 = Category(CaseDesc, T->Branch[2]);
+c4.5gt.c:	    if ( Below(CVals[i], T->Cut) )
+c4.5gt.c:	Lower = Min(T->Cut, CVals[LastI]);
+c4.5gt.c:	Upper = Max(T->Cut, CVals[Lp]);
+c4.5gt.c:		 Below(CVals[i], T->Cut) )
+c4.5gt.c:		 ! Below(CVals[i], T->Cut) )
+c4.5gt.c:		if ( Upper < T->Cut ) Upper = T->Cut;
+c4.5gt.c:	T->Lower = Lower;
+c4.5gt.c:	T->Upper = Upper;
+c4.5gt.c:	printf("\tLower = %g, Upper = %g\n", T->Lower, T->Upper);
+c4.5gt.c:    ForEach(v, 1, T->Forks)
+c4.5gt.c:	    ScanTree(T->Branch[v], Kp+1, Ep);
+c4.5gt.c:    switch ( T->NodeType )
+c4.5gt.c:	    if ( T->Items > 0 )
+c4.5gt.c:		    if ( T->ClassDist[c] )
+c4.5gt.c:			ClassSum[c] += Weight * T->ClassDist[c] / T->Items;
+c4.5gt.c:		ClassSum[T->Leaf] += Weight;
+c4.5gt.c:	    a = T->Tested;
+c4.5gt.c:	    if ( v && v <= T->Forks )	/*  Make sure not new discrete value  */
+c4.5gt.c:		Classify(CaseDesc, T->Branch[v], Weight);
+c4.5gt.c:		ForEach(v, 1, T->Forks)
+c4.5gt.c:		    Classify(CaseDesc, T->Branch[v], 
+c4.5gt.c:			     (Weight * T->Branch[v]->Items) / T->Items);
+c4.5gt.c:	    a = T->Tested;
+c4.5gt.c:		    Classify(CaseDesc, T->Branch[v], 
+c4.5gt.c:			     (Weight * T->Branch[v]->Items) / T->Items);
+c4.5gt.c:		v = ( Cv <= T->Cut ? 1 : 2 );
+c4.5gt.c:		Classify(CaseDesc, T->Branch[v], Weight);
+c4.5gt.c:	    a = T->Tested;
+c4.5gt.c:		ForEach(v, 1, T->Forks)
+c4.5gt.c:		    if ( In(dv, T->Subset[v]) )
+c4.5gt.c:			Classify(CaseDesc, T->Branch[v], Weight);
+c4.5gt.c:	    ForEach(v, 1, T->Forks)
+c4.5gt.c:		Classify(CaseDesc, T->Branch[v], 
+c4.5gt.c:		         (Weight * T->Branch[v]->Items) / T->Items);
+c4.5gt.c:    if ( T->NodeType )
+c4.5gt.c:	    MaxV = T->Forks;
+c4.5gt.c:		if ( ! T->Branch[v]->NodeType )
+c4.5gt.c:		if ( T->Branch[v]->NodeType )
+c4.5gt.c:	printf(" %s (%.1f", ClassName[T->Leaf], T->Items);
+c4.5gt.c:	if ( T->Errors > 0 ) printf("/%.1f", T->Errors);
+c4.5gt.c:    Att = T->Tested;
+c4.5gt.c:    switch ( T->NodeType )
+c4.5gt.c:		    AttName[Att], ( v == 1 ? "<=" : ">" ), T->Cut);
+c4.5gt.c:	    if ( T->Lower != T->Upper )
+c4.5gt.c:		printf("[%g,%g]", T->Lower, T->Upper);
+c4.5gt.c:		if ( In(Pv, T->Subset[v]) )
+c4.5gt.c:		if ( In(Pv, T->Subset[v]) )
+c4.5gt.c:    Show(T->Branch[v], Sh+1);
+c4.5gt.c:    StreamOut((char *) &T->NodeType, sizeof(short));
+c4.5gt.c:    StreamOut((char *) &T->Leaf, sizeof(ClassNo));
+c4.5gt.c:    StreamOut((char *) &T->Items, sizeof(ItemCount));
+c4.5gt.c:    StreamOut((char *) &T->Errors, sizeof(ItemCount));
+c4.5gt.c:    StreamOut((char *) T->ClassDist, (MaxClass + 1) * sizeof(ItemCount));
+c4.5gt.c:    if ( T->NodeType )
+c4.5gt.c:	StreamOut((char *) &T->Tested, sizeof(Attribute));
+c4.5gt.c:	StreamOut((char *) &T->Forks, sizeof(short));
+c4.5gt.c:	switch ( T->NodeType )
+c4.5gt.c:		StreamOut((char *) &T->Cut, sizeof(float));
+c4.5gt.c:		StreamOut((char *) &T->Lower, sizeof(float));
+c4.5gt.c:		StreamOut((char *) &T->Upper, sizeof(float));
+c4.5gt.c:		Bytes = (MaxAttVal[T->Tested]>>3) + 1;
+c4.5gt.c:		ForEach(v, 1, T->Forks)
+c4.5gt.c:		    StreamOut((char *) T->Subset[v], Bytes);
+c4.5gt.c:	ForEach(v, 1, T->Forks)
+c4.5gt.c:	    OutTree(T->Branch[v]);
+c4.5gt.c:    StreamIn((char *) &T->NodeType, sizeof(short));
+c4.5gt.c:    StreamIn((char *) &T->Leaf, sizeof(ClassNo));
+c4.5gt.c:    StreamIn((char *) &T->Items, sizeof(ItemCount));
+c4.5gt.c:    StreamIn((char *) &T->Errors, sizeof(ItemCount));
+c4.5gt.c:    T->ClassDist = (ItemCount *) calloc(MaxClass+1, sizeof(ItemCount));
+c4.5gt.c:    StreamIn((char *) T->ClassDist, (MaxClass + 1) * sizeof(ItemCount));
+c4.5gt.c:    if ( T->NodeType )
+c4.5gt.c:	StreamIn((char *) &T->Tested, sizeof(Attribute));
+c4.5gt.c:	StreamIn((char *) &T->Forks, sizeof(short));
+c4.5gt.c:	switch ( T->NodeType )
+c4.5gt.c:		StreamIn((char *) &T->Cut, sizeof(float));
+c4.5gt.c:		StreamIn((char *) &T->Lower, sizeof(float));
+c4.5gt.c:		StreamIn((char *) &T->Upper, sizeof(float));
+c4.5gt.c:		T->Subset = (Set *) calloc(T->Forks + 1, sizeof(Set));
+c4.5gt.c:		Bytes = (MaxAttVal[T->Tested]>>3) + 1;
+c4.5gt.c:		ForEach(v, 1, T->Forks)
+c4.5gt.c:		    T->Subset[v] = (Set) malloc(Bytes);
+c4.5gt.c:		    StreamIn((char *) T->Subset[v], Bytes);
+c4.5gt.c:	T->Branch = (Tree *) calloc(T->Forks + 1, sizeof(Tree));
+c4.5gt.c:	ForEach(v, 1, T->Forks)
+c4.5gt.c:	    T->Branch[v] = InTree();
+c4.5gt.c:    memcpy(New->ClassDist, T->ClassDist, (MaxClass + 1) * sizeof(ItemCount));
+c4.5gt.c:    if ( T->NodeType )
+c4.5gt.c:	New->Branch = (Tree *) calloc(T->Forks + 1, sizeof(Tree));
+c4.5gt.c:	ForEach(v, 1, T->Forks)
+c4.5gt.c:	    New->Branch[v] = CopyTree(T->Branch[v]);
+trees.c:    if ( T->NodeType )
+trees.c:	    MaxV = T->Forks;
+trees.c:		if ( ! T->Branch[v]->NodeType )
+trees.c:		if ( T->Branch[v]->NodeType )
+trees.c:	printf(" %s (%.1f", ClassName[T->Leaf], T->Items);//这里在输出叶子节点的相关信息
+trees.c:	if ( T->Errors > 0 ) printf("/%.1f", T->Errors);
+trees.c:    Att = T->Tested;
+trees.c:    switch ( T->NodeType )
+trees.c:		    AttName[Att], ( v == 1 ? "<=" : ">" ), T->Cut);
+trees.c:	    if ( T->Lower != T->Upper )
+trees.c:		printf("[%g,%g]", T->Lower, T->Upper);
+trees.c:		if ( In(Pv, T->Subset[v]) )
+trees.c:		if ( In(Pv, T->Subset[v]) )
+trees.c:    Show(T->Branch[v], Sh+1);
+trees.c:    StreamOut((char *) &T->NodeType, sizeof(short));
+trees.c:    StreamOut((char *) &T->Leaf, sizeof(ClassNo));
+trees.c:    StreamOut((char *) &T->Items, sizeof(ItemCount));
+trees.c:    StreamOut((char *) &T->Errors, sizeof(ItemCount));
+trees.c:    StreamOut((char *) T->ClassDist, (MaxClass + 1) * sizeof(ItemCount));
+trees.c:    if ( T->NodeType )
+trees.c:	StreamOut((char *) &T->Tested, sizeof(Attribute));
+trees.c:	StreamOut((char *) &T->Forks, sizeof(short));
+trees.c:	switch ( T->NodeType )
+trees.c:		StreamOut((char *) &T->Cut, sizeof(float));
+trees.c:		StreamOut((char *) &T->Lower, sizeof(float));
+trees.c:		StreamOut((char *) &T->Upper, sizeof(float));
+trees.c:		Bytes = (MaxAttVal[T->Tested]>>3) + 1;
+trees.c:		ForEach(v, 1, T->Forks)
+trees.c:		    StreamOut((char *) T->Subset[v], Bytes);
+trees.c:	ForEach(v, 1, T->Forks)
+trees.c:	    OutTree(T->Branch[v]);
+trees.c:    StreamIn((char *) &T->NodeType, sizeof(short));
+trees.c:    StreamIn((char *) &T->Leaf, sizeof(ClassNo));
+trees.c:    StreamIn((char *) &T->Items, sizeof(ItemCount));
+trees.c:    StreamIn((char *) &T->Errors, sizeof(ItemCount));
+trees.c:    T->ClassDist = (ItemCount *) calloc(MaxClass+1, sizeof(ItemCount));
+trees.c:    StreamIn((char *) T->ClassDist, (MaxClass + 1) * sizeof(ItemCount));
+trees.c:    if ( T->NodeType )
+trees.c:	StreamIn((char *) &T->Tested, sizeof(Attribute));
+trees.c:	StreamIn((char *) &T->Forks, sizeof(short));
+trees.c:	switch ( T->NodeType )
+trees.c:		StreamIn((char *) &T->Cut, sizeof(float));
+trees.c:		StreamIn((char *) &T->Lower, sizeof(float));
+trees.c:		StreamIn((char *) &T->Upper, sizeof(float));
+trees.c:		T->Subset = (Set *) calloc(T->Forks + 1, sizeof(Set));
+trees.c:		Bytes = (MaxAttVal[T->Tested]>>3) + 1;
+trees.c:		ForEach(v, 1, T->Forks)
+trees.c:		    T->Subset[v] = (Set) malloc(Bytes);
+trees.c:		    StreamIn((char *) T->Subset[v], Bytes);
+trees.c:	T->Branch = (Tree *) calloc(T->Forks + 1, sizeof(Tree));
+trees.c:	ForEach(v, 1, T->Forks)
+trees.c:	    T->Branch[v] = InTree();
+trees.c:    memcpy(New->ClassDist, T->ClassDist, (MaxClass + 1) * sizeof(ItemCount));
+trees.c:    if ( T->NodeType )
+trees.c:	New->Branch = (Tree *) calloc(T->Forks + 1, sizeof(Tree));
+trees.c:	ForEach(v, 1, T->Forks)
+trees.c:	    New->Branch[v] = CopyTree(T->Branch[v]);
+st-thresh.c:    if ( ! T->NodeType ) return;
+st-thresh.c:    Att = T->Tested;
+st-thresh.c:    if ( T->NodeType == ThreshContin )
+st-thresh.c:	printf("\nTest %s <> %g\n", AttName[Att], T->Cut);
+st-thresh.c:	    Class1 = Category(CaseDesc, T->Branch[1]);
+st-thresh.c:	    Class2 = Category(CaseDesc, T->Branch[2]);
+st-thresh.c:	    if ( Below(CVals[i], T->Cut) )
+st-thresh.c:	Lower = Min(T->Cut, CVals[LastI]);
+st-thresh.c:	Upper = Max(T->Cut, CVals[Lp]);
+st-thresh.c:		 Below(CVals[i], T->Cut) )
+st-thresh.c:		 ! Below(CVals[i], T->Cut) )
+st-thresh.c:		if ( Upper < T->Cut ) Upper = T->Cut;
+st-thresh.c:	T->Lower = Lower;
+st-thresh.c:	T->Upper = Upper;
+st-thresh.c:	printf("\tLower = %g, Upper = %g\n", T->Lower, T->Upper);
+st-thresh.c:    ForEach(v, 1, T->Forks)
+st-thresh.c:	    ScanTree(T->Branch[v], Kp+1, Ep);

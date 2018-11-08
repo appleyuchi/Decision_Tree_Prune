@@ -1,0 +1,107 @@
+.EN
+.TH C4.5 1
+.SH NAME
+.PP
+consult \- classify items using a decision tree
+.SH SYNOPSIS
+.PP
+.B consult
+[ \fB-f\fR FNS ]
+[ \fB-t\fR ]
+.SH DESCRIPTION
+.PP
+.I Consult
+reads a decision tree produced by c4.5 and
+uses this to classify items whose description
+is provided by the user.
+The decision tree read is
+.I filestem.tree,
+where
+.I filestem
+is the file name stem (see manual entry for c4.5).
+.PP
+.I Consult
+prompts for the value of an attribute when needed.
+Unknown attribute values are specified as '?'.
+.PP
+If the attribute has discrete values, its value
+can be specified either as
+.ti 8
+.I v
+.br
+where v is one of the permissible values of the attribute, or as
+.ti 8
+.I "v1:p1, v2:p2, ... , vn:pn"
+.br
+where the vi's are some or all of the permissible values of the
+attribute and the pi's are corresponding probabilities.
+If the sum of the pi's is less than 1, the remaining probability
+is distributed equally among the unspecified values of the
+attribute.  For example, if attribute A has possible values
+X, Y and Z, the reply
+.ti 8
+X:0.5
+.br
+is the same as
+.ti 8
+X:0.5, Y:0.25, Z:0.25
+.PP
+If the attribute has real values, its value can be
+specified either as
+.ti 8
+.I r
+.br
+where r is a real number, or as
+.ti 8
+.I r1 - r2
+.br
+where r1 and r2 are real numbers.  The latter form is
+taken to mean "somewhere in the interval [r1,r2]".
+.PP
+To display the subtree of the decision tree with the
+current node at the root, '?t' may be entered in
+response to a request for an attribute value.
+.PP
+When all relevant attributes have been determined,
+consult will give one or more classes that the item
+might belong to.  The likelihood of a class may be
+indicated by a probability, followed sometimes by a
+probability interval.  For example,
+.ti 8
+.I "C1  CF = 0.9 [0.85 - 1]"
+.br
+means "class C1 with probability in the interval 0.85 - 1,
+and with best guess probability 0.9".
+.PP
+At the end of each item, consult will prompt for
+retrial of the same item, a new item, or end of session.
+When retrying an item, the previous values of queried
+attributes are displayed in square brackets.  If the
+value is unchanged, reply with a carriage return;
+otherwise, specify the changed value.
+.PP
+Options and their meanings are:
+.PP
+.TP 12
+.BI \-f filestem\^
+Specify the filename stem (default
+.B DF)
+.TP
+.B \-t
+Display the decision tree at the start of the consulting
+session.
+.SH FILES
+.PP
+.in 8
+consult
+.br
+filestem.names
+.br
+filestem.tree
+.in 0
+.PP
+.SH SEE ALSO
+.PP
+c4.5(1)
+.PP
+.SH BUGS

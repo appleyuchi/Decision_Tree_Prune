@@ -1,0 +1,5 @@
+prune.c裁剪决策树
+prunerule.c裁剪知识规则
+Makefile
+makerules.c
+genrules.c

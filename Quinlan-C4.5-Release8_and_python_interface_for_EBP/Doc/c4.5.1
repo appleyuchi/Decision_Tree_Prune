@@ -1,0 +1,203 @@
+.EN
+.TH C4.5 1
+.SH NAME
+.PP
+c4.5 \- form a decision tree from a file of examples
+.SH SYNOPSIS
+.PP
+.B c4.5
+[ \fB-f\fR filestem ]
+[ \fB-u\fR ]
+[ \fB-s\fR ]
+[ \fB-p\fR ]
+[ \fB-v\fR verb ]
+[ \fB-t\fR trials ]
+   [ \fB-w\fR wsize ]
+[ \fB-i\fR incr ]
+[ \fB-g\fR ]
+[ \fB-m\fR minobjs ]
+[ \fB-c\fR cf ]
+.SH DESCRIPTION
+.PP
+.I C4.5
+is a program for inducing classification rules in the form
+of decision trees from a set of given examples.
+.PP
+All files read and written by C4.5 are of the form
+.I filestem.ext
+where
+.I filestem
+is a file name stem that identifies the induction task and
+.I ext
+is an extension that defines the type of file.
+The program expects to find at least 
+two files: a
+.B names file
+.I filestem.names
+defining class, attribute and attribute value names, and a
+.B data file
+.I filestem.data
+containing a set of objects, each of which is described by its
+values of each of the attributes and its class.
+.PP
+The program can generate trees
+in two ways.  In
+.I batch
+mode (the default), the program generates a single tree
+using all the available data.
+In
+.I iterative
+mode,
+the program starts with a randomly-selected subset of the
+data (the
+.I window),
+generates a trial decision tree, adds some misclassified
+objects, and continues until the trial decision tree
+correctly classifies all objects not in the window or
+until it appears that no progress is being made.
+Since iterative mode starts with a randomly-selected subset,
+multiple trials with the same data can be used to generate
+more than one tree.
+.PP
+All trees generated in the process are saved in
+.I filestem.unpruned.
+After each tree is generated, it is
+.I pruned
+in an attempt to simplify it.
+The `best' pruned tree (selected by the program if more there is
+more than one trial)
+is saved in machine-readable form in
+.I filestem.tree.
+.PP
+All trees produced, both pre- and post-simplification, are evaluated
+on the training data.  If required, they can also be evaluated
+on unseen data in file
+.I filestem.test.
+
+.SH FILE FORMATS
+The
+.B names file
+.I filestem.names
+is a series of entries defining names of attributes,
+attribute values and classes.  The file is free-format
+with the exception that the vertical bar `|' causes the
+remainder of that line to be ignored.
+Each entry is terminated by a period which may be
+omitted if it is the last character of a line.
+.PP
+The file
+commences with the names of the classes, separated by
+commas and terminated with a period.  Each name consists of
+a string of characters that does not include comma, question mark
+or colon (unless preceded by a backslash).  A period may be
+embedded in a name provided it is not followed by a space.
+Embedded spaces are also permitted but multiple whitespace is
+replaced by a single space.
+The rest of the file consists of a single entry for each
+attribute.  An attribute entry begins with the attribute name
+followed by a colon, and then either the word `ignore' (indicating
+that this attribute should not be used), the word `continuous'
+(indicating that the attribute has real values),
+the word `discrete' followed by an integer
+.I n
+(indicating that the program should assemble
+a list of up to
+.I n
+possible values), or a list
+of all possible discrete values separated by commas.  (The latter
+form for discrete attributes is recommended as it
+enables input to be checked.)  Each
+entry is terminated with a period (but see above).
+.PP
+The
+.B data file
+.I filestem.data
+contains one line per object.  Each line contains
+the values of the attributes in order followed by the
+object's class, with all entries separated by commas.
+The rules for valid names in the
+.B names file
+also hold for the names in the
+.B data file.
+An unknown value of an attribute is indicated by a
+question mark `?'.
+If a 
+.B test file
+.I filestem.test
+is used, it has the same format as the data file.
+
+.SH OPTIONS
+Options and their meanings are:
+.PP
+.TP 12
+.BI \-f filestem\^
+Specify the filename stem (default
+.B DF)
+.TP
+.B \-u
+Evaluate trees produced on unseen cases in file 
+.I filestem.test.
+.TP
+.B \-s
+Force `subsetting' of all tests based on discrete attributes
+with more than two values.  C4.5 will construct a test with
+a subset of values associated with each branch.
+.TP
+.B \-p
+Probabilistic thresholds used for continuous attributes (see Quinlan, 1987a).
+.TP
+.BI \-t trials\^
+Set iterative mode with specified number of trials.
+.TP
+.BI \-v verb\^
+Set the verbosity level [0-3] (default 0).
+This option generates more voluminous output that may help to
+explain what the program is doing (but don't count on it);
+see the manual entry for
+.I verbose.
+.PP
+The following options are also available but need not
+be used except for experimentation with tree construction:
+.TP 12
+.BI \-w wsize\^
+Set the size of the initial window
+(default is the maximum of 20 percent and twice the square
+root of the number of data objects).
+.TP
+.BI \-i incr\^
+Set the maximum number of objects that can be
+added to the window at each iteration
+(default is 20 percent of the initial window size).
+.TP
+.B \-g
+Use the gain criterion to select tests.  The default
+uses the gain ratio criterion.
+.TP
+.BI \-m minobjs\^
+In all tests, at least two branches must contain a minimum number
+of objects (default 2).  This option allows the minimum
+number to be altered.
+.TP
+.BI \-c cf\^
+Set the pruning confidence level (default 25%).
+.SH FILES
+.PP
+.in 8
+c4.5
+.br
+filestem.data
+.br
+filestem.names
+.br
+filestem.unpruned  (unpruned trees)
+.br
+filestem.tree   (final decision tree)
+.br
+filestem.test   (unseen data)
+.in 0
+.PP
+.SH SEE ALSO
+.PP
+consult(1)
+.PP
+.SH BUGS

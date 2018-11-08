@@ -1,0 +1,59 @@
+数据集来自:
+http://archive.ics.uci.edu/ml/machine-learning-databases/credit-screening/crx.data
+共690条
+Quinlan把crx.data拆成了490+200条,分别另存为crx.data和crx.test
+
+
+Simplified Tree就是prune后的tree,依据是besttree.c中的代码
+c4.5rules对应的是剪枝前的树,依据是genrules.c中的代码
+
+这份代码的剪枝方式应该是:
+Statistical Pruning
+
+################################################
+./c4.5
+./c4.5rules
+
+下面这个运行的时候要输入一大堆的东西,应该是为了满足单独来测试一条数据的需要,没啥用
+./consult
+./consultr
+################################################
+
+
+
+crx有15个属性,
+所以生成的决策树中的Ai中的i∈[1,15]
+一个类别标签,类别标签的取值∈{+,-}
+这里的所谓的rule的意思是:
+从根节点到某个特定叶子节点的所有树枝的集合
+
+
+crx.names
+罗列了各种属性的名称和取值范围
+
+crx.data
+490条训练集
+
+crx.test(这个是十字交叉用的,这里我们不关心)
+验证集
+
+
+运行./c4.5的结果如下:
+Evaluation on training data (490 items):
+
+     Before Pruning           After Pruning
+    ----------------   ---------------------------
+    Size      Errors   Size      Errors   Estimate
+
+      90   19( 3.9%)     58   24( 4.9%)    (11.9%)   <<
+
+
+
+运行./c4.5rules的结果如下:
+(a)    (b)  <-classified as
+---- ----
+191   26  (a): class +
+8     265  (b): class -
+这个是未剪枝的结果.
+
+

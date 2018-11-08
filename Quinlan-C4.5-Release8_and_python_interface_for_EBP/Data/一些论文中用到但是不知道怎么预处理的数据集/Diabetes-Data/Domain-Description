@@ -1,0 +1,126 @@
+A Non-technical Description of Key Concepts in Outpatient Monitoring
+and Management of Insulin Dependent Diabetes Mellitus (IDDM) for the
+AAAI Spring Symposium on Intepreting Clinical Data.
+
+
+The following text is provided to orient you to the the diabetes data
+set. It is meant as a quick introduction to the pertinent issues in
+this domain for potential participants of the AAAI Spring Symposium on
+Interpreting Clinical Data.  However, it is not meant to be a rigorous
+or comprehensive review of the subject.
+
+Isaac  Kohane, AIM-94 Co-Chair
+8/27/1993
+aim-94@camis.stanford.edu
+
+------------------------------------------------------------------------
+
+Patients with IDDM are insulin deficient. This can either be due to a)
+low or absent production of insulin by the beta islet cells of the
+pancreas subsequent to an auto-immune attack or b) insulin-resistance,
+typically associated with older age and obesity, which leads to a
+relative insulin-deficiency even though the insulin levels might be
+normal.
+
+Regardless of cause, the lack of adequate insulin effect has multiple
+metabolic effects. However, once a patient is diagnosed and is
+receiving regularly scheduled exogenous (externally administered)
+insulin, the principal metabolic effect of concern is the potential
+for hyperglycemia (high blood glucose). Chronic hyperglycemia over a
+period of several years puts a patient at risk for several kinds of
+micro and macrovascular problems (e.g. retinopathy). Consequently, the
+goal of therapy for IDDM is to bring the average blood glucose as close
+to the normal range as possible. As explained below, current therapy
+makes this goal a very challenging (and often frustrating) one for
+most patients. One important consideration is that due to the
+inevitable variation of blood glucose (BG) around the mean, a lower mean
+will result in a higher frequency of unpleasant and sometimes
+dangerous low BG levels.
+
+
+Outpatient management.
+
+Outpatient management of IDDM relies principally on three
+interventions: diet, excercise and exogenous insulin. Proper treatment
+requires careful consideration of all three interventions. 
+
+INSULIN
+
+One of insulin's principal effects is to increase the uptake of
+glucose in many of the tissues (e.g. in adipose/fat tissue) and
+thereby reduce the concentration glucose in blood.  Patients
+with IDDM administer insulin to themselves by subcutaneous injection.
+Insulin doses are given one or more times a day, typically before
+meals and sometimes also at bedtime. Many insulin regimens are devised
+to have the peak insulin action coincide with the peak rise in BG
+during meals. In order to achieve this, a combination of several
+preparations of insulin may be administered. Each insulin formulation
+has its own characteristic time of onset of effect (O), time of peak
+action (P) and effective duration (D). These times can be significantly
+affected by many factors such as the site of injection (e.g. much more
+rapid absorption in the abdomen than in the thigh) or whether the
+insulin is a human insulin or an animal extract. The times I have
+listed below are rough approximations and I am sure that I could find
+an endocrinologist with different estimates.
+
+Regular Insulin: O 15-45 minutes P 1-3 hours D 4-6 hours
+NPH Insulin: O 1-3 hours P 4-6 hours D: 10-14 hours
+Ultralente: O: 2-5 hours. P (not much of a peak) D 24-30 hours.
+
+EXERCISE
+
+Exercise appears to have multiple effects on BG control. Two important
+effects are: increased caloric expenditure and a possibly independent
+increase in the sensitivity of tissues to insulin action.  BG can fall
+during exercise but also quite a few hours afterwards. For instance,
+strenuous exercise in the mid-afternoon can be associated with low BG
+after dinner. Also, too strenuous exercise with associated mild
+dehydration can lead to a transient increase in BG.
+
+DIET
+
+Another vast subject but (suffice it to say for the purposes of users
+of the data set) in brief: a larger meal will lead to a longer and
+possibly higher elevation of blood glucose. The actual effect depends on
+a host of variables, notably the kind of food ingested. For instance,
+fat causes delayed emptying of the stomach and therefore a slower rise in BG
+than a starchy meal without fat. Missing a meal or eating a meal of smaller
+than usual size will put the patient at risk for low BG in the hours that follow
+the meal.
+
+
+GLUCOSE CONCENTRATIONS
+
+BG concentration will vary even in individuals with normal pancreatic
+hormonal function.  A normal pre-meal BG ranges approximately 80-120 mg/dl. 
+A normal post-meal BG ranges 80-140 mg/dl. The target range for an individual 
+with diabetes mellitus is very controversial. I will cut the Gordian knot on 
+this issue by noting that it would be very desirable to keep 90% of all BG 
+measurements < 200 mg/dl and that the average BG should be 150 mg/dl or less. 
+Note that it  takes a lot of work, attention and (painful) BG checks to reach 
+this target range. Conversely, an average BG > 200 (over several years) is 
+associated with a poor long-term outcome. That is, the risk of vascular 
+complications of the high BG is signicantly elevated.
+
+Hypoglycemic (low BG) symptoms fall into two classes. Between 40-80 mg/dl,
+the patient feels the effect off the adrenal hormone epinephrine as the BG
+regulation systems attempt to reverse the low BG.  These so-called 
+adrenergic symptoms (headache, abdominal pain, sweating) are useful, if
+unpleasant, cues to the patient that their BG is falling dangerously. Below
+40 mg/dl, the patient's brain is inadequately supplied with glucose and
+the symptoms become those of poor brain function (neuroglycopenic
+symptoms). These include: lethargy, weakness, disorientation, seizures and
+passing out.  
+
+OTHER SOURCES OF INFORMATION
+
+If you want to learn more about the outpatient treatment of IDDM, most
+of the standard medical or endocrinological textbooks have large
+sections on this subject. Alternatively, the local chapters of the
+Juvenile Diabetes Foundation and American Diabetes Association may be
+able to provide you with some helpful practical information. Finally,
+feel free to send e-mail to aim-94@camis.stanford.edu. One of the program
+committee members is an endocrinologist and will be pleased to answer
+technical/medical questions.
+
+

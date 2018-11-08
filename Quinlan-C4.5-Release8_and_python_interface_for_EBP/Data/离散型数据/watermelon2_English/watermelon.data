@@ -1,0 +1,17 @@
+dark_green,curl_up,little_heavily,distinct,sinking,hard_smooth,good
+black,curl_up,heavily,distinct,sinking,hard_smooth,good
+black,curl_up,little_heavily,distinct,sinking,hard_smooth,good
+dark_green,little_curl_up,little_heavily,distinct,little_sinking,soft_stick,good
+black,little_curl_up,little_heavily,little_blur,little_sinking,soft_stick,good
+dark_green,stiff,clear,distinct,even,soft_stick,bad
+light_white,little_curl_up,heavily,little_blur,sinking,hard_smooth,bad
+black,little_curl_up,little_heavily,distinct,little_sinking,soft_stick,bad
+light_white,curl_up,little_heavily,blur,even,hard_smooth,bad
+dark_green,curl_up,heavily,little_blur,little_sinking,hard_smooth,bad
+dark_green,curl_up,heavily,distinct,sinking,hard_smooth,good
+light_white,curl_up,little_heavily,distinct,sinking,hard_smooth,good
+black,little_curl_up,little_heavily,distinct,little_sinking,hard_smooth,good
+black,little_curl_up,heavily,little_blur,little_sinking,hard_smooth,bad
+light_white,stiff,clear,blur,even,hard_smooth,bad
+light_white,curl_up,little_heavily,blur,even,soft_stick,bad
+dark_green,little_curl_up,little_heavily,little_blur,sinking,hard_smooth,bad

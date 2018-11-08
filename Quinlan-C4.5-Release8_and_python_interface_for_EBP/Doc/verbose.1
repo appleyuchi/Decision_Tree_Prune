@@ -1,0 +1,212 @@
+.TH C4.5 1
+.SH NAME
+A guide to the verbose output of the C4.5 decision tree generator
+
+.SH DESCRIPTION
+This document explains the output of the program
+.I C4.5
+when it is run with the verbosity level (option
+.BR v )
+set to values from 1 to 3.
+
+.SH TREE BUILDING
+
+.B Verbosity level 1
+
+To build a decision tree from a set of data items each of which belongs
+to one of a set of classes,
+.I C4.5
+proceeds as follows:
+.IP "    1." 7
+If all items belong to the same class, the decision
+tree is a leaf which is labelled with this class.
+.IP "    2."
+Otherwise,
+.I C4.5
+attempts to find the best attribute
+to test in order to divide the data items into
+subsets, and then builds a subtree from each subset
+by recursively invoking this procedure for each one.
+.HP 0
+The best attribute to branch on at each stage is selected by
+determining the information gain of a split on each of the attributes.
+If the selection criterion being used is GAIN (option
+.BR g ),
+the best
+attribute is that which divides the data items with the highest gain
+in information, whereas if the GAINRATIO criterion (the default) is
+being used (and the gain is at least the average gain across all
+attributes), the best attribute is that with the highest ratio of
+information gain to potential information.
+
+For discrete-valued attributes, a branch corresponding to each value of
+the attribute is formed, whereas for continuous-valued attributes, a
+threshold is found, thus forming two branches.
+If subset tests are being used (option
+.BR s ),
+branches may be formed
+corresponding to a subset of values of a discrete attribute being tested.
+
+The verbose output shows the number of items from which a tree is being
+constructed, as well as the total weight of these items.  The weight
+of an item is the probability that the item would reach this point in the
+tree and will be less than 1.0 for items with an unknown value
+of some previously-tested attribute.
+
+Shown for the best attribute is:
+
+    cut  -  threshold (continuous attributes only)
+    inf  -  the potential information of a split
+    gain -  the gain in information of a split
+    val  -  the gain or the gain/inf (depending on the
+selection criterion)
+
+Also shown is the proportion of items at this point in the tree
+with an unknown value for that attribute.  Items with an unknown value
+for the attribute being tested are distributed across all values
+in proportion to the relative frequency of these values in the
+set of items being tested.
+
+If no split gives a gain in information, the set of items is made
+into a leaf labelled with the most frequent class of items reaching
+this point in the tree, and the message:
+
+	no sensible splits  
+.IR r1 / r2
+
+is given, where
+.I r1
+is the total weight of items reaching this point in the tree, and
+.I r2
+is the weight of these which don't belong to the class of this leaf.
+
+If a subtree is found to misclassify
+at least as many items as does replacing the subtree with a leaf, then
+the subtree is replaced and the following message given:
+
+	Collapse tree for
+.I n
+items to leaf
+.I c
+
+where
+.I c
+is the class assigned to the leaf.
+
+
+.B Verbosity level 2
+
+When determining the best attribute to test,
+also shown are the threshold (continuous attributes only),
+information gain and potential information for a split on
+each of the attributes.
+If a test on a continuous attribute has no gain or there are
+insufficient cases
+with known values of the attribute on which
+to base a test, appropriate messages are given.
+(Sufficient here means at least twice MINOBJS, an integer
+which defaults to 2 but can be set with option
+.BR m.)
+The average gain across all attributes is also shown.
+
+If subset tests on discrete attributes are being used,
+for each attribute being examined, the combinations of
+attribute values that are made (i.e. at each stage, the
+combination with highest gain or gain ratio) and the
+potential info, gain and gain or gain ratio are shown.
+
+
+.B Verbosity level 3
+
+When determining the best attribute to test,
+also shown is the frequency distribution table showing
+the total weight of items of each class with:
+
+    - each value of the attribute (discrete attributes), or
+    - values below and above the threshold (contin atts), or
+    - values in each subset formed so far (subset tests).
+
+
+
+.SH TREE PRUNING
+
+.B Verbosity level 1
+
+After the entire decision tree has been constructed,
+.I C4.5
+recursively
+examines each subtree to determine whether replacing it with
+a leaf or a branch would be beneficial.
+(Note: the numbers treated below as counts of items actually
+refer to the total weight of the items mentioned.)
+
+Each leaf is shown as:
+
+.IR        c ( r1 : r2 /
+.IR r3 )
+
+  with:
+        \fIc\fR   -  the most frequent class at the leaf
+        \fIr1\fR  -  the number of items at the leaf
+        \fIr2\fR  -  misclassifications at the leaf
+        \fIr3\fR  -  \fIr2\fR adjusted for additional errors
+
+Each test is shown as:
+
+.IR        att :[ n1 "%  N=" r4 tree=
+.IR r5  leaf= r6 +
+.IR r7  br[ n2 ]= r8 ]
+
+  with:
+        \fIn1\fR  -  percentage of egs at this subtree that are misclassified
+        \fIr4\fR  -  the number of items in the subtree
+        \fIr5\fR  -  misclassifications of this subtree
+        \fIr6\fR  -  misclassifications if this was a leaf
+        \fIr7\fR  -  adjustment to \fIr6\fR for additional errors
+        \fIn2\fR  -  number of the largest branch
+        \fIr8\fR  -  total misclassifications if subtree is replaced by largest branch
+
+If replacing the subtree with a leaf or the largest branch
+reduces the number of errors, then the subtree is replaced
+by whichever of these results in the least number of errors.
+
+
+.SH THRESHOLD SOFTENING
+
+.B Verbosity level 1
+
+In softening the thresholds of tests on continuous attributes
+(option
+.BR p ),
+upper and lower bounds for each test are calculated.
+For each such test, the following are shown:
+.IP "  *" 4
+Base errors - the number of items misclassified when the threshold has
+its original value
+.IP "  *"
+Items - the number of items tested (with a known value for this
+attribute)
+.IP "  *"
+se - the standard deviation of the number of errors
+.HP 0
+For each of the different attribute values, shown are:
+.IP "  *" 4
+Val <=   - the attribute value 
+.IP "  *"
+Errors   - the errors with this value as threshold
+.IP "  *"
++Errors  - Errors - Base errors
+.IP "  *"
++Items   - the number of items between this value and the original
+threshold
+.IP "  *"
+Ratio    - Ratio of +Errors to +Items
+.HP 0
+The lower and upper bounds are then calculated so that the
+number of errors with each as threshold would be one standard
+deviation above the base errors.
+
+
+.SH SEE ALSO
+
+c4.5(1)
