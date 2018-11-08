@@ -362,7 +362,7 @@ if __name__ == "__main__":
     dataSet=train_data+test_data
     data_full = train_data[:]
 
-# --------------比较剪枝前后的准确度时，需要把下方预剪枝的测试代码注释掉-------------
+# --------------pre-pruning,annote here when compare the accuracy before and after post-pruning-------------
     # labels_pre=copy.deepcopy(labels)
     # mode="prev"#未剪枝
     # satisfy_lists=[]
@@ -370,7 +370,7 @@ if __name__ == "__main__":
     # makeTreeFull(satisfy_lists,datasets=dataSet,myTree=myTree, labels_full=labels_full, parentClass=None, default='未知')
     # treePlotter.createPlot(myTree)#绘制图4.6
 
-#-------------- 比较剪枝前后的准确度时，需要把上方预剪枝的测试代码注释掉----------------
+#--------------pre-pruning,annote here when compare the accuracy before and after post-pruning---------------
 
 
     print"labels=",json.dumps(labels,ensure_ascii=False)
@@ -397,7 +397,7 @@ if __name__ == "__main__":
 
 
 
-# # #-----------决策树绘制--------------------
+# # #-----------Draw ID3--------------------
     # treePlotter.createPlot(myTree)#绘制图4.5
     # treePlotter.createPlot(myTree_post)#绘制图4.7
 

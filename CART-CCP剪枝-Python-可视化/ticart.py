@@ -22,19 +22,20 @@ import igraph as ig
 #pip install jgraph
 # jgraph的源代码是:
 # https://github.com/patrickfuller/jgraph
-#-----------使用下面的python-igraph-----------------
+#-----------而是使用下面的python-igraph-----------------
 #apt-get install -y libigraph0-dev 
 #pip install python-igraph
 #pip install cairocffi
 
-#怎么判断别人的博客中,使用的到底是老版本的igraph还是python-igraph呢?根据上面的的github链接里面的example可知,
+#怎么判断别人的博客中,使用的到底是老版本的igraph还是python-igraph呢?
+# 根据上面的的github链接里面的example可知,
 #igraph的成员函数是非常少的,只有个位数,当在别人博客中看到的成员函数名字在该github链接中找不到时,
 #那么使用的就是python-igraph
 #反之,使用的则是jgraph(igraph的最新称呼)
 
 
 # ------注意--------
-# python igraph的import方式是:
+# python－igraph的import方式是:
 # import igraph
 # 而不是
 # import python-igraph
@@ -109,12 +110,12 @@ class DecisionTree(tig.return_nary_tree_class(directed=True), object):
                 return -p*log(p,2)
         return sum(entropy_summand(p) for p in prob_vector)
         
-    def RSS(self, filtered_data):
+    def RSS(self, filtered_data):#Residual Sum of Squares
         prediction = np.mean(filtered_data[self.response])
         dev = sum((y-prediction)**2 for y in filtered_data[self.response])
         return dev
         
-    def metric(self, filtered_data, kind):
+    def metric(self, filtered_data, kind):#信息计算方式
         
         if kind=='Deviance':
             return self.Deviance(filtered_data=filtered_data)
@@ -130,8 +131,8 @@ class DecisionTree(tig.return_nary_tree_class(directed=True), object):
         value_count=data[self.response].value_counts()
         prob_vector = [value_count[key]/size for key in value_count.keys()]
         return prob_vector
-       
-                
+
+
 class PivotDecisionNode(DecisionNode,object):
     def __init__(self, **kwargs):
         super(PivotDecisionNode, self).__init__(**kwargs)
@@ -308,8 +309,7 @@ class PivotDecisionTree(DecisionTree, object):
         
  
     def get_best_prune(self, alpha, new_data):
-        best_node_cost, best_node = min(self.iter_prune_cost(alpha, new_data),
-                                          key=lambda x: x[0])
+        best_node_cost, best_node = min(self.iter_prune_cost(alpha, new_data),key=lambda x: x[0])
                                       
         if best_node_cost <=(1/float(self.data_size)**2):
             return best_node
@@ -357,7 +357,7 @@ class PivotDecisionTree(DecisionTree, object):
                 leaves.add(descendant)
         return leaves
 
-    def train(self,data, data_type_dict, parameters, prune=True): 
+    def train(self,data, data_type_dict, parameters, prune=True): #默认剪枝
         self.vertices=[]
         self.edges=set([])
         self.leaves=set([])
@@ -382,7 +382,7 @@ class PivotDecisionTree(DecisionTree, object):
         
         
         
-class RegressionTree(PivotDecisionTree, object):
+class RegressionTree(PivotDecisionTree, object):#回归树
     def __init__(self, **kwargs):
         super(RegressionTree, self).__init__(**kwargs)
         #these are default, can be set by train
@@ -397,7 +397,7 @@ class RegressionTree(PivotDecisionTree, object):
             node.error = sum((node.prediction-y)**2 for y in node.local_data[self.response])
         return node.error
 
-    def plot(self, margin=50):
+    def plot(self, margin=50):#回归树的绘图函数
         A = self.get_adjacency_matrix_as_list()
         convert_to_igraph = ig.Graph.Adjacency(A)
         g=convert_to_igraph
@@ -430,7 +430,7 @@ class RegressionTree(PivotDecisionTree, object):
         layout = g.layout_reingold_tilford(root=root_list)#这里喜欢接收list类型的数据
         ig.plot(g, layout=layout, margin=margin) 
 
-class ClassificationTree(PivotDecisionTree, object):
+class ClassificationTree(PivotDecisionTree, object):#分类树
     def __init__(self, **kwargs):
         super(ClassificationTree, self).__init__(**kwargs)
         #these are default, can be set by train
@@ -459,8 +459,8 @@ class ClassificationTree(PivotDecisionTree, object):
         key,value = max(node.prediction.iteritems(), key=lambda x:x[1])
         node.predicted_class=key
         node.predicted_prob = value                 
-
-    def plot(self, margin=50):
+# －－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－
+    def plot(self, margin=50):#分类树的绘图函数
         A = self.get_adjacency_matrix_as_list()
         print"type(A)=",A
         print"A=",A
@@ -490,7 +490,7 @@ class ClassificationTree(PivotDecisionTree, object):
         layout = g.layout_reingold_tilford(root=root_list)
         ig.plot(g, layout=layout, margin=margin) 
     
-    def predict(self,data_point, class_probs=False):
+    def predict(self,data_point, class_probs=False):#预测函数
         if class_probs:
             return self.vertices[0].get_data_leaf(data_point).prediction
         else:
