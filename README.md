@@ -1,17 +1,24 @@
-This repository is collecting popular pruning methods(Continuous updating)
+This repository is targeted at popular pruning implementions(Continuous updating)
+--------
+	Tips:
+	The command to delete all .pyc files:
+    find . -name "*.pyc"  | xargs rm -f
+
 --------
 
-Environment
+	Environment
 
-Ubuntu Linux 16.04
+	Ubuntu Linux 16.04-Amd64
 
-Python 2.7.12
+	Python 2.7.12
 
-Note that :All pruning algorithm are operated on the model generated from:
+Note that :  
+All pruning algorithm are operated on the model generated from:
 Quinlan-C4.5-Release8_and_python_interface_for_EBP/Src/quinlan-src/
 which is from http://www.rulequest.com/Personal/c4.5r8.tar.gz
-its author is Ross Quinlan.
+,its author is Ross Quinlan.
 
+Only its interface is modified for much more convient use.
 
 ----------------REP---Operation method---------------------------------
 
@@ -21,7 +28,7 @@ For REP(Reduced Error Pruning) of ID3:
     python jianzhi.py
 Attention:
 
-    continuous feature and feature with unKnown value are both Not supported to deal currently.
+    continuous feature and feature with unKnown value are both Not supported currently.
 ----------------REP---Operation method---------------------------------
 
 ----------------EBP--Operation method----------------------------------  

@@ -5,7 +5,7 @@ sys.setdefaultencoding('utf-8')
 # @Author: appleyuchi
 # @Date:   2018-10-31 16:48:38
 # @Last Modified by:   appleyuchi
-# @Last Modified time: 2018-11-10 20:38:10
+# @Last Modified time: 2018-11-11 21:13:39
 
 import treePlotter
 from getNumofCommonSubstr import getNumofCommonSubstr
@@ -163,7 +163,7 @@ def classify(inputTree,features,testVec):#这里的inputTree就是决策树的�
         for item in secondDict:
             item_lists.append(item)
         common_str=getNumofCommonSubstr(item_lists[0],item_lists[1])[0]#common_str是
-        if key<=int(common_str):
+        if key<=float(common_str):
             key="<="+common_str
             valueOfFeat = secondDict[key]
         else:
@@ -180,8 +180,8 @@ def classify(inputTree,features,testVec):#这里的inputTree就是决策树的�
 
 
 #注意，不支持包含缺失值的数据的测试
-def classify_C45(valueOfFeat, features, data):
-    for index,item in enumerate(data):
+def classify_C45(valueOfFeat, features, data):#注意，这里的ｄａｔａ指的是一条数据，不是一堆数据
+    for index,item in enumerate(data):#因为模型中离散特征有“＝”符号，所以这里给离散特征的数据加上“＝”，方便预测
         if isinstance(item, str):
             data[index]="="+data[index]
     return classify(valueOfFeat, features, data)
@@ -208,6 +208,6 @@ if __name__ == '__main__':
     # treePlotter.createPlot(myTree)
     #------使用该模型进行预测----注意，如果数字被认为是离散特征，需要转化为str类型再输入--------
     #注意：为了预测，注释掉了①②处，绘图时可以取消注释,也可以不取消注释
-    # test1()
+    test1()
 
 

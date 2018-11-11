@@ -5,12 +5,13 @@ sys.setdefaultencoding('utf-8')
 # @Author: appleyuchi
 # @Date:   2018-11-10 20:20:03
 # @Last Modified by:   appleyuchi
-# @Last Modified time: 2018-11-11 17:01:15
+# @Last Modified time: 2018-11-11 21:14:39
 
 from treePlotter import createPlot
 from math import sqrt
 from split import splitdatasets
 import copy
+from getNumofCommonSubstr import getNumofCommonSubstr
 
 #----------------ｇｅｔ Attribute list of datasets--------------------------------------------
 def get_Attribute(path):
@@ -157,8 +158,64 @@ def PEP_result(model_input,fea_list,datasets):#top-down
             #model of subtree is model_input[best_feature][branch]
     return model_input
 
+
+
+#---------------------------------------------------------------
     
-# 今天的工作还剩下在递归的时候划分数据集
+def classify(inputTree,features,testVec):#这里的inputTree就是决策树的序列化表示方法,python中是字典类型,也可以看做是json类型
+    firstStr = inputTree.keys()[0]#获取决策树的当前分割属性
+    secondDict = inputTree[firstStr]#当前分割节点下面的一堆树枝+节点
+
+    featIndex = features.index(firstStr)#当前是第几个特征
+    key = testVec[featIndex]#根据划分属性的下标来获取测试数据的对应下标的属性的具体取值
+
+#--------------获得子树--------------------------------
+    if isinstance(key, str):#如果是离散特征
+        # print"secondDict=",secondDict
+        valueOfFeat = secondDict[key]#根据这个值来顺着树枝key选择子树secondDict[key](离散特征)
+    else:
+        item_lists=[]
+        for item in secondDict:
+            item_lists.append(item)
+        common_str=getNumofCommonSubstr(item_lists[0],item_lists[1])[0]#common_str是
+        # print"item_lists=",item_lists
+        if key<=float(common_str):
+            key="<="+common_str
+            valueOfFeat = secondDict[key]
+        else:
+            key=">"+common_str
+            valueOfFeat = secondDict[key]
+
+#----------------获得子树------------------------------
+    if isinstance(valueOfFeat, dict): #如果是子树
+        classLabel = classify(valueOfFeat, features, testVec)#递归调用
+    else: #如果是叶子节点
+        classLabel = valueOfFeat
+    return classLabel#递归函数的结束条件
+
+#注意，不支持包含缺失值的数据的测试
+def classify_C45(valueOfFeat, features, data):#注意，这里的ｄａｔａ指的是一条数据，不是一堆数据
+    for index,item in enumerate(data):#因为模型中离散特征有“＝”符号，所以这里给离散特征的数据加上“＝”，方便预测
+        if isinstance(item, str):
+            data[index]="="+data[index]
+    return classify(valueOfFeat, features, data)
+
+#--------------------剪枝前后的准确率预测---------------------------------
+def accuracy_analysis(model,model_pruned,datasets):
+    count=0
+    unpruned_accuracy=0.0
+    for item in datasets:
+        predict=classify_C45(model,feature_list,item)
+        if predict.split("(")[0].strip()==str(item[-1]):
+            count+=1
+    accuracy_unprune=float(count)/len(datasets)
+    count=0
+    for item in datasets:
+        predict=classify_C45(model_pruned,feature_list,item)
+        if predict.split("(")[0].strip()==str(item[-1]):
+            count+=1
+    accuracy_prune=float(count)/len(datasets)
+    return accuracy_unprune,accuracy_prune
 
 
 
@@ -174,13 +231,18 @@ if __name__ == '__main__':
     path='./abalone_parts.data'
     datasets=read_data(path)
 # #--------Start PEP_pruning---------------------------
-    model_pruned=PEP_result(copy.deepcopy(model),feature_list,datasets)#使用深拷贝可以保留原始模型的信息
+    model_pruned=PEP_result(copy.deepcopy(model),feature_list,copy.deepcopy(datasets))#使用深拷贝可以保留原始模型的信息
 
     print"剪枝前的模型=",model
     print"剪枝后的模型=",model_pruned
 
-    createPlot(model)
-    createPlot(model_pruned)
+    # createPlot(model)
+    # createPlot(model_pruned)
+#--------Start accuracy computation---------------------------
+    print "unpruned_accuracy,pruned_accuracy",accuracy_analysis(model,model_pruned,datasets)
+
+
+
 
 #     # print leaf_items(data)
 
