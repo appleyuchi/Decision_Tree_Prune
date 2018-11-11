@@ -24,7 +24,8 @@ Attention:
     continuous feature and feature with unKnown value are both Not supported to deal currently.
 ----------------REP---Operation method---------------------------------
 
-----------------EBP--Operation method----------------------------------
+----------------EBP--Operation method----------------------------------  
+
 Ross Quinlan has already implemented EBP with C,so the following is just a Python interface.  
 
 For EBP(Error Based Pruning),Operation method is:
@@ -38,11 +39,10 @@ For EBP(Error Based Pruning),Operation method is:
     python shell_execute.py crx > result.txt(change "crx" here when you use other datasets please.)
     python result_get.py
     python predict.py
-
-Attention:
-
-    data who contains unknown value is Not supported to predict.
-    It's  an Python interface for C-type code http://www.rulequest.com/Personal/c4.5r8.tar.gz
+***************************
+	Attention that datasets who contains unknown value is Not supported to predict.
+    It's  an Python interface for C-type code in:  
+    http://www.rulequest.com/Personal/c4.5r8.tar.gz
 
 ----------------EBP--Operation method---------------------------------
 
@@ -66,7 +66,11 @@ Decision_tree/Quinlan-C4.5-Release8_and_python_interface_for_EBP/Src/result/unpr
 decision_tree/PEP-finish/
 and paste the model gotten from step 3 into top.py  
 
-5.python top.py
+5.python top.py  
+***************************
+	If you do not want to change datasets,you can skip the former 4 steps and run step 5th only.
+
+	Attention that datasets with unknown value is Not supported.
 
 ----------------PEP--Operation method---------------------------------
 
