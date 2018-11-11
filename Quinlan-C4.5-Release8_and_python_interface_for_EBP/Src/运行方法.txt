@@ -1,3 +1,0 @@
-python shell_execute.py crx > result.txt
-python result_get.py
-python predict.py

@@ -1,0 +1,17 @@
+dark_green,curl_up,little_heavily,distinct,sinking,hard_smooth,0.697,0.460,good
+black,curl_up,heavily,distinct,sinking,hard_smooth,0.774,0.376,good
+black,curl_up,little_heavily,distinct,sinking,hard_smooth,0.634,0.264,good
+dark_green,curl_up,heavily,distinct,sinking,hard_smooth,0.608,0.318,good
+light_white,curl_up,little_heavily,distinct,sinking,hard_smooth,0.556,0.215,good
+dark_green,little_curl_up,little_heavily,distinct,little_sinking,soft_stick,0.403,0.237,good
+black,little_curl_up,little_heavily,little_blur,little_sinking,soft_stick,0.481,0.149,good
+black,little_curl_up,little_heavily,distinct,little_sinking,hard_smooth,0.437,0.211,good
+black,little_curl_up,heavily,little_blur,little_sinking,hard_smooth,0.666,0.091,bad
+dark_green,stiff,clear,distinct,even,soft_stick,0.243,0.267,bad
+light_white,stiff,clear,blur,even,hard_smooth,0.245,0.057,bad
+light_white,curl_up,little_heavily,blur,even,soft_stick,0.343,0.099,bad
+dark_green,little_curl_up,little_heavily,little_blur,sinking,hard_smooth,0.639,0.161,bad
+light_white,little_curl_up,heavily,little_blur,sinking,hard_smooth,0.657,0.198,bad
+black,little_curl_up,little_heavily,distinct,little_sinking,soft_stick,0.360,0.370,bad
+light_white,curl_up,little_heavily,blur,even,hard_smooth,0.593,0.042,bad
+dark_green,curl_up,heavily,little_blur,little_sinking,hard_smooth,0.719,0.103,bad

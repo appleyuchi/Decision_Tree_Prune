@@ -1,12 +1,3 @@
-
-C4.5 [release 8] decision tree generator	Sat Nov 10 20:37:27 2018
-----------------------------------------
-
-    Options:
-
-Read 200 cases (8 attributes) from ./quinlan-src/abalone.data
-BATCH=1
-
 Decision Tree:
 
 Viscera <= 0.0145 :
@@ -49,16 +40,3 @@ Viscera > 0.0145 :
 |   Shell <= 0.0345 :
 |   |   Viscera <= 0.0285 : 5 (50.0/11.6)
 |   |   Viscera > 0.0285 : 4 (3.0/1.1)
-
-
-Tree saved
-
-
-Evaluation on training data (200 items):
-
-	 Before Pruning           After Pruning
-	----------------   ---------------------------
-	Size      Errors   Size      Errors   Estimate
-
-	  20   56(28.0%)     17   57(28.5%)    (36.1%)   <<
-0

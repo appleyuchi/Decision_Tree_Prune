@@ -5,7 +5,7 @@ sys.setdefaultencoding('utf-8')
 # @Author: appleyuchi
 # @Date:   2018-10-31 16:48:38
 # @Last Modified by:   appleyuchi
-# @Last Modified time: 2018-11-08 22:17:11
+# @Last Modified time: 2018-11-10 20:38:10
 
 import treePlotter
 from getNumofCommonSubstr import getNumofCommonSubstr
@@ -197,17 +197,17 @@ def test1():
 
 if __name__ == '__main__':
     # path="./watermelon实验结果.txt"
-    path="./result/prune.txt"
+    path="./result/unprune.txt"
     #---导入C4.5-Release8的数据---
     matrixs=data_source(path)
     #---转化为python决策树模型----
     myTree=create_tree(matrixs)
     #------输出决策树模型----
-    # print"模型是：",myTree
+    print"模型是：",myTree
     #------绘制决策树----
-    treePlotter.createPlot(myTree)
+    # treePlotter.createPlot(myTree)
     #------使用该模型进行预测----注意，如果数字被认为是离散特征，需要转化为str类型再输入--------
     #注意：为了预测，注释掉了①②处，绘图时可以取消注释,也可以不取消注释
-    test1()
+    # test1()
 
 
