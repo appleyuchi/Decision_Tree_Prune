@@ -43,19 +43,23 @@ Attention:
 
 ----------------EBP--Operation method---------------------------------
 
-----------------PEP--Operation method---------------------------------
+----------------PEP--Operation method---------------------------------  
+
 For PEP(Pessimistic Error Pruning)of C4.5-release8:
 1.download from https://archive.ics.uci.edu/ml/machine-learning-databases/abalone/  
-2.reorder it with the final column from small to large and get the former 200 items,and save them as abalone_parts.data(this step is just for easy to visualize)
-3.put abalone_parts.data and abalone.names in /decision_tree/Quinlan-C4.5-Release8_and_python_interface_for_EBP/Src/quinlan-src/
+2.reorder it with the final column from small to large and get the former 200 items,and save them as abalone_parts.data(this step is just for easy to visualize afterwards)
+3.put abalone_parts.data and abalone.names in:  
+/decision_tree/Quinlan-C4.5-Release8_and_python_interface_for_EBP/Src/quinlan-src/
+
 then run the following commands:
+	python shell_execute.py abalone > result.txt
+	python result_get.py  
 
-python shell_execute.py abalone > result.txt
-python result_get.py  
+get the model from:  
+Decision_tree/Quinlan-C4.5-Release8_and_python_interface_for_EBP/Src/result/unprune.txt  
 
-get the model from Decision_tree/Quinlan-C4.5-Release8_and_python_interface_for_EBP/Src/result/unprune.txt  
-
-4.put  both abalone_parts.data and abalone.names under the path:decision_tree/PEP-finish/
+4.put  both abalone_parts.data and abalone.names under the path:  
+decision_tree/PEP-finish/
 and paste the model gotten from step 3 into top.py  
 
 5.python top.py
