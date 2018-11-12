@@ -16,7 +16,7 @@ Quinlan-C4.5-Release8_and_python_interface_for_EBP/Src/quinlan-src/
 which is from  
 http://www.rulequest.com/Personal/c4.5r8.tar.gz  
 its author is Ross Quinlan.
-Only its interface is modified for much more convient use.
+Only its interface is modified for much more convient use.  
 ②datasets with unKnown value is Not Supported,because under different cases or in different papers,different people have different methods to deal with unknown value.
 
 
@@ -57,7 +57,8 @@ For EBP(Error Based Pruning),Operation method is:
 
 ----------------EBP--Operation method--------------------------------- 
 
-----------------PEP--Operation method--------------------------------- 
+----------------PEP--Operation method---------------------------------  
+
 For PEP(Pessimistic Error Pruning):  
 1.download datasets from:  
 https://archive.ics.uci.edu/ml/machine-learning-databases/abalone/  
