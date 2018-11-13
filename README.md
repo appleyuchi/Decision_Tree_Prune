@@ -70,7 +70,8 @@ https://archive.ics.uci.edu/ml/machine-learning-databases/abalone/
 	python result_get.py(transform C model to Python model)  
 
 get the model from the output of "python result_get.py"
-and paste this model into top.py 
+and paste this model into top.py  
+
 4.
 
 	cp abalone_parts.data  abalone.names  decision_tree/PEP-finish/
