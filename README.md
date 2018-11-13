@@ -67,15 +67,14 @@ https://archive.ics.uci.edu/ml/machine-learning-databases/abalone/
 
 	cp abalone_parts.data abalone.names   /decision_tree/Quinlan-C4.5-Release8_and_python_interface_for_EBP/Src/quinlan-src/
     python shell_execute.py abalone > result.txt
-	python result_get.py  
+	python result_get.py(transform C model to Python model)  
 
-get the model from:  
-Decision_tree/Quinlan-C4.5-Release8_and_python_interface_for_EBP/Src/result/unprune.txt  
-
+get the model from the output of "python result_get.py"
+and paste the model gotten from step 3 into top.py 
 4.
 
 	cp abalone_parts.data  abalone.names  decision_tree/PEP-finish/
-    paste the model gotten from step 3 into top.py 
+ 
     python top.py  
 
 ***************************
