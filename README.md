@@ -11,13 +11,14 @@ This repository is targeted at popular pruning implementions(Continuous updating
 	Python 2.7.12
 
 Note that :  
-①All pruning algorithm are operated on the model generated from:
+①Except ID3,all pruning algorithm are operated on the model generated from:
 Quinlan-C4.5-Release8_and_python_interface_for_EBP/Src/quinlan-src/
 which is from  
 http://www.rulequest.com/Personal/c4.5r8.tar.gz  
 its author is Ross Quinlan.
 Only its interface is modified for much more convient use.  
-②datasets with unKnown value is Not Supported,because under different cases or in different papers,different people have different methods to deal with unknown value.
+②datasets with unKnown value is Not Supported,because under different cases or in different papers,different people have different methods to deal with unknown value.　　
+③The model produced by quinlan's implemention in the above link is C-type model,Not python-type model,So we need to do transformation before running pruning algorithm.For further details about transformation,continue read the following contents please.
 
 
 ----------------REP---Operation method---------------------------------
