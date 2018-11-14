@@ -20,7 +20,8 @@ Only its interface is modified for much more convient use.
 
 ②datasets with unKnown value is Not Supported,because under different cases or in different papers,different people have different methods to deal with unknown value.　　
 
-③The model produced by quinlan's implemention in the above link is C-type model,Not python-type model,So we need to do transformation before running pruning algorithm.For further details about transformation,continue read the following contents please.
+③The "C4.5-Release decision tree model" produced by quinlan's implemention in the above link is C-type model,Not python-type model,So we need to do transformation before running pruning algorithm.  
+For further details about transformation,continue read the following contents please.
 
 
 ----------------REP---Operation method---------------------------------
