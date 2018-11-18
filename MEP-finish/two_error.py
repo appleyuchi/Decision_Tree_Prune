@@ -87,25 +87,48 @@ def subdata_counts(sub_data,class_list):
 
 
 
+# def backed_up_error(model,datasets,pae_list,class_list,m,fea_list):
+#     best_feature=model.items()[0][0]
+#     print"best_feature=",best_feature
+#     branches=model[best_feature]
+#     length=len(datasets)
+
+#     pi_list=[]
+#     Eb=0.0
+#     # print"fea_list=",fea_list
+#     for index,branch in enumerate(branches):#获取ｋｅｙ，也就是ｂｒａｎｃｈ上面的取值
+#         sub_data=splitdatasets(best_feature,fea_list,branch,datasets)
+#         pi_list.append(len(sub_data)*1.0/length)
+#         count_list=subdata_counts(sub_data,class_list)#子数据集可能存在“有些类别没有数据”的情况，所以必须根据类别来进行统计
+#         # print "count_list=",count_list
+#         Ei,_,_=static_error(sub_data,pae_list,count_list,class_list,m)
+#         # print "pi_list[index]=",pi_list[index]
+#         # print "Ei=",Ei
+#         # print"pi_list[index]=",pi_list[index]
+#         # print"pi_list[index]*Ei=",pi_list[index]*Ei
+#         Eb=Eb+pi_list[index]*Ei#Eb=ΣＰｉ·Ｅｉ
+#     return Eb
+
+
 def backed_up_error(model,datasets,pae_list,class_list,m,fea_list):
+    if isinstance(model,str):
+        count_list=subdata_counts(datasets,class_list)
+        Es_min,_,_=static_error(datasets,pae_list,count_list,class_list,m)
+        return Es_min
+
     best_feature=model.items()[0][0]
     print"best_feature=",best_feature
     branches=model[best_feature]
     length=len(datasets)
 
+
+    # print"fea_list=",fea_list
     pi_list=[]
     Eb=0.0
-    # print"fea_list=",fea_list
     for index,branch in enumerate(branches):#获取ｋｅｙ，也就是ｂｒａｎｃｈ上面的取值
         sub_data=splitdatasets(best_feature,fea_list,branch,datasets)
-        pi_list.append(len(sub_data)*1.0/length)
-        count_list=subdata_counts(sub_data,class_list)#子数据集可能存在“有些类别没有数据”的情况，所以必须根据类别来进行统计
-        # print "count_list=",count_list
-        Ei,_,_=static_error(sub_data,pae_list,count_list,class_list,m)
-        # print "pi_list[index]=",pi_list[index]
-        # print "Ei=",Ei
-        # print"pi_list[index]=",pi_list[index]
-        # print"pi_list[index]*Ei=",pi_list[index]*Ei
+        pi_list.append(len(sub_data)*1.0/length)#Pi
+        Ei=backed_up_error(model[best_feature][branch],sub_data,pae_list,class_list,m,fea_list)
         Eb=Eb+pi_list[index]*Ei#Eb=ΣＰｉ·Ｅｉ
     return Eb
    

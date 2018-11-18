@@ -190,6 +190,11 @@ def abalone_test(m):
     fea_list=get_Attribute(name_path)
     datasets=read_data(path)
     pae_dict,class_count=pae_list(path)#不要进入递归，这个是剪枝前就要确定下来，并且在剪枝的过程中不可改变的。
+
+#Attention,if you want to perform Laplace Law of succession,just set:
+#pae_list=1.0/m
+#m=counts of classes of the whole original datasets
+
     pae_lists=[pae_dict[key] for key in pae_dict]#获得先验概率列表
     class_list=[key for key in class_count]#获取数据集的类别列表
 
@@ -199,10 +204,10 @@ def abalone_test(m):
     accuracy_unprune,accuracy_prune,misjudge_datasets=accuracy_analysis(model,model_pruned,copy.deepcopy(datasets),fea_list,name_path)
     print"accuracy_unprune=",accuracy_unprune
     print"accuracy_prune=",accuracy_prune
-    for item in misjudge_datasets:
-        print item
-    # createPlot(model)
-    # createPlot(model_pruned)
+    createPlot(model)
+    createPlot(model_pruned)
+    print "model=",model
+    print"model_pruned=",model_pruned
 
 
 
@@ -219,6 +224,11 @@ def credit_a_test(m):
 
     pae_dict,class_count=pae_list(path)#不要进入递归，这个是剪枝前就要确定下来，并且在剪枝的过程中不可改变的。
     pae_lists=[pae_dict[key] for key in pae_dict]#获得先验概率列表
+
+#Attention,if you want to perform Laplace Law of succession,just set:
+#pae_list=1.0/m
+#m=counts of classes of the whole original datasets
+
     class_list=[key for key in class_count]#获取数据集的类别列表
     model_pruned=MEP_result(copy.deepcopy(model),fea_list,copy.deepcopy(datasets),pae_lists,class_list,m)
 
@@ -230,8 +240,10 @@ def credit_a_test(m):
     for item in misjudge_datasets:
         print item
 
-    # createPlot(model)
-    # createPlot(model_pruned)
+    print "model=",model
+    print"model_pruned=",model_pruned
+    createPlot(model)
+    createPlot(model_pruned)
 
 if __name__ == '__main__':
     m=2

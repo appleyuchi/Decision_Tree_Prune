@@ -1,3 +1,0 @@
-python shell_execute.py  abalone> result.txt
-python result_get.py
-python predict.py

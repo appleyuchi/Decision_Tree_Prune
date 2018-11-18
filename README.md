@@ -24,7 +24,7 @@ Only its interface is modified for much more convient use.
 For further details about transformation,continue read the following contents please.
 
 
-----------------REP---Operation method---------------------------------
+----------------REP---Operation method(start)---------------------------------
 
 For REP(Reduced Error Pruning) of ID3:
 
@@ -33,9 +33,9 @@ For REP(Reduced Error Pruning) of ID3:
 Attention:
 
     continuous feature and feature with unKnown value are both Not supported currently.
-----------------REP---Operation method---------------------------------
+----------------REP---Operation method(end)---------------------------------
 
-----------------EBP--Operation method----------------------------------  
+----------------EBP--Operation method(start)----------------------------------  
 
 Ross Quinlan has already implemented EBP with C,
 so the following is just a Python interface.  
@@ -59,9 +59,9 @@ For EBP(Error Based Pruning),Operation method is:
     http://www.rulequest.com/Personal/c4.5r8.tar.gz
     This interface is used to get model and EBP pruned model from Quinlan's implemention.
 
-----------------EBP--Operation method--------------------------------- 
+----------------EBP--Operation method(end)--------------------------------- 
 
-----------------PEP--Operation method---------------------------------  
+----------------PEP--Operation method(start)---------------------------------  
 
 For PEP(Pessimistic Error Pruning):  
 1.download datasets from:  
@@ -87,7 +87,20 @@ and paste this model into top.py
     you can skip the former 4 steps and run step 5th only.
 
 
-----------------PEP--Operation method---------------------------------
+----------------PEP--Operation method(end)---------------------------------
+
+----------------MEP--Operation method(start)---------------------------------  
+
+	cp abalone_parts.data abalone.names   /decision_tree/Quinlan-C4.5-Release8_and_python_interface_for_EBP/Src/quinlan-src/
+    python shell_execute.py abalone > result.txt
+	python result_get.py(transform C model to Python model)  
+
+get the model from the output of "python result_get.py"
+and paste this model into MEP_topmodule_down_to_top.py  
+
+	python MEP_topmodule_down_to_top.py　
+
+----------------MEP--Operation method(end)---------------------------------  
 
 
 You may also interested in the inventer、history of Pruning Algorithms,I have collected them together in the following Link:  

@@ -1,10 +1,4 @@
-
-C4.5 [release 8] decision tree generator	Sun Nov 11 18:36:52 2018
-----------------------------------------
-
-    Options:
-
-Read 490 cases (15 attributes) from ./quinlan-src/crx.data
+Read 490 cases (15 attributes) from crx.data
 BATCH=1
 
 Decision Tree:
@@ -167,9 +161,8 @@ Tree saved
 
 Evaluation on training data (490 items):
 
-	 Before Pruning           After Pruning
-	----------------   ---------------------------
-	Size      Errors   Size      Errors   Estimate
+     Before Pruning           After Pruning
+    ----------------   ---------------------------
+    Size      Errors   Size      Errors   Estimate
 
-	  90   19( 3.9%)     58   24( 4.9%)    (11.9%)   <<
-0
+      90   19( 3.9%)     58   24( 4.9%)    (11.9%)   <<

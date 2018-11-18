@@ -5,13 +5,13 @@ sys.setdefaultencoding('utf-8')
 # @Author: appleyuchi
 # @Date:   2018-11-10 20:20:03
 # @Last Modified by:   appleyuchi
-# @Last Modified time: 2018-11-11 21:14:39
+# @Last Modified time: 2018-11-18 19:42:44
 
 from treePlotter import createPlot
 from math import sqrt
 from split import splitdatasets
 import copy
-from getNumofCommonSubstr import getNumofCommonSubstr
+from predict import *
 
 #----------------ｇｅｔ Attribute list of datasets--------------------------------------------
 def get_Attribute(path):
@@ -50,7 +50,7 @@ def brackets_data(data):#用来从叶子的ｓｔｒ中提取到分类错误的�
     return leaf_error
 
 
-def errors_counts(models):
+def errors_counts(models):#统计当前整棵树（还没剪枝的时候）的分类错误数量
     error_count=0
     if isinstance(models,str):
         error_count=error_count+ brackets_data(models)
@@ -68,10 +68,10 @@ def errors_counts(models):
 # data='7 (6.0/3.0)'
 def leaf_items(data):
     if '/' in data:
-        leaf_item_counts=data.split('/')[0].split('(')[1]
+        leaf_item_counts=data.split('/')[0].split('(')[1]#如果是上面的例子，那么得到6
         leaf_item_counts=float(leaf_item_counts)
     else:
-        leaf_item_counts=data.split('(')[1].split(')')[0]
+        leaf_item_counts=data.split('(')[1].split(')')[0]#如果是上面的例子，那么得到2
         leaf_item_counts=float(leaf_item_counts)
     return leaf_item_counts
 
@@ -160,69 +160,29 @@ def PEP_result(model_input,fea_list,datasets):#top-down
 
 
 
-#---------------------------------------------------------------
-    
-def classify(inputTree,features,testVec):#这里的inputTree就是决策树的序列化表示方法,python中是字典类型,也可以看做是json类型
-    firstStr = inputTree.keys()[0]#获取决策树的当前分割属性
-    secondDict = inputTree[firstStr]#当前分割节点下面的一堆树枝+节点
-
-    featIndex = features.index(firstStr)#当前是第几个特征
-    key = testVec[featIndex]#根据划分属性的下标来获取测试数据的对应下标的属性的具体取值
-
-#--------------获得子树--------------------------------
-    if isinstance(key, str):#如果是离散特征
-        # print"secondDict=",secondDict
-        valueOfFeat = secondDict[key]#根据这个值来顺着树枝key选择子树secondDict[key](离散特征)
-    else:
-        item_lists=[]
-        for item in secondDict:
-            item_lists.append(item)
-        common_str=getNumofCommonSubstr(item_lists[0],item_lists[1])[0]#common_str是
-        # print"item_lists=",item_lists
-        if key<=float(common_str):
-            key="<="+common_str
-            valueOfFeat = secondDict[key]
-        else:
-            key=">"+common_str
-            valueOfFeat = secondDict[key]
-
-#----------------获得子树------------------------------
-    if isinstance(valueOfFeat, dict): #如果是子树
-        classLabel = classify(valueOfFeat, features, testVec)#递归调用
-    else: #如果是叶子节点
-        classLabel = valueOfFeat
-    return classLabel#递归函数的结束条件
-
-#注意，不支持包含缺失值的数据的测试
-def classify_C45(valueOfFeat, features, data):#注意，这里的ｄａｔａ指的是一条数据，不是一堆数据
-    for index,item in enumerate(data):#因为模型中离散特征有“＝”符号，所以这里给离散特征的数据加上“＝”，方便预测
-        if isinstance(item, str):
-            data[index]="="+data[index]
-    return classify(valueOfFeat, features, data)
 
 #--------------------剪枝前后的准确率预测---------------------------------
-def accuracy_analysis(model,model_pruned,datasets):
-    count=0
-    unpruned_accuracy=0.0
-    for item in datasets:
-        predict=classify_C45(model,feature_list,item)
-        if predict.split("(")[0].strip()==str(item[-1]):
-            count+=1
-    accuracy_unprune=float(count)/len(datasets)
-    count=0
-    for item in datasets:
-        predict=classify_C45(model_pruned,feature_list,item)
-        if predict.split("(")[0].strip()==str(item[-1]):
-            count+=1
-    accuracy_prune=float(count)/len(datasets)
-    return accuracy_unprune,accuracy_prune
 
 
+#for credit-a datasets from UCI
+def credit_a_test():
+    model={'A9': {'=t': {'A15': {'>228': ' + (106.0/2.0)', '<=228': {'A11': {'>3': {'A15': {'>4': {'A15': {'<=5': ' - (2.0)', '>5': {'A7': {'=v': ' + (5.0)', '=z': ' - (1.0)', '=dd': ' + (0.0)', '=ff': ' + (0.0)', '=o': ' + (0.0)', '=n': ' + (0.0)', '=h': ' + (3.0)', '=bb': ' + (1.0)', '=j': ' + (0.0)'}}}}, '<=4': ' + (25.0)'}}, '<=3': {'A4': {'=u': {'A7': {'=v': {'A14': {'<=110': ' + (18.0/1.0)', '>110': {'A15': {'>8': ' + (4.0)', '<=8': {'A6': {'=aa': {'A2': {'<=41': ' - (3.0)', '>41': ' + (2.0)'}}, '=w': {'A12': {'=t': ' - (2.0)', '=f': ' + (3.0)'}}, '=q': {'A12': {'=t': ' + (4.0)', '=f': ' - (2.0)'}}, '=ff': ' - (0.0)', '=r': ' - (0.0)', '=i': ' - (0.0)', '=x': ' - (0.0)', '=e': ' - (0.0)', '=d': ' - (2.0)', '=c': ' - (4.0/1.0)', '=m': {'A13': {'=g': ' + (2.0)', '=p': ' - (0.0)', '=s': ' - (5.0)'}}, '=cc': ' + (2.0/1.0)', '=k': ' - (2.0)', '=j': ' - (0.0)'}}}}}}, '=z': ' + (1.0)', '=bb': {'A14': {'<=164': ' + (3.4/0.4)', '>164': ' - (5.6)'}}, '=ff': ' - (1.0)', '=o': ' + (0.0)', '=n': ' + (0.0)', '=h': ' + (18.0)', '=dd': ' + (0.0)', '=j': ' - (1.0)'}}, '=l': ' + (0.0)', '=y': {'A13': {'=g': {'A14': {'<=204': ' - (16.0/1.0)', '>204': ' + (5.0/1.0)'}}, '=p': ' - (0.0)', '=s': ' + (2.0)'}}, '=t': ' + (0.0)'}}}}}}, '=f': {'A13': {'=g': ' - (204.0/10.0)', '=p': {'A2': {'<=36': ' - (4.0/1.0)', '>36': ' + (2.0)'}}, '=s': {'A4': {'=u': {'A6': {'=aa': ' - (0.0)', '=w': ' - (0.0)', '=q': ' - (1.0)', '=ff': ' - (2.0)', '=r': ' - (0.0)', '=i': ' - (3.0)', '=x': ' + (1.0)', '=e': ' - (0.0)', '=d': ' - (2.0)', '=c': ' - (3.0)', '=m': ' - (3.0)', '=cc': ' - (1.0)', '=k': ' - (4.0)', '=j': ' - (0.0)'}}, '=l': ' + (1.0)', '=y': ' - (8.0/1.0)', '=t': ' - (0.0)'}}}}}}
+    path="./crx.data"
+    name_path="./crx.names"
+    fea_list=get_Attribute(name_path)
+    datasets=read_data(path)
+    model_pruned=PEP_result(copy.deepcopy(model),fea_list,copy.deepcopy(datasets))
+ 
+    accuracy_unprune,accuracy_prune=accuracy_analysis(model,model_pruned,datasets,fea_list,name_path)
+    print"accuracy_unprune=",accuracy_unprune
+    print"accuracy_prune=",accuracy_prune
+    print"model=",model
+    print"model_pruned=",model_pruned
+    createPlot(model)
+    createPlot(model_pruned)
 
-if __name__ == '__main__':
+def abalone_parts_test():
     model={'Viscera': {'>0.0145': {'Shell': {'<=0.0345': {'Viscera': {'<=0.0285': ' 5 (50.0/9.0)', '>0.0285': ' 4 (3.0)'}}, '>0.0345': {'Sex': {'=M': ' 6 (6.0/3.0)', '=F': ' 5 (3.0)', '=I': ' 5 (59.0/12.0)'}}}}, '<=0.0145': {'Shucked': {'>0.007': ' 4 (66.0/31.0)', '<=0.007': {'Shucked': {'>0.0045': {'Shucked': {'>0.005': {'Height': {'<=0.02': ' 4 (2.0)', '>0.02': ' 3 (4.0)'}}, '<=0.005': ' 4 (3.0)'}}, '<=0.0045': {'Height': {'<=0.025': ' 1 (2.0/1.0)', '>0.025': ' 3 (2.0)'}}}}}}}}
-
-#--------------模型来自Ｃ4.5-Ｒｅｌｅａｓｅ8---------------------
 
 #---------get Attribute list--------------------------
     name_path='./abalone.names'
@@ -231,20 +191,21 @@ if __name__ == '__main__':
     path='./abalone_parts.data'
     datasets=read_data(path)
 # #--------Start PEP_pruning---------------------------
-    model_pruned=PEP_result(copy.deepcopy(model),feature_list,copy.deepcopy(datasets))#使用深拷贝可以保留原始模型的信息
+    model_pruned=PEP_result(copy.deepcopy(model),feature_list,datasets)
 
     print"剪枝前的模型=",model
     print"剪枝后的模型=",model_pruned
 
-    # createPlot(model)
-    # createPlot(model_pruned)
+    createPlot(model)
+    createPlot(model_pruned)
 #--------Start accuracy computation---------------------------
-    print "unpruned_accuracy,pruned_accuracy",accuracy_analysis(model,model_pruned,datasets)
+    print "unpruned_accuracy,pruned_accuracy",accuracy_analysis(model,model_pruned,datasets,feature_list,name_path)
 
 
 
-
-#     # print leaf_items(data)
+if __name__ == '__main__':
+    # abalone_parts_test()
+    credit_a_test()
 
 
 
