@@ -1,0 +1,3 @@
+python shell_execute.py hepatitis > result.txt
+python result_get.py
+python predict.py
