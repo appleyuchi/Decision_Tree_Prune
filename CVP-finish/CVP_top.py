@@ -5,7 +5,7 @@ sys.setdefaultencoding('utf-8')
 # @Author: appleyuchi
 # @Date:   2018-11-23 20:16:45
 # @Last Modified by:   appleyuchi
-# @Last Modified time: 2018-11-30 21:24:34
+# @Last Modified time: 2018-11-30 22:17:38
 
 #C4.5的叶子格式
 # ｌｅａｆ(total number/error number)
@@ -231,7 +231,7 @@ def crx_test():
 
 
 if __name__ == '__main__':
-    abalone_parts_test()
-    # crx_test()
+    # abalone_parts_test()
+    crx_test()
 
 

@@ -1,4 +1,12 @@
-This repository is targeted at popular pruning implementions(Continuous updating)
+This repository is targeted at popular pruning implementions(Continuous updating):
+REP:Reduced Error Pruning(finished)
+MEP:Minimum Error Pruning(finished)
+PEP:Pessimistic Error Pruning(finished)
+EBP:Error Based Pruning(finished)
+CVP：Critical Value Pruning(finished)
+CCP:Cost Complexity Pruning(NOT finished yet)
+ECP:Error Complexity Pruning(NOT finished yet)
+
 --------
 	Tips:
 	The command to delete all .pyc files:
