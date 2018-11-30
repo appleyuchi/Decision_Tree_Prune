@@ -51,6 +51,7 @@ def brackets_data(data):#从叶子节点中获取错误分类的数据数量，
 #---------------下面的代码是统计当前模型中数据集的总数量---------------------------------------------
 # data=' 4 (2.0)'
 # data='7 (6.0/3.0)'
+#获取总ｉｔｅｍ数量
 def leaf_items(data):#获取叶子节点中的数据总条数，入口的data是str类型
     if '/' in data:
         leaf_item_counts=data.split('/')[0].split('(')[1]#如果是上面的data2，那么得到6
@@ -116,16 +117,16 @@ def MEP_result(model_input,fea_list,datasets,pae_list,class_list,m):#down->top
     best_feature=model_input.items()[0][0]#因为当前树的根节点肯定只有一个特征，第一个[0]是获取ｋｅｙ列表，当然，该列表中只有一个元素，所以再使用第二个[0]
     branches=model_input[best_feature]
 
-# stopping conditions
-    print"for循环外面的model_input=",type(model_input)
-    for branch in branches:
-        print"for循环里面的model_input=",type(model_input)
+# # stopping conditions
+#     print"for循环外面的model_input=",type(model_input)
+#     for branch in branches:
+#         print"for循环里面的model_input=",type(model_input)
 
-        if isinstance(model_input[best_feature][branch],str):#如果已经是叶子节点的上一个“分割节点”，由于是从下往上剪枝，此时应该考虑该“子树”是否满足剪枝要求并且剪枝
-            model_input=prune_current_tree(model_input,datasets,pae_list,class_list,m,fea_list)
-            break
-    if isinstance(model_input,str):
-        return model_input
+#         if isinstance(model_input[best_feature][branch],str):#如果已经是叶子节点的上一个“分割节点”，由于是从下往上剪枝，此时应该考虑该“子树”是否满足剪枝要求并且剪枝
+#             model_input=prune_current_tree(model_input,datasets,pae_list,class_list,m,fea_list)
+#             break
+#     if isinstance(model_input,str):
+#         return model_input
 
 #如果还未到达树的最底层的叶子节点的上面一个分割节点，那么继续往下搜索。
     print"最后一个ｆｏｒ循环外面,model_input=",model_input
@@ -143,8 +144,8 @@ def prune_current_tree(model,sub_datas,pae_list,class_list,m,feature_list):
     count_list=subdata_counts(sub_datas,class_list)
     Estatic,Es_index,_=static_error(sub_datas,pae_list,count_list,class_list,m)
 
-    if Eb>=Estatic:
-        if len(sub_datas)==count_list[Es_index]:
+    if Eb>=Estatic:#如果动态错误≥静态错误
+        if len(sub_datas)==count_list[Es_index]:#如果不存在误判的数据
             model=str(class_list[Es_index])+" ("+str(len(sub_datas))+")"
         else:
             model=str(class_list[Es_index])+" ("+str(len(sub_datas))+"/"+str(len(sub_datas)-count_list[Es_index])+")"
@@ -247,6 +248,6 @@ def credit_a_test(m):
 
 if __name__ == '__main__':
     m=2
-    # abalone_test(m)
-    credit_a_test(m)
+    abalone_test(m)
+    # credit_a_test(m)
 

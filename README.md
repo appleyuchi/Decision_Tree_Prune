@@ -21,7 +21,7 @@ Only its interface is modified for much more convient use.
 ②datasets with unKnown value is Not Supported,because under different cases or in different papers,different people have different methods to deal with unknown value.　　
 
 ③The "C4.5-Release decision tree model" produced by quinlan's implemention in the above link is C-type model,Not python-type model,So we need to do transformation before running pruning algorithm.  
-For further details about transformation,continue read the following contents please.
+For further details about transformation,continue reading the following contents please.
 
 
 ----------------REP---Operation method(start)---------------------------------
@@ -105,3 +105,5 @@ and paste this model into MEP_topmodule_down_to_top.py
 
 You may also interested in the inventer、history of Pruning Algorithms,I have collected them together in the following Link:  
 https://blog.csdn.net/appleyuchi/article/details/83692381
+
+Don't hesitate to contact appleyuchi@foxmail.com please if you have any question.

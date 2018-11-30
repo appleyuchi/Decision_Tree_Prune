@@ -5,7 +5,7 @@ sys.setdefaultencoding('utf-8')
 # @Author: appleyuchi
 # @Date:   2018-10-31 16:48:38
 # @Last Modified by:   appleyuchi
-# @Last Modified time: 2018-11-28 22:14:06
+# @Last Modified time: 2018-11-30 19:17:31
 
 import treePlotter
 import copy
@@ -30,17 +30,17 @@ def classify(inputTree,features,testVec,conti_or_discrete):#这里的inputTree�
 
 #--------------获得子树--------------------------------
     if conti_or_discrete[featIndex].strip().split(".")[0]!="continuous":
-        print"secondDict=",secondDict
-        print"testVec=",testVec
+        # print"secondDict=",secondDict
+        # print"testVec=",testVec
         valueOfFeat = secondDict[key]#根据这个值来顺着树枝key选择子树secondDict[key](离散特征)
     else:
         item_lists=[]
         for item in secondDict:
             item_lists.append(item)
         common_str=getNumofCommonSubstr(item_lists[0],item_lists[1])[0]#common_str是
-        print"item_lists[0]=",item_lists[0]
-        print"item_lists[1]=",item_lists[1]
-        print"common_str=",common_str
+        # print"item_lists[0]=",item_lists[0]
+        # print"item_lists[1]=",item_lists[1]
+        # print"common_str=",common_str
         if key<=float(common_str):
             key="<="+common_str
             valueOfFeat = secondDict[key]
@@ -86,14 +86,18 @@ def accuracy_analysis(model,model_pruned,datasets,feature_list,name_path):
         predict=classify_C45(model,feature_list,item,conti_or_discrete)
         if predict.split("(")[0].strip()==str(item[-1]):
             count+=1
+        else:
+            print item
     accuracy_unprune=float(count)/len(datasets)
     count=0
-
+    print"---------------这里是分割线------------"
     for item in datasets:
-        print "item=",item
+        # print "item=",item
         predict=classify_C45(model_pruned,feature_list,item,conti_or_discrete)
         if predict.split("(")[0].strip()==str(item[-1]):
             count+=1
+        else:
+            print item
     accuracy_prune=float(count)/len(datasets)
     return accuracy_unprune,accuracy_prune
 

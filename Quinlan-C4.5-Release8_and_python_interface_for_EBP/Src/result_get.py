@@ -5,14 +5,13 @@ sys.setdefaultencoding('utf-8')
 # @Author: appleyuchi
 # @Date:   2018-11-08 19:01:14
 # @Last Modified by:   appleyuchi
-# @Last Modified time: 2018-11-08 21:54:53
+# @Last Modified time: 2018-11-29 11:48:38
 # 这个文件的目的是把实验结果一分为二进行保存
 import os
 path="result.txt"
 def mkdir(path):
     # 引入模块
     import os
- 
     # 去除首位空格
     path=path.strip()
     # 去除尾部 \ 符号

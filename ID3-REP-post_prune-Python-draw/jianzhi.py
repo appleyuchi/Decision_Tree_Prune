@@ -199,7 +199,7 @@ def createTree(dataSet,labels,data_full,labels_full,test_data,mode):
     # classList指的是当前数据集的所有标签(不去重)
 
     #下面是递归截止条件
-    if classList.count(classList[0])==len(classList):
+    if classList.count(classList[0])==len(classList):#这个意思是如果当前数据集中的所有数据都属于同一个类别
        return classList[0]
     if len(dataSet[0])==1:
        return majorityCnt(classList)

@@ -62,7 +62,7 @@ def datasets_continuous_filter(number,datasets,branch):#获取符合树枝上连
     return subdata
 
 
-def splitdatasets(best_feature,fea_list,branch,datasets):#根据树枝上的标记来决定如何获取子数据集
+def splitdatasets(best_feature,fea_list,branch,datasets):
     #判断当前树枝是离散还是连续特征,如果是"="，就是离散特征，如果是不等号，就是连续特征。
     #因为"<="中也含有“＝”，为了防止误判，必须先判断"<="，ｂｒａｎｃｈ中没有"<="的情况下再判断"="
     # 所以signals列表中的元素的顺序不可更改。
@@ -74,7 +74,7 @@ def splitdatasets(best_feature,fea_list,branch,datasets):#根据树枝上的标�
 
     flag=0
     if signals.index(signal)==2:#如果branch上面是"=value"的形式，就必然是离散特征
-        flag=0#离散特征
+        flag=0
     else:
         flag=1#连续特征
 
@@ -97,8 +97,7 @@ def splitdatasets(best_feature,fea_list,branch,datasets):#根据树枝上的标�
 
     
 if __name__ == '__main__':
-    path='./abalone_parts.data'
-    name_path='./abalone.names'
+    path='./abalone.data'
     datasets=read_data(path)
 
     fea_list=get_feature(name_path)
