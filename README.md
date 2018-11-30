@@ -22,6 +22,8 @@ Only its interface is modified for much more convient use.
 
 ③The "C4.5-Release decision tree model" produced by quinlan's implemention in the above link is C-type model,Not python-type model,So we need to do transformation before running pruning algorithm.  
 For further details about transformation,continue reading the following contents please.
+④when your datasets is very very small ,you'll get very small model,then,you will NOT get a "Simplified Tree"(pruned model)from quinlan's implemention.
+This means "pruned model"="unpruned model"
 
 
 ----------------REP---Operation method(start)---------------------------------
@@ -73,8 +75,8 @@ https://archive.ics.uci.edu/ml/machine-learning-databases/abalone/
     python shell_execute.py abalone > result.txt
 	python result_get.py(transform C model to Python model)  
 
-get the model from the output of "python result_get.py"
-and paste this model into top.py  
+	get the model from the output of "python result_get.py"
+	and paste this model into top.py  
 
 4.
 
@@ -91,16 +93,31 @@ and paste this model into top.py
 
 ----------------MEP--Operation method(start)---------------------------------  
 
-	cp abalone_parts.data abalone.names   /decision_tree/Quinlan-C4.5-Release8_and_python_interface_for_EBP/Src/quinlan-src/
+	1.cp abalone_parts.data abalone.names   /decision_tree/Quinlan-C4.5-Release8_and_python_interface_for_EBP/Src/quinlan-src/
     python shell_execute.py abalone > result.txt
 	python result_get.py(transform C model to Python model)  
 
-get the model from the output of "python result_get.py"
-and paste this model into MEP_topmodule_down_to_top.py  
+	2.get the model from the output of "python result_get.py"
+	and paste this model into MEP_topmodule_down_to_top.py  
 
-	python MEP_topmodule_down_to_top.py　
+	3.python MEP_topmodule_down_to_top.py　
 
 ----------------MEP--Operation method(end)---------------------------------  
+
+----------------CVP--Operation method(start)---------------------------------  
+
+	1.cp abalone_parts.data abalone.names   /decision_tree/Quinlan-C4.5-Release8_and_python_interface_for_EBP/Src/quinlan-src/
+    python shell_execute.py abalone > result.txt
+	python result_get.py(transform C model to Python model)  
+
+	2.get the model from the output of "python result_get.py"
+	and paste this model into CVP_top.py 
+
+	3.search "critical_value" in CVP_top.py and change it to be what you want.
+	4.python CVP_top.py
+of course,you can skip the first 3 steps if you just want to see its performance with default datasets(abalone_parts and credit-a) 
+
+----------------CVP--Operation method(end)---------------------------------  
 
 
 You may also interested in the inventer、history of Pruning Algorithms,I have collected them together in the following Link:  
