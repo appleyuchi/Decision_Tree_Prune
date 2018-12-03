@@ -1,7 +1,0 @@
-运行:
-python ticart.py
-
-这里使用的剪枝算法是CCP（Ｃｏｓｔ　Ｃｏｍｐｌｅｘｉｔｙ　Pruning）
-
-参考链接:
-https://triangleinequality.wordpress.com/2013/09/01/decision-trees-part-3-pruning-your-tree/

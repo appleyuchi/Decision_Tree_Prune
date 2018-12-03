@@ -1,0 +1,5 @@
+texture = little_blur: bad (5.0/1.0)
+texture = blur: bad (3.0)
+texture = distinct:
+|   density <= 0.36 : bad (2.0)
+|   density > 0.36 : good (7.0)
