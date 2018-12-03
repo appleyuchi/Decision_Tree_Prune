@@ -27,19 +27,21 @@ ECP:Error Complexity Pruning(NOT finished yet)
 	Python 2.7.12
 
 Note that :  
-①Except ID3,all pruning algorithm are operated on the model generated from:
+①Except ID3,MEP、EBP、PEP、CVP are operated on the model generated from:
 Quinlan-C4.5-Release8_and_python_interface_for_EBP/Src/quinlan-src/
 which is from  
 http://www.rulequest.com/Personal/c4.5r8.tar.gz  
 its author is Ross Quinlan.
-Only its interface is modified for much more convient use.  
+The model from Quinlan's implemention is C-type,and it will be transformed to be "Python-compliant" model afterwards.
 
 ②datasets with unKnown value is Not Supported,because under different cases or in different papers,different people have different methods to deal with unknown value.　　
 
 ③The "C4.5-Release decision tree model" produced by quinlan's implemention in the above link is C-type model,Not python-type model,So we need to do transformation before running pruning algorithm.  
 For further details about transformation,continue reading the following contents please.
+
 ④when your datasets is very very small ,you'll get very small model,then,you will NOT get a "Simplified Tree"(pruned model)from quinlan's implemention.
-This means "pruned model"="unpruned model"
+This means "pruned model"="unpruned model",
+when this happend,copy the content of "result/unprune.txt" to  "result/prune.txt"please.
 
 
 ----------------REP---Operation method(start)---------------------------------
