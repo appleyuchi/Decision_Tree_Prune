@@ -138,7 +138,47 @@ of course,you can skip the first 3 steps if you just want to see its performance
 ----------------CVP--Operation method(end)---------------------------------  
 
 
+----------------CCP--Operation method(some information)---------------------------------  
+
+Attention:
+    By far,there have are 3 implementions of CCP on CART by others,but all of them have defects.
+
+1.
+https://github.com/Rudo-erek/decision-tree/tree/master/data
+It can NOT work,and it can NOT deal with continuous Attribute.
+The computation of R(t) is wrong,this link use Gini to compute R（t）
+
+2.
+https://github.com/Jasper-Dong/Decision-Tree
+It can work,but it can NOT deal with continuous Attribute
+
+3.
+https://triangleinequality.wordpress.com/2013/09/01/decision-trees-part-3-pruning-your-tree/
+It can work,but the author modified the original CCP,which result in no candidate trees to select,
+and so no cross-validation to select best pruned tree.
+He set a fixed alpha,before run this"modified CCP",the method is to pursue min|R(t)-R(Tt)-a(|Ｔｔ|－１)|.
+
+All of above three implementions are stored and annotated in the folder:"several_wrong_implementions_CCP"
+
+
+Note:
+    This repositories' CCP-implemention is performed based on Quinlan's C4.5 model.
+
+    Of course,we know CCP is proposed based on CART,CCP on CART of sklearn is still on discussion by sklearn's contributors:
+    https://github.com/scikit-learn/scikit-learn/issues/6557
+    Pruning on sklearn's CART model is still un-available,because some parts of it are written in Cython which is hard to modify.
+
+    CCP  can also be used on C4.5,and the article which use CCP on C4.5 is《Simplifying Decision Trees》ｐａｒｔ2.1-J.R.Quinlan
+
+    Our target is:Use the best decision model,and implement the pruning algorithm identical to the paper which proposed it.
+    So,we do NOT plan to use the CART model which are not written by experts,because they have too much defects as mentioned earlier.
+
+----------------CCP--Operation method(some information)---------------------------------  
+
+
+
 You may also interested in the inventer、history of Pruning Algorithms,I have collected them together in the following Link:  
 https://blog.csdn.net/appleyuchi/article/details/83692381
 
 Don't hesitate to contact appleyuchi@foxmail.com please if you have any question.
+

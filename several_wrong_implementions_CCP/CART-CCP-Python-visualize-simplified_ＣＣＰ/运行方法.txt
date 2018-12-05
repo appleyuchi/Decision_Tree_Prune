@@ -1,0 +1,9 @@
+运行:
+python ticart.py
+注意，这里是作者修改过（谈不上改进）的ＣＣＰ，被作者改成ＰＥＰ的形式（当前错误数＋常数ｘ叶子数量）
+这里的Ｒａ（t）、Ｒａ(Tｔ)都是当作错误数来计算的。
+
+Ｒａ（t）、Ｒａ(Tｔ)
+也就是李航书上的Ｃａ(t),Ca(Tt)
+参考链接:
+https://triangleinequality.wordpress.com/2013/09/01/decision-trees-part-3-pruning-your-tree/
