@@ -1,0 +1,17 @@
+http://www.cnblogs.com/starfire86/p/5749334.html（已经完全消化）
+https://blog.csdn.net/zhengzhenxian/article/details/79083643(已经完全消化)
+https://blog.csdn.net/wjc1182511338/article/details/76793164(已经完全消化，这里有损失函数)
+https://www.cnblogs.com/yonghao/p/5135386.html（已经阅读）
+https://www.deeplearn.me/1714.html（重点阅读）
+https://blog.csdn.net/qq_32742009/article/details/81304761?utm_source=blogxgwz8（没有参考价值）
+http://blog.sina.com.cn/s/blog_5d6632e70101gh79.html(没啥用)
+http://wenda.chinahadoop.cn/question/2915（没有参考价值）
+https://blog.csdn.net/taoqick/article/details/72818496（内容重复）
+https://www.jianshu.com/p/794d08199e5e(这个没啥用)
+https://blog.csdn.net/zhang4418876/article/details/47022821（已经阅读，理解不准确）
+https://blog.csdn.net/lizhengl/article/details/54968291?utm_source=blogxgwz0(重复)
+https://blog.csdn.net/lizhengl/article/details/54968291（重复）
+https://blog.csdn.net/lizhengl/article/details/54968291?utm_source=blogkpcl12(重复)
+https://blog.csdn.net/lizhengl/article/details/54968291?utm_source=blogxgwz6(重复)
+https://blog.csdn.net/lizhengl/article/details/54968291?utm_source=blogxgwz9（重复）
+https://blog.csdn.net/lizhengl/article/details/54968291?utm_source=blogxgwz8(重复)

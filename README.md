@@ -10,7 +10,7 @@ EBP:Error Based Pruning(finished)
 
 CVP：Critical Value Pruning(finished)
 
-CCP:Cost Complexity Pruning(NOT finished yet)
+CCP:Cost Complexity Pruning(finished)
 
 ECP:Error Complexity Pruning(NOT finished yet)
 
@@ -138,45 +138,82 @@ of course,you can skip the first 3 steps if you just want to see its performance
 ----------------CVP--Operation method(end)---------------------------------  
 
 
-----------------CCP--Operation method(some information)---------------------------------  
+----------------CCP--Operation method(some relevant information-start)---------------------------------  
 
 Attention:
     By far,there have are 3 implementions of CCP on CART by others,but all of them have defects.
 
 1.
 https://github.com/Rudo-erek/decision-tree/tree/master/data
+
 It can NOT work,and it can NOT deal with continuous Attribute.
 The computation of R(t) is wrong,this link use Gini to compute R（t）
 
 2.
 https://github.com/Jasper-Dong/Decision-Tree
+
 It can work,but it can NOT deal with continuous Attribute
 
 3.
 https://triangleinequality.wordpress.com/2013/09/01/decision-trees-part-3-pruning-your-tree/
+
 It can work,but the author modified the original CCP,which result in no candidate trees to select,
 and so no cross-validation to select best pruned tree.
-He set a fixed alpha,before run this"modified CCP",the method is to pursue min|R(t)-R(Tt)-a(|Ｔｔ|－１)|.
+He set a fixed alpha,before run this"modified CCP",the method is to pursue min|R(t)-R(Tt)-a(|Tt|－1)|.
 
 All of above three implementions are stored and annotated in the folder:"several_wrong_implementions_CCP"
 
 
-Note:
-    This repositories' CCP-implemention is performed based on Quinlan's C4.5 model.
-
-    Of course,we know CCP is proposed based on CART,CCP on CART of sklearn is still on discussion by sklearn's contributors:
+	Note1:
+    This repositories' CCP-implemention is performed based on sklearn's CART model.
+	Here's the relevant issuse of official github of Sklearn.
     https://github.com/scikit-learn/scikit-learn/issues/6557
-    Pruning on sklearn's CART model is still un-available,because some parts of it are written in Cython which is hard to modify.
+    Pruning on sklearn's CART model with Cython(a faster python)is still un-available,this CCP implemention on sklearn's CART model is pure python.
 
-    CCP  can also be used on C4.5,and the article which use CCP on C4.5 is《Simplifying Decision Trees》ｐａｒｔ2.1-J.R.Quinlan
-
-    Our target is:Use the best decision model,and implement the pruning algorithm identical to the paper which proposed it.
-    So,we do NOT plan to use the CART model which are not written by experts,because they have too much defects as mentioned earlier.
-
-----------------CCP--Operation method(some information)---------------------------------  
+	Note2:
+    CCP  can also be used on C4.5(Not supported in this github),and the article which use CCP on C4.5 is《Simplifying Decision Trees》part2.1-J.R.Quinlan
 
 
 
+----------------CCP--Operation method(some relevant information-end)---------------------------------
+
+
+----------------CCP--Operation method(start)---------------------------------  
+	Attention again,datasets with unKnown value is NOT supported.
+
+
+	The main flow to implement CCP on sklearn's model is as follows:
+	1.transform sklearn model to json-model
+	2.perform CCP on json model
+	3.get the best model from Tree Sets in CCP,and synchronized the original sklearn model with the best json-model
+
+
+	The step to run CCP on sklearn's model is as follows:
+        1.delete all the files in the folder "visualization"
+	2.make sure your datasets has no unKnown value,or you need to pre-process it.(it is a must)
+	3.cd decision_tree/sklearn_cart_CCP/sklearnCART2json_CCP/
+	4.change the "name_path" and "data_path" in sklearn_CCP_top.py
+	5.python sklearn_CCP_top.py 
+        and get the best CCP-json-model and CCP-pruned  precision
+	6.Enjoy the pictures of all the TreeSets and "final bestTree" in the folder "visualization".
+
+Note:
+        1.
+        Don't Set "max_depth" too large,
+        or you'll need to wait for a very long time,
+        if you persist running it with very large "max_depth",then graphviz may NOT be able to draw pictures
+        under the folder "visualization".
+
+        2.
+	Two datasets have passed through the CCP implemention:
+	credit-a
+	abalone
+	They are all from UCI databases.
+
+
+----------------CCP--Operation method(end)--------------------------------- 
+
+\----------------------------------------
 You may also interested in the inventer、history of Pruning Algorithms,I have collected them together in the following Link:  
 https://blog.csdn.net/appleyuchi/article/details/83692381
 
