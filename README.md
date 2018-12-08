@@ -183,27 +183,28 @@ All of above three implementions are stored and annotated in the folder:"several
 
 
 	The main flow to implement CCP on sklearn's model is as follows:
-	1.transform sklearn model to json-model
+	1.transform sklearn model to json-model. 
+	(I'm Not contributor of Sklearn,so the sklearn model can NOT be pruned directly,it need transformation.)
 	2.perform CCP on json model
-	3.get the best model from Tree Sets in CCP,and synchronized the original sklearn model with the best json-model
+	3.get the best json-model from Tree Sets in CCP,and synchronized the original sklearn model with the best json-model
+	(we only synchronize the"Tree shape" between sklearn-model and json-style model,which is very helpful for drawing CCP-pruned json-model with graphviz)
 
 
 	The step to run CCP on sklearn's model is as follows:
     1.delete all the files in the folder "visualization"
 	2.make sure your datasets has no unKnown value,or you need to pre-process it(It is a must).
 	If you don't pre-process the unKnown value,strange errors will occur.
-	3.cd decision_tree/sklearn_cart_CCP/sklearnCART2json_CCP/
-	4.change the "name_path" and "data_path" in sklearn_CCP_top.py
-	5.python sklearn_CCP_top.py 
-        and get the best CCP-json-model and CCP-pruned  precision
-	6.Enjoy the pictures of all the TreeSets and "final bestTree" in the folder "visualization".
+	3.cd decision_tree/sklearn_cart_CCP/sklearnCART2json_CCP/ 
+	and change the "name_path" and "data_path" in sklearn_CCP_top.py
+	4.python sklearn_CCP_top.py 
+	and get the best CCP-json-model and CCP-pruned  precision
+	5.Enjoy the pictures of all the TreeSets and "final bestTree" in the folder "visualization".
 
 	Note:
         1.
         Don't Set "max_depth" too large,
         or you'll need to wait for a very long time,
-        if you persist running it with very large "max_depth",then graphviz may NOT be able to draw pictures
-        under the folder "visualization".
+        if you persist running it with very large "max_depth",then graphviz may NOT be able to draw pictures under the folder "visualization".
 
         2.
 		Two datasets have passed through the CCP implemention:
