@@ -165,10 +165,10 @@ All of above three implementions are stored and annotated in the folder:"several
 
 
 	Note1:
-    This repositories' CCP-implemention is performed based on sklearn's CART model.
+    This repository's CCP-implemention is performed based on sklearn's CART classification-model.
 	Here's the relevant issuse of official github of Sklearn.
     https://github.com/scikit-learn/scikit-learn/issues/6557
-    Pruning on sklearn's CART model with Cython(a faster python)is still un-available,this CCP implemention on sklearn's CART model is pure python.
+    They are trying to prune on sklearn's CART model with Cython(a faster python with C),which is still un-available.My  CCP implemention on sklearn's CART model is pure python.
 
 	Note2:
     CCP  can also be used on C4.5(Not supported in this github),and the article which use CCP on C4.5 is《Simplifying Decision Trees》part2.1-J.R.Quinlan
@@ -189,15 +189,16 @@ All of above three implementions are stored and annotated in the folder:"several
 
 
 	The step to run CCP on sklearn's model is as follows:
-        1.delete all the files in the folder "visualization"
-	2.make sure your datasets has no unKnown value,or you need to pre-process it.(it is a must)
+    1.delete all the files in the folder "visualization"
+	2.make sure your datasets has no unKnown value,or you need to pre-process it(It is a must).
+	If you don't pre-process the unKnown value,strange errors will occur.
 	3.cd decision_tree/sklearn_cart_CCP/sklearnCART2json_CCP/
 	4.change the "name_path" and "data_path" in sklearn_CCP_top.py
 	5.python sklearn_CCP_top.py 
         and get the best CCP-json-model and CCP-pruned  precision
 	6.Enjoy the pictures of all the TreeSets and "final bestTree" in the folder "visualization".
 
-Note:
+	Note:
         1.
         Don't Set "max_depth" too large,
         or you'll need to wait for a very long time,
@@ -205,10 +206,10 @@ Note:
         under the folder "visualization".
 
         2.
-	Two datasets have passed through the CCP implemention:
-	credit-a
-	abalone
-	They are all from UCI databases.
+		Two datasets have passed through the CCP implemention:
+		credit-a
+		abalone
+		They are all from UCI databases.
 
 
 ----------------CCP--Operation method(end)--------------------------------- 
