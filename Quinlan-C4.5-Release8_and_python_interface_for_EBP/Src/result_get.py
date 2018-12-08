@@ -5,7 +5,7 @@ sys.setdefaultencoding('utf-8')
 # @Author: appleyuchi
 # @Date:   2018-11-08 19:01:14
 # @Last Modified by:   appleyuchi
-# @Last Modified time: 2018-11-29 11:48:38
+# @Last Modified time: 2018-12-04 21:01:30
 # 这个文件的目的是把实验结果一分为二进行保存
 import os
 path="result.txt"
@@ -48,7 +48,7 @@ def test():
         data = f.readlines()
     for index,item in enumerate(data):
         data[index]=data[index].replace('\n','')
-    # print data
+    print data
 
     for item in data:
         if item=='Decision Tree:':
