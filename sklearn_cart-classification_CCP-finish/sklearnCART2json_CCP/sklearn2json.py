@@ -91,11 +91,6 @@ def split_data(data_list, y_list, ratio=0.30):
     return X_train, X_test, y_train, y_test,class_names
 
 
-
-def read_data(path):
-    source_data=pd.read_csv(path,header=None)#第一行不是标题
-    lists=source_data.values.tolist()
-    return lists
 def get_Attribute(path):
     feature_list=[]
     for line in open(path):
