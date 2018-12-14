@@ -1,7 +1,16 @@
-cart回归是怎么判定回归错误的。
+
 如何生成合理的json模型
 尝试对json模型使用sklearn的测试函数
 
-整体的思路依然是CCP
-CCP（分类）
-ECP（回归）
+预测结果就是叶子节点中的ｖａｌｕｅ
+
+搞清楚regression tree的图形是怎么绘制的。
+注意：
+回归树的图形绘制对于多维数据而言，基本上意义不大。
+
+http://www.statsoft.com/Textbook/Classification-and-Regression-Trees#formulas
+这个地方有讲解sklearn的MSE的计算
+https://www.cnblogs.com/volcao/p/9104183.html
+这个链接详细讲解了Ｒ(t)的计算，和书上相似，需要进行参考
+https://blog.csdn.net/lizhengl/article/details/54968291
+《classification and regression trees》

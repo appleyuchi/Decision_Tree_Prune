@@ -1,0 +1,16 @@
+CRIM:   continuous.
+ZN: continuous.
+INDUS:  continuous.
+CHAS:   continuous.
+NOX:    continuous.
+RM: continuous.
+AGE:    continuous.
+DIS:    continuous.
+RAD:    continuous.
+TAX:    continuous.
+PTRATIO:    continuous.
+B:  continuous.
+LSTAT:  continuous.
+
+
+

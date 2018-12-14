@@ -5,7 +5,7 @@ sys.setdefaultencoding('utf-8')
 # @Author: appleyuchi
 # @Date:   2018-12-06 13:29:13
 # @Last Modified by:   appleyuchi
-# @Last Modified time: 2018-12-08 19:15:17
+# @Last Modified time: 2018-12-14 23:03:05
 from sklearn2json import model_json,draw_file
 import pandas as pd
 import numpy as np
@@ -98,7 +98,10 @@ def Tt_count(model,count):#|Tt|
         count+=Tt_count(child,0)
     return count
 
-def Rt_compute(model):#R(t)
+def Rt_compute(model):
+#R(t)注意，这个地方我们使用的是错误数量，依据是《Simplifying Decision Trees》-quinlan
+#也可以改成错误率，依据是ＣＣＰ的原文《classification and regression trees》-Leo Breiman
+#这两篇参考文献都是决策树的发明者写的。
     Rt=(sum(model['value'])-max(model['value']))
     return Rt
 
@@ -164,10 +167,11 @@ def gt_with_tree(model,gt_list,prune_parts):#完成,这个函数遍历了每一�
         for child in children:
             gt_with_tree(child,gt_list,prune_parts)
 
-# XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+#################################################################
 
 
 #T0->T1
+#根据g(t)最小获得ｐｒｕｎｅｄ_parts（也就是要裁剪的部分），然后对当前模型进行剪枝。
 def T1_create(model,gt_list,prune_parts,prune_gt_index):#完成,这个函数遍历了每一个节点
     if 'children' not in model:#如果是叶子节点
         return
@@ -205,7 +209,7 @@ def print_list(lists):
 # def model_gtmin_Tt(clf,model,X_train,feature_names,class_names,Tt_name):
 
 #here model is json-style model
-def model_gtmin_Tt(clf,model,feature_names,class_names,Tt_name):
+def model_gtmin_Tt(clf,model,feature_names,class_names,Tt_name):#T0->T1
     # print"model=",model
     Tt=Tt_count(model,0)#|Tt|
     # print"|Tt|=",Tt
@@ -230,16 +234,19 @@ def model_gtmin_Tt(clf,model,feature_names,class_names,Tt_name):
     alpha=min(gt_list)
     prune_gt_index=gt_list.index(alpha)
     # print"prune_gt_index=",prune_gt_index
-    prune_for_minimum_gt=prune_parts[prune_gt_index]
+    prune_for_minimum_gt=prune_parts[prune_gt_index]#
     # print"prune_for_minimum_gt=\n",prune_for_minimum_gt
 #------------------------------
     T0=copy.deepcopy(model)
     T1=copy.deepcopy(model)#here T1 means Ti
     gt_list=[]#这里必须复位清零
     prune_parts=[]#这里必须复位清零
-    T1_create(T1,gt_list,prune_parts,prune_gt_index)#from T0(original model) to get T1
-    # print"\nT0=",model
-    # print "\nT1=",T1
+    T1_create(T1,gt_list,prune_parts,prune_gt_index)
+    #这里不使用上面的prune_for_minimum的原因是，这个被裁掉的部分，你不知道处于哪个结点下面．
+    #也就是说，你虽然知道要裁掉的子树是什么，但是你无法知道在哪里裁，所以这里对prune_parts进行重新构建
+    #from T0(original model) to get T1
+    #print"\nT0=",model
+    #print "\nT1=",T1
 
     index=0#never change this value！！！
     sklearn_model=copy.deepcopy(clf)
@@ -283,7 +290,7 @@ def CCP_TreeCandidate(clf,current_model,feature_names,class_names,alpha_list,Ti_
     return alpha_list,Ti_list
 #------------------------------
 #the final step.
-def CCP_cross_validation(TreeSets,alpha_list,X_test,y_test,feature_names,class_names,sklearn_model):
+def CCP_validation(TreeSets,alpha_list,X_test,y_test,feature_names,class_names,sklearn_model):
     precision_list=[]
     progress_length=len(TreeSets)
     # print"------------------------------检查下这里------------------------------"
@@ -323,14 +330,14 @@ def CCP_top(name_path,data_path,max_depth,prune=True):
         print"unpruned model=\n",json_model
         print"We are trying to get the Tree Sets,wait please.........."
         alpha_list,Ti_list=CCP_TreeCandidate(copy.deepcopy(clf),copy.deepcopy(json_model),feature_list,class_names,alpha_list,Ti_list)
-        print"We have gotten all the Tree Sets.cross-validation is coming,wait please..............."
+        print"We have gotten all the Tree Sets.Validation is coming,wait please..............."
         # print"##########################################################"
         print"alpha_list=\n"
         print "alpha_list=",alpha_list
         # print"##########################################################"
         # print"Ti_list=\n"
         # print_list(Ti_list)
-        Best_tree,best_alpha,pruned_precision=CCP_cross_validation(Ti_list,alpha_list,X_test,y_test,feature_list,class_names,copy.deepcopy(clf))
+        Best_tree,best_alpha,pruned_precision=CCP_validation(Ti_list,alpha_list,X_test,y_test,feature_list,class_names,copy.deepcopy(clf))
         print"\n"
         print"Best_tree=",Best_tree
         print"\n"

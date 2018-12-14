@@ -146,7 +146,6 @@ def rules(clf, features, labels, node_index=0):
 
 
 
-
 def model_json(data_path,name_path,cart_max_depth):
 
     feature_names=get_Attribute(name_path)
