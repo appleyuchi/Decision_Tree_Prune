@@ -1,18 +1,18 @@
 This repository is targeted at popular pruning implementions(Continuous updating):
 
-REP:Reduced Error Pruning(finished)
+REP:Reduced Error Pruning(finished for ID3)
 
-MEP:Minimum Error Pruning(finished)
+MEP:Minimum Error Pruning(finished for C4.5)
 
-PEP:Pessimistic Error Pruning(finished)
+PEP:Pessimistic Error Pruning(finished for C4.5)
 
-EBP:Error Based Pruning(finished)
+EBP:Error Based Pruning(finished for C4.5)
 
-CVP：Critical Value Pruning(finished)
+CVP：Critical Value Pruning(finished for C4.5)
 
-CCP:Cost Complexity Pruning(finished)
+CCP:Cost Complexity Pruning(finished for CART)
 
-ECP:Error Complexity Pruning(finished)
+ECP:Error Complexity Pruning(finished for CART)
 
 
 --------
@@ -159,7 +159,7 @@ https://triangleinequality.wordpress.com/2013/09/01/decision-trees-part-3-prunin
 
 It can work,but the author modified the original CCP,which result in no candidate trees to select,
 and so no cross-validation to select best pruned tree.
-He set a fixed alpha,before run this"modified CCP",the method is to pursue min|R(t)-R(Tt)-a(|Tt|－1)|.
+He set a fixed alpha,before run this"modified CCP",the method is to pursue $min$|R($t$)-R($T_t$)-a(|$T_t$|－1)|.
 
 All of above three implementions are stored and annotated in the folder:"several_wrong_implementions_CCP"
 
@@ -207,22 +207,30 @@ All of above three implementions are stored and annotated in the folder:"several
         if you persist running it with very large "max_depth",then graphviz may NOT be able to draw pictures under the folder "visualization".
 
         2.
-		Two datasets have passed through the CCP implemention:
-		credit-a
-		abalone
-		They are all from UCI databases.
+	datasets from UCI which have been tested:
+	credit-a
+	abalone
 
 
 ----------------CCP--Operation method(end)--------------------------------- 
 
+-------------------ECP-Operation method(start)-----------------------
+
+
+        1.change your datasets path in file sklearn_ECP_TOP.py
+        2.set b_SE=True in sklearn_ECP_TOP.py if you want this rule to select the best pruned tree.
+        3.python sklearn_ECP_TOP.py in the path decision_tree/sklearn_cart-regression_ECP-finish/
+        4.Enjoy the results in the folder＂visualization＂.
+
+        datasets from UCI which have been tested:
+        housing(boston)
+        
+
 -------------------ECP-Operation method(end)----------------------- 
-1.change your datasets path in code
-2.set b_SE=True in sklearn_ECP_TOP.py if you want this to select the best pruned tree.
-3.python sklearn_ECP_TOP.py in the path decision_tree/sklearn_cart-regression_ECP-finish/
-4.Enjoy the results in visualization.
 
 \----------------------------------------
-You may also interested in the inventer、history of Pruning Algorithms,I have collected them together in the following Link:  
+You may also interested in the inventer、history of Pruning Algorithms,and you may want to compare the unpruned effects and pruned effects,
+I have collected them together in the following Link:  
 https://blog.csdn.net/appleyuchi/article/details/83692381
 
 Don't hesitate to contact appleyuchi@foxmail.com please if you have any question.
