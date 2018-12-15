@@ -12,7 +12,7 @@ CVP：Critical Value Pruning(finished)
 
 CCP:Cost Complexity Pruning(finished)
 
-ECP:Error Complexity Pruning(NOT finished yet)
+ECP:Error Complexity Pruning(finished)
 
 
 --------
@@ -214,6 +214,12 @@ All of above three implementions are stored and annotated in the folder:"several
 
 
 ----------------CCP--Operation method(end)--------------------------------- 
+
+-------------------ECP-Operation method(end)----------------------- 
+1.change your datasets path in code
+2.set b_SE=True in sklearn_ECP_TOP.py if you want this to select the best pruned tree.
+3.python sklearn_ECP_TOP.py in the path decision_tree/sklearn_cart-regression_ECP-finish/
+4.Enjoy the results in visualization.
 
 \----------------------------------------
 You may also interested in the inventer、history of Pruning Algorithms,I have collected them together in the following Link:  
