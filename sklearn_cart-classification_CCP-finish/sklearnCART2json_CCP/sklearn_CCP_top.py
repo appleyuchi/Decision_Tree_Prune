@@ -5,13 +5,14 @@ sys.setdefaultencoding('utf-8')
 # @Author: appleyuchi
 # @Date:   2018-12-06 13:29:13
 # @Last Modified by:   appleyuchi
-# @Last Modified time: 2018-12-14 23:03:05
+# @Last Modified time: 2018-12-15 13:03:24
 from sklearn2json import model_json,draw_file
 import pandas as pd
 import numpy as np
 import re
 import copy
 from sklearn.tree._tree import TREE_LEAF
+from math import sqrt
 
 
 
@@ -290,7 +291,7 @@ def CCP_TreeCandidate(clf,current_model,feature_names,class_names,alpha_list,Ti_
     return alpha_list,Ti_list
 #------------------------------
 #the final step.
-def CCP_validation(TreeSets,alpha_list,X_test,y_test,feature_names,class_names,sklearn_model):
+def CCP_validation(TreeSets,alpha_list,X_test,y_test,feature_names,class_names,sklearn_model,b_SE):
     precision_list=[]
     progress_length=len(TreeSets)
     # print"------------------------------检查下这里------------------------------"
@@ -301,24 +302,60 @@ def CCP_validation(TreeSets,alpha_list,X_test,y_test,feature_names,class_names,s
         print"T%d_precision=%f"%(index,Ti_precision)
         precision_list.append(Ti_precision)
         print"the T"+str(index)+" has been validated, "+str(progress_length-index-1)+" Trees left, wait please....."
+    if b_SE==False:
+        pruned_precision=max(precision_list)
+        index=precision_list.index(pruned_precision)
+        print"index=",index
+        best_alpha=alpha_list[index]
+        Best_tree=TreeSets[index]
+        dot_file="./visualization/Best_tree_0SE.dot"
+        svg_file="./visualization/Best_tree_0SE.svg"
+        #画一画树
+    
+        best_sklearn_model=copy.deepcopy(sklearn_model)
+        prune_sklearn_model(best_sklearn_model.tree_,0,Best_tree)
+    
+        draw_file(best_sklearn_model,dot_file,svg_file,feature_names)
+        return Best_tree,best_alpha,pruned_precision,precision_list[0]
 
-    pruned_precision=max(precision_list)
-    index=precision_list.index(pruned_precision)
-    print"index=",index
-    best_alpha=alpha_list[index]
-    Best_tree=TreeSets[index]
-    dot_file="./visualization/Best_tree.dot"
-    svg_file="./visualization/Best_tree.svg"
-    #画一画树
+    else:#使用１-SE rule
+        error_rate_list=[1-item for item in precision_list]
+        lowest_error_rate=min(error_rate_list)
+        print"error_rate_list=",error_rate_list
+        SE=sqrt(lowest_error_rate*(1-lowest_error_rate)/len(y_test))
+        print"SE=",SE
 
-    best_sklearn_model=copy.deepcopy(sklearn_model)
-    prune_sklearn_model(best_sklearn_model.tree_,0,Best_tree)
+        criterion_1_SE=lowest_error_rate+SE
 
-    draw_file(best_sklearn_model,dot_file,svg_file,feature_names)
-    return Best_tree,best_alpha,pruned_precision
+        index_error_rate=0
+        for index,item in enumerate(error_rate_list):#search from from the end ,because the error_rate_list is not monotory.
+
+            if error_rate_list[len(error_rate_list)-1-index]<criterion_1_SE:
+                index_error_rate=len(error_rate_list)-1-index
+                break
+
+        # if index_error_rate-1>=0:
+        #     index_error_rate=index_error_rate-1
+        # else:
+        #     pass#becasuse the list may only have one item.
+
+        pruned_precision=precision_list[index_error_rate]#here's right,because the precision list is corresponding to the error_rate_list.
+
+        best_alpha=alpha_list[index_error_rate]
+        Best_tree=TreeSets[index_error_rate]
+        dot_file="./visualization/Best_tree_1SE.dot"
+        svg_file="./visualization/Best_tree_1SE.svg"
+        #画一画树
+        best_sklearn_model=copy.deepcopy(sklearn_model)
+        prune_sklearn_model(best_sklearn_model.tree_,0,Best_tree)
+    
+        draw_file(best_sklearn_model,dot_file,svg_file,feature_names)
+        return Best_tree,best_alpha,pruned_precision,precision_list[0]
 
 
-def CCP_top(name_path,data_path,max_depth,prune=True):
+
+
+def CCP_top(name_path,data_path,max_depth,prune=True,b_SE=True):
     clf,json_model,X_train,y_train,X_test,y_test,feature_list,class_names=model_json(data_path,name_path,max_depth)
     print"sklearn model has been transformed to json-style model=\n"
     if prune==False:
@@ -337,14 +374,14 @@ def CCP_top(name_path,data_path,max_depth,prune=True):
         # print"##########################################################"
         # print"Ti_list=\n"
         # print_list(Ti_list)
-        Best_tree,best_alpha,pruned_precision=CCP_validation(Ti_list,alpha_list,X_test,y_test,feature_list,class_names,copy.deepcopy(clf))
+        Best_tree,best_alpha,pruned_precision,unpruned_precision=CCP_validation(Ti_list,alpha_list,X_test,y_test,feature_list,class_names,copy.deepcopy(clf),b_SE)
         print"\n"
         print"Best_tree=",Best_tree
         print"\n"
         print"best_alpha=",best_alpha
         print"\n"
         print"pruned_precision=",pruned_precision
-        return Best_tree,best_alpha,pruned_precision
+        return Best_tree,best_alpha,pruned_precision,unpruned_precision
 
 
 def test_abalone():
@@ -352,20 +389,20 @@ def test_abalone():
     name_path="./data/abalone.names"
     data_path="./data/abalone.data"
     max_depth=3
-    Best_tree,best_alpha,pruned_precision=CCP_top(name_path,data_path,max_depth,prune=True)
+    Best_tree,best_alpha,pruned_precision,unpruned_precision=CCP_top(name_path,data_path,max_depth,prune=True,b_SE=True)
 def test_credit_a():
     # https://archive.ics.uci.edu/ml/datasets/credit+approval
     name_path="./data/crx.names"
     data_path="./data/crx_fix_unKnown.data"
     max_depth=10
-    Best_tree,best_alpha,pruned_precision=CCP_top(name_path,data_path,max_depth,prune=True)
+    Best_tree,best_alpha,pruned_precision,unpruned_precision=CCP_top(name_path,data_path,max_depth,prune=True,b_SE=True)
 
 if __name__ == '__main__':
-    # test_abalone()
+    test_abalone()
     # Note:cart on abalone has low precision,because this task is preferred to be dealed with regression tree,
     # Not classification Tree.
     # To improve the precision ,you can set the "max_depth" larger
-    test_credit_a()
+    # test_credit_a()
 
 
 
