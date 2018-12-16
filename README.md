@@ -1,4 +1,4 @@
-This repository is targeted at popular pruning implementions(Continuous updating):
+This repository is targeted at popular pruning implementations(Continuous updating):
 
 REP:Reduced Error Pruning(finished for ID3)
 
@@ -32,14 +32,14 @@ Quinlan-C4.5-Release8_and_python_interface_for_EBP/Src/quinlan-src/
 which is from  
 http://www.rulequest.com/Personal/c4.5r8.tar.gz  
 its author is Ross Quinlan.
-The model from Quinlan's implemention is C-type,and it will be transformed to be "Python-compliant" model afterwards.
+The model from Quinlan's implementation is C-type,and it will be transformed to be "Python-compliant" model afterwards.
 
 ②datasets with unKnown value is Not Supported,because under different cases or in different papers,different people have different methods to deal with unknown value.　　
 
-③The "C4.5-Release decision tree model" produced by quinlan's implemention in the above link is C-type model,Not python-type model,So we need to do transformation before running pruning algorithm.  
+③The "C4.5-Release decision tree model" produced by quinlan's implementation in the above link is C-type model,Not python-type model,So we need to do transformation before running pruning algorithm.  
 For further details about transformation,continue reading the following contents please.
 
-④when your datasets is very very small ,you'll get very small model,then,you will NOT get a "Simplified Tree"(pruned model)from quinlan's implemention.
+④when your datasets is very very small ,you'll get very small model,then,you will NOT get a "Simplified Tree"(pruned model)from quinlan's implementation.
 This means "pruned model"="unpruned model",
 when this happend,copy the content of "result/unprune.txt" to  "result/prune.txt"please.
 
@@ -77,7 +77,7 @@ For EBP(Error Based Pruning),Operation method is:
 
     It's  an Python interface for C-type code in:  
     http://www.rulequest.com/Personal/c4.5r8.tar.gz
-    This interface is used to get model and EBP pruned model from Quinlan's implemention.
+    This interface is used to get model and EBP pruned model from Quinlan's implementation.
 
 ----------------EBP--Operation method(end)--------------------------------- 
 
@@ -141,7 +141,7 @@ of course,you can skip the first 3 steps if you just want to see its performance
 ----------------CCP--Operation method(some relevant information-start)---------------------------------  
 
 Attention:
-    By far,there have are 3 implementions of CCP on CART by others,but all of them have defects.
+    By far,there have are 3 implemenations of CCP on CART by others,but all of them have defects.
 
 1.
 https://github.com/Rudo-erek/decision-tree/tree/master/data
@@ -161,14 +161,14 @@ It can work,but the author modified the original CCP,which result in no candidat
 and so no cross-validation to select best pruned tree.
 He set a fixed alpha,before run this"modified CCP",the method is to pursue $min$|R($t$)-R($T_t$)-a(|$T_t$|－1)|.
 
-All of above three implementions are stored and annotated in the folder:"several_wrong_implementions_CCP"
+All of above three implementations are stored and annotated in the folder:"several_wrong_implementations_CCP"
 
 
 	Note1:
-    This repository's CCP-implemention is performed based on sklearn's CART classification-model.
+    This repository's CCP-implementation is performed based on sklearn's CART classification-model.
 	Here's the relevant issuse of official github of Sklearn.
     https://github.com/scikit-learn/scikit-learn/issues/6557
-    They are trying to prune on sklearn's CART model with Cython(a faster python with C),which is still un-available.My  CCP implemention on sklearn's CART model is pure python.
+    They are trying to prune on sklearn's CART model with Cython(a faster python with C),which is still un-available.My  CCP implementation on sklearn's CART model is pure python.
 
 	Note2:
     CCP  can also be used on C4.5(Not supported in this github),and the article which use CCP on C4.5 is《Simplifying Decision Trees》part2.1-J.R.Quinlan

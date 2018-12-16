@@ -1,0 +1,16 @@
+Age,Job,House,Credit,Result
+young,no,no,normal,no
+young,no,no,good,no
+young,yes,no,good,yes
+young,yes,yes,normal,yes
+young,no,no,normal,no
+middle,no,no,normal,no
+middle,no,no,good,no
+middle,yes,yes,good,yes
+middle,no,yes,very_good,yes
+middle,no,yes, very_good,yes
+old,no,yes, very_good,yes
+old,no,yes, good,yes
+old,yes,no, good,yes
+old,yes,no, very_good,yes
+old,no,no, normal, no

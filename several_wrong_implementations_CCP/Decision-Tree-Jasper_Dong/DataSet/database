@@ -1,0 +1,54 @@
+# 两个特征
+('weather','temperature','go out?')
+dataSet=(['sunny','cool','yes'],
+         ['sunny','cool','yes'],
+         ['sunny','hot','no'],
+         ['rain','hot','no'],
+         ['rain','cool','no'])
+('weather', 'temperature', 'go out?')
+['sunny', 'cool', 'yes'],
+['sunny', 'cool', 'yes'],
+['sunny', 'hot', 'no'],
+['rain', 'hot', 'no'],
+['rain', 'cool', 'no']
+
+# 四个特征
+labels = ('Weather', 'Temperature', 'Humidity', 'Wind', 'Play?')
+dataSet = (
+    ['Sunny', 'Hot', 'High', 'Weak', 'no'],
+    ['Sunny', 'Hot', 'High', 'Strong', 'no'],
+    ['Overcast', 'Hot', 'High', 'Weak', 'yes'],
+    ['Rainy', 'Mild', 'High', 'Weak', 'yes'],
+    ['Rainy', 'Cool', 'Normal', 'Weak', 'yes'],
+    ['Rainy', 'Cool', 'Normal', 'Strong', 'no'],
+    ['Overcast', 'Cool', 'Normal', 'Strong', 'yes'],
+    ['Sunny', 'Mild', 'High', 'Weak', 'no'],
+    ['Sunny', 'Cool', 'Normal', 'Weak', 'yes'],
+    ['Rainy', 'Mild', 'Normal', 'Weak', 'yes'],
+    ['Sunny', 'Mild', 'Normal', 'Strong', 'yes'],
+    ['Overcast', 'Mild', 'High', 'Strong', 'yes'],
+    ['Overcast', 'Hot', 'Normal', 'Weak', 'yes'],
+    ['Rainy', 'Mild', 'High', 'Strong', 'no'])
+
+# 五个特征
+
+labels = ('color', 'root',         'knocks',         'texture',     'navel',          'touch',        'quality')
+dataSet = (
+['green', 'curly',        'loudly',  'distinct',    'sunk',        'smooth', 'good'],
+['black', 'curly',        'heavily', 'distinct',    'sunk',        'smooth', 'good'],
+['black', 'curly',        'loudly',  'distinct',    'sunk',        'smooth', 'good'],
+['green', 'curly',        'heavily', 'distinct',    'sunk',        'smooth', 'good'],
+['white', 'curly',        'loudly',  'distinct',    'sunk',        'smooth', 'good'],
+['green', 'little_curly', 'loudly',  'distinct',    'little_sunk', 'stick',  'good'],
+['black', 'little_curly', 'loudly',  'little_blur', 'little_sunk', 'stick',  'good'],
+['black', 'little_curly', 'loudly',  'distinct',    'little_sunk', 'smooth', 'good'],
+['black', 'little_curly', 'heavily', 'little_blur', 'little_sunk', 'smooth', 'bad'],
+['green', 'stiff',        'clearly', 'distinct',    'even',        'stick',  'bad'],
+['white', 'stiff',        'clearly', 'blur',        'even',        'smooth', 'bad'],
+['white', 'curly',        'loudly',  'blur',        'even',        'stick',  'bad'],
+['green', 'little_curly', 'loudly',  'little_blur', 'sunk',        'smooth', 'bad'],
+['white', 'little_curly', 'heavily', 'little_blur', 'sunk',        'smooth', 'bad'],
+['black', 'little_curly', 'loudly',  'distinct',    'little_sunk', 'stick',  'bad'],
+['white', 'curly',        'loudly',  'blur',        'even',        'smooth', 'bad'],
+['green', 'curly',        'heavily', 'little_blur', 'little_sunk', 'smooth', 'bad'],
+)

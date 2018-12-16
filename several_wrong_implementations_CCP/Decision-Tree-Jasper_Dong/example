@@ -1,0 +1,228 @@
+import copy
+
+import numpy as np
+
+from CreatDT.C4_5 import createC4_5Tree
+from CreatDT.CART import createCARTTree
+from CreatDT.ID3 import createID3Tree
+from CreatDT.Operation import createSet, testAccuracy
+from PurnDT.Post_Pruning import PostPruning_PEP, PostPruning_MEP, PostPruning_CCP
+from PurnDT.Pre_REP_Pruning import PrePruning, PostPruning_REP
+'''
+
+# 读取数据集文件
+def loadDataSet(fileName):
+    """
+    :param fileName:数据集文件
+    :return:数据集
+    """
+    file = open(fileName)                   # 打开数据集文件
+    line = file.readline()                  # 读取每行所有元素
+    dataSet = []                            # 数据集初始化
+    while line:
+        data = line.strip('\n').split(',')  # 按照','划分数据，并剔除回车符
+        dataSet.append(data)                # 将每行数据放到数据集
+        line = file.readline()
+    file.close()
+    return dataSet
+
+# 存储数据集
+def saveDataSet(originalDataSet, number, fileName):
+    """
+    :param originalDataSet:初始数据集
+    :param number:需抽取样本个数
+    :param fileName:写入文件名称
+    """
+    N = len(originalDataSet)      # 初始数据集长度
+    dataList = np.random.randint(N, size=number)  # 随机抽取样本
+    if number == 0:               # 如果number为0，则存储整个数据集
+        dataSet = originalDataSet
+    else:
+        dataSet = []              # 构造训练数据集
+        for i in dataList:
+            dataSet.append(originalDataSet[i])
+    file = open(fileName, 'w')
+    for data in dataSet:
+        for i in range(len(data)-1):
+            file.writelines([data[i], ','])
+        file.writelines([data[-1], '\n'])
+    file.close()
+
+# 构造原始数据集和属性集合
+originalDataSet = loadDataSet('DataSet/nursery.data.txt')
+labels = originalDataSet[0]
+
+# 将原始数据集写入文本
+# saveDataSet(originalDataSet[1:], 30, 'dataSet.txt')
+
+# 读取数据集
+dataSet = originalDataSet[1:1000]
+# dataSet = loadDataSet('dataSet.txt')
+dataSet = tuple(dataSet)
+'''
+'''
+print('The dataSet is\n', labels)
+for data in dataSet:
+    print(data)
+'''
+
+"""构造完全决策树"""
+'''
+# ID3算法生成分类决策树
+ID3Tree = createID3Tree(list(dataSet), list(labels))
+print('The ID3 Decision Tree is', ID3Tree)
+
+# C4.5算法生成分类决策树
+C4_5Tree = createC4_5Tree(list(dataSet), list(labels))
+print('The C4.5 Decision Tree is', C4_5Tree)
+
+# CART算法生成分类决策树
+CARTTree = createCARTTree(list(dataSet), list(labels))
+print('The CART Decision Tree is', CARTTree)
+'''
+
+"""对决策树进行剪枝"""
+
+# 生成训练集和测试集
+#trainSet, testSet = createSet(dataSet)
+'''
+print('trainSet=\n', labels, '\n')
+for data in trainSet:
+    print(data)
+print('-------------------------')
+print('testSet=\n', labels, '\n')
+for data in testSet:
+    print(data)
+print('-------------------------')
+'''
+
+"""对ID3算法生成的决策树，进行剪枝"""
+'''
+print('===========================================')
+# 先用ID3算法，将训练集生成决策树
+ID3TrainTree = createID3Tree(trainSet, list(labels))
+print('The ID3 Decision Tree is', ID3TrainTree)
+
+# 根据测试集，进行预剪枝
+PreID3Tree = PrePruning(trainSet, testSet, list(labels))
+print('The Pre_Pruning_ID3 Decision Tree is', PreID3Tree)
+
+# 根据测试集，使用REP方法进行后剪枝
+REPID3Tree = PostPruning_REP(trainSet, testSet, list(labels))
+print('The REP_Pruning_ID3 Decision Tree is', REPID3Tree)
+
+# 根据测试集，使用PEP方法进行后剪枝
+PEPID3Tree = PostPruning_PEP(ID3Tree, list(labels), trainSet)
+print('The PEP_Pruning_ID3 Decision Tree is', PEPID3Tree)
+
+# 计算剪枝前后准确度
+ID3Accuracy = testAccuracy(ID3TrainTree, labels, dataSet)
+print('The Accuracy of ID3 Decision Tree is', ID3Accuracy)
+PreID3Accuracy = testAccuracy(PreID3Tree, labels, dataSet)
+print('The Accuracy of Pre_Pruning_ID3 Decision Tree is', PreID3Accuracy)
+REPID3Accuracy = testAccuracy(REPID3Tree, labels, dataSet)
+print('The Accuracy of REP_Pruning_ID3 Decision Tree is', REPID3Accuracy)
+PEPID3Accuracy = testAccuracy(PEPID3Tree, labels, dataSet)
+print('The Accuracy of PEP_Pruning_ID3 Decision Tree is', PEPID3Accuracy)
+'''
+
+"""对C4.5算法生成的决策树，进行剪枝"""
+'''
+print('===========================================')
+# 先用C4.5算法，生成决策树
+C4_5Tree = createC4_5Tree(list(dataSet), list(labels))
+print('The C4.5 Decision Tree is', C4_5Tree)
+copyC4_5Tree = copy.deepcopy(C4_5Tree)  # 将生成树拷贝
+
+# 使用PEP方法，对决策树进行后剪枝
+PEPC4_5Tree = PostPruning_PEP(C4_5Tree, list(labels), list(dataSet))
+print('The PEP_Pruning_C4.5 Decision Tree is', PEPC4_5Tree)
+
+# 使用MEP方法，对决策树进行后剪枝
+MEPC4_5Tree = PostPruning_MEP(copyC4_5Tree, list(labels), list(dataSet))
+print('The MEP_Pruning_C4.5 Decision Tree is', MEPC4_5Tree)
+
+# 计算剪枝前后准确度
+C4_5Accuracy = testAccuracy(C4_5Tree, labels, dataSet)
+print('The Accuracy of C4.5 Decision Tree is', C4_5Accuracy)
+PEPC4_5Accuracy = testAccuracy(PEPC4_5Tree, labels, dataSet)
+print('The Accuracy of PEP_Pruning_C4.5 Decision Tree is', PEPC4_5Accuracy)
+MEPC4_5Accuracy = testAccuracy(MEPC4_5Tree, labels, dataSet)
+print('The Accuracy of MEP_Pruning_C4.5 Decision Tree is', MEPC4_5Accuracy)
+'''
+
+"""对CART算法生成的决策树，进行剪枝"""
+'''
+print('===========================================')
+# 先用CART算法，将测试集生成决策树
+CARTTree = createCARTTree(list(dataSet), list(labels))
+print('The CART Decision Tree is', CARTTree)
+
+# 使用MEP方法，对决策树进行后剪枝
+MEPCARTTree = PostPruning_MEP(CARTTree, list(labels), list(dataSet))
+print('The MEP_Pruning_CART Decision Tree is', MEPCARTTree)
+MEPCARTAccuracy = testAccuracy(MEPCARTTree, labels, dataSet)
+print('The Accuracy of MEP_Pruning_CART Decision Tree is', MEPCARTAccuracy)
+
+# 使用CCP方法，对决策树进行后剪枝
+CCPCARTTree = PostPruning_CCP(CARTTree, list(labels), list(dataSet))
+print('The CCP_Pruning_CART Decision Tree is', CCPCARTTree)
+
+# 计算剪枝前后准确度
+CARTAccuracy = testAccuracy(CARTTree, labels, dataSet)
+print('The Accuracy of CART Decision Tree is', CARTAccuracy)
+
+CCPCARTAccuracy = testAccuracy(CCPCARTTree, labels, dataSet)
+print('The Accuracy of CCP_Pruning_CART Decision Tree is', CCPCARTAccuracy)
+'''
+'''
+# 显示各个决策树
+createPlot(ID3Tree, 'ID3 Decision Tree')
+createPlot(C4_5Tree, 'C4.5 Decision Tree')
+createPlot(CARTTree, 'CART Decision Tree')
+plt.show()  # 显示决策树
+
+createPlot(ID3TrainTree, 'ID3 Decision Tree')
+createPlot(PreID3Tree, 'Pre_Pruning_ID3')
+createPlot(REPID3Tree, 'REP_Pruning_ID3')
+createPlot(PePID3Tree, 'PEP_Pruning_ID3')
+plt.show()  # 显示决策树
+
+createPlot(C4_5Tree, 'C4.5 Decision Tree')
+createPlot(PePC4_5Tree, 'PEP_Pruning_C4')
+createPlot(MEPC4_5Tree, 'MEP_Pruning_C4.5')
+plt.show()  # 显示决策树
+
+createPlot(CARTTree, 'CART Decision Tree')
+createPlot(MEPCARTTree, 'MEP_Pruning_CART')
+createPlot(CCPCARTTree, 'CCP_Pruning_CART')
+
+plt.show()  # 显示决策树
+'''
+
+import random
+
+
+m=[]
+for i in range(10):
+    m.append(i)
+print(m)
+print(random.sample(m, 10))
+
+for i in range(len(TreeSet)):
+    errorSet.append(crossValidation(TreeSet[i], labels, dataSet))
+    depthSet.append(getTreeDepth(TreeSet[i]))
+for i in range(len(TreeSet)):
+    print('--------------------')
+    print('TreeSet=', TreeSet[i])
+    print('errorSet=', errorSet[i], errorSet[i] / max(errorSet))
+    print('depthSet=', depthSet[i], depthSet[i] / max(depthSet))
+    evalValue = 0.5 * errorSet[i] / max(errorSet) + 0.5 * depthSet[i] / max(depthSet)
+    print('evalValue=', evalValue)
+    if evalValue < baseValue:
+        baseValue = evalValue
+        bestTree = i
+return TreeSet[bestTree]
+
+
+
