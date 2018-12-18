@@ -10,7 +10,7 @@ EBP:Error Based Pruning(finished for C4.5)
 
 CVP：Critical Value Pruning(finished for C4.5)
 
-CCP:Cost Complexity Pruning(finished for CART－Classification Tree)
+CCP:Cost Complexity Pruning(finished for CART-Classification Tree)
 
 ECP:Error Complexity Pruning(finished for CART-Regression Tree)
 
