@@ -147,7 +147,7 @@ Attention:
 https://github.com/Rudo-erek/decision-tree/tree/master/data
 
 It can NOT work,and it can NOT deal with continuous Attribute.
-The computation of R(t) is wrong,this link use Gini to compute R（t）
+The computation of R(t) is wrong,this link use Gini to compute R(t)
 
 2.
 https://github.com/Jasper-Dong/Decision-Tree
@@ -159,7 +159,7 @@ https://triangleinequality.wordpress.com/2013/09/01/decision-trees-part-3-prunin
 
 It can work,but the author modified the original CCP,which result in no candidate trees to select,
 and so no cross-validation to select best pruned tree.
-He set a fixed alpha,before run this"modified CCP",the method is to pursue $min$|R($t$)-R($T_t$)-a(|$T_t$|－1)|.
+He set a fixed alpha,before run this"modified CCP",the method is to pursue min|R(t)-R(Tt)-a(|Tt|－1)|.
 
 All of above three implementations are stored and annotated in the folder:"several_wrong_implementations_CCP"
 
