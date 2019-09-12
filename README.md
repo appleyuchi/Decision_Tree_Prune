@@ -2,11 +2,6 @@ This repository is targeted at popular pruning implementations(Continuous updati
 
 
 
-| Link | Defects |
-|------------- |------------- |
-
-
-
 |name | full name |  Tree type|language|
 |------------- |------------- |------------- |
 |REP | Reduced Error Pruning | ID3|Python|
@@ -232,6 +227,7 @@ All of above three implementations are stored and annotated in the folder:"sever
 
 
 You may also interested in the inventer、history of Pruning Algorithms,and you may want to compare the unpruned effects and pruned effects.I have collected them together:
+
 [History of pruning algorithm development and python implementation(finished)](https://blog.csdn.net/appleyuchi/article/details/83692381)
 
 
