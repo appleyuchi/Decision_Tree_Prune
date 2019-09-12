@@ -48,6 +48,7 @@ ClassNo Category(CaseDesc, DecisionTree)
 	if ( ClassSum[c] > ClassSum[BestClass] ) BestClass = c;
     }
 
+    printf("BestClass=%d\n',BestClass);
     return BestClass;
 }
 

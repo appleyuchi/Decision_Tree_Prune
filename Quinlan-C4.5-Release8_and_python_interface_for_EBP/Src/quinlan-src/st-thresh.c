@@ -50,10 +50,10 @@ void SoftenThresh(T)
 
     ScanTree(T, 0, MaxItem);
 
-    cfree(ThreshErrs);
-    cfree(RHSErr);
-    cfree(LHSErr);
-    cfree(CVals);
+    free(ThreshErrs);
+    free(RHSErr);
+    free(LHSErr);
+    free(CVals);
 }
 
 

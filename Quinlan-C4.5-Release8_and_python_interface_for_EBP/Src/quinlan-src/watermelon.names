@@ -6,4 +6,5 @@ texture:distinct,little_blur,blur.
 navel:sinking,little_sinking,even.
 touch:hard_smooth,soft_stick.
 density:continuous.
+
 sugar_content:continuous.

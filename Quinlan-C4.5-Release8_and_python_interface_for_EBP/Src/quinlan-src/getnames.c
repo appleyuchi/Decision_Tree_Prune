@@ -249,17 +249,32 @@ void GetNames()
 /*	Locate value Val in List[First] to List[Last]			 */
 /*									 */
 /*************************************************************************/
-
-
+//Last变量：.names文件中某个DISCRETE特征的取值种数
+//Val：.data文件中某条数据的某个特征的取值
+//List:.name文件中某个特征的取值列表
+//n:.data的某条数据的某个特征的取值，在.names中的对应特征的取值列表中的第几个，n从1开始计数
 int Which(Val, List, First, Last)
 /*  -----  */
     String Val, List[];
     short First, Last;
 {
     short n=First;
+    printf("计算Dv是多少（开始）\n");
+    printf("First=%d\n",First);
+    printf("Last=%d\n",Last);
+    printf("Val=%s\n",Val);
 
-    while ( n <= Last && strcmp(Val, List[n]) ) n++;
 
+    while ( n <= Last && strcmp(Val, List[n]) ) 
+    {
+     	printf("进入while循环\n");
+    	n++;
+        printf("List[%d]=%s\n",n,List[n]);
+        printf("当前n=%d\n",n);
+        printf("当前Val=%s\n",Val);
+        printf("当前List[n]=List[%d]=%s\n",n,List[n]);
+    }
+	printf("计算Dv是多少（结束）\n");
     return ( n <= Last ? n : First-1 );
 }
 
@@ -319,7 +334,7 @@ void Error(n, s1, s2)
 	case 5: printf("case %d's class of '%s' is illegal\n", MaxItem+1, s2);
     }
 
-    if ( ++Messages > 10 )
+    if ( ++Messages > 1000000 )
     {
 	printf("Error limit exceeded\n");
 	exit(1);

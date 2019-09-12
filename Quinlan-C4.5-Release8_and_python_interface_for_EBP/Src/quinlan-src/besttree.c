@@ -197,7 +197,7 @@ void FormTarget(Size)
     ClassesLeft--;
     }
 
-    cfree(ClassFreq);
+    free(ClassFreq);
 }
 
 

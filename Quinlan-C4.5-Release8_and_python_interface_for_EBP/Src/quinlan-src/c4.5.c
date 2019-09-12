@@ -25,7 +25,7 @@ void PrintTree();
 
 short		MaxAtt, MaxClass, MaxDiscrVal = 2;
 
-ItemNo		MaxItem;
+ItemNo	MaxItem;
 
 Description	*Item;
 

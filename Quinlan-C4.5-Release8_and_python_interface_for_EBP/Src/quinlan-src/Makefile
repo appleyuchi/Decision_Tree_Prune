@@ -124,8 +124,7 @@ all:#这个的使用方法是make all
 	gcc -o average average.c -lm
 
 
-#????????????????下面是什么意思呢?
-#是否可以删除呢?
+
 $(trees): defns.i types.i extern.i
 $(rules): defns.i types.i extern.i
 
@@ -138,10 +137,3 @@ SUBDIR = $(shell ls ./ -R | grep /)
 clean:
 	rm -rf $(SOURCE)
 
-
-#后面的文件生成的流程(未完待续):
-# cores->trees->c4.5->c4.5gt->c4.5gt.c->c4.5gt
-# cores->rules->c4.5rules
-# c4.5rulesgt->c4.5rulesgt.c->c4.5rulesgt
-# core->consult
-# core->consultr

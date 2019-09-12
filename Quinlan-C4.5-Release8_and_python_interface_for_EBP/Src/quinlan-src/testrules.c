@@ -69,7 +69,7 @@ void EvaluateRulesets(DeleteRules)
     /*  Print report  */
 
     printf("\n");
-    printf("Trial   Size      Errors\n");
+    printf("Trial         Size      Errors\n");
     printf("-----   ----      ------\n");
 
     ForEach(t, 0, TRIALS)
@@ -248,8 +248,8 @@ ItemNo Interpret(Fp, Lp, DeleteRules, CMInfo, Arrow)
 	}
     }
 
-    cfree(Better);
-    cfree(Worse);
+    free(Better);
+    free(Worse);
 
     if ( riDrop )
     {

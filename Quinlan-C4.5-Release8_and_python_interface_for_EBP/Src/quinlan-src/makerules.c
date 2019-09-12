@@ -87,21 +87,21 @@ void FormRules(t)
 
     ForEach(i, 0, MaxDepth+1)
     {
-	cfree(CondSatisfiedBy[i]);
-	cfree(Stack[i]);
+	free(CondSatisfiedBy[i]);
+	free(Stack[i]);
     }
-    cfree(Deleted);
-    cfree(CondSatisfiedBy);
-    cfree(Stack);
+    free(Deleted);
+    free(CondSatisfiedBy);
+    free(Stack);
 
-    cfree(Actual);
-    cfree(Total);
-    cfree(Errors);
-    cfree(Pessimistic);
+    free(Actual);
+    free(Total);
+    free(Errors);
+    free(Pessimistic);
 
-    cfree(CondSigLevel);
+    free(CondSigLevel);
 
-    cfree(TargetClassFreq);
+    free(TargetClassFreq);
 }
 
 
@@ -197,6 +197,6 @@ void Scan(t, d)
 
 	PruneRule(Term, d, t->Leaf);
 
-	cfree(Term);
+	free(Term);
     }
 }

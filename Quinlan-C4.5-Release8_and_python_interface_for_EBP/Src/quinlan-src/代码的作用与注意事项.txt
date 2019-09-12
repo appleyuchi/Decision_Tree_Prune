@@ -70,12 +70,12 @@ contin.c的EvalContinuousAtt计算
 
 
 <C4.5:programs for machine learning>中，总共使用了４套数据集：
-ｌａｂｅｒ-neg
+laber-neg
 hypo
 house-votes-84
 是否出去玩的数据集
 
-labor-neg的运行结果与<C4.5:programs for machine learning>中的Ｐ７完全一致
+labor-neg的运行结果与<C4.5:programs for machine learning>中的P7完全一致
 
 
 设定剪枝的置信水平

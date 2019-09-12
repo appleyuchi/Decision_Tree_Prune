@@ -8,6 +8,11 @@
 混合型数据集表示特征中有离散和连续取值的数据
 
 
-论文中的ｃｒｅｄｉｔ-a数据集就是此处的ｃｒｘ数据集
+一些上世纪很古老的论文（包括决策树，专家系统等相关论文）中频繁提到的credit-a数据集就是此处的crx数据集
 
 该代码对应论文《Improved use of continuous attributes in C4.5》
+
+代码的详细使用方法在代码作者Ross Quinlan本人的书中有记载：
+《C4.5 Programs for Machine Learning》
+但是呢，手中的注释可没有这么详细。
+
