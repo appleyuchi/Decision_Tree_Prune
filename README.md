@@ -1,18 +1,24 @@
+
+
 This repository is targeted at popular pruning implementations(Continuous updating):
 
-REP:Reduced Error Pruning(finished for ID3)
 
-MEP:Minimum Error Pruning(finished for C4.5)
+name | full name |  Tree type|language
+-|-|-
+REP | Reduced Error Pruning | ID3|Python
+MEP | Minimum Error Pruning| C4.5|Python
+PEP | Pessimistic Error Pruning| C4.5| Python
+EBP|Error Based Pruning|C4.5|Python
+EBP(will push afterwards)|Error Based Pruning|C5.0|C
+CVP|Critical Value Pruning|CART-Classification Tree|Python
+ECP|Error Complexity Pruning|CART-Regression Tree|Python
 
-PEP:Pessimistic Error Pruning(finished for C4.5)
+--------
 
-EBP:Error Based Pruning(finished for C4.5)
+	Environment
+	Ubuntu Linux 16.04-Amd64
+	Python 2.7.12
 
-CVP：Critical Value Pruning(finished for C4.5)
-
-CCP:Cost Complexity Pruning(finished for CART-Classification Tree)
-
-ECP:Error Complexity Pruning(finished for CART-Regression Tree)
 
 
 --------
@@ -20,11 +26,7 @@ ECP:Error Complexity Pruning(finished for CART-Regression Tree)
 	The command to delete all .pyc files:
     find . -name "*.pyc"  | xargs rm -f
 
---------
 
-	Environment
-	Ubuntu Linux 16.04-Amd64
-	Python 2.7.12
 
 Note that :  
 ①Except ID3,MEP、EBP、PEP、CVP are operated on the model generated from:
@@ -140,26 +142,20 @@ of course,you can skip the first 3 steps if you just want to see its performance
 
 ----------------CCP--Operation method(some relevant information-start)---------------------------------  
 
+
+
+
+
 Attention:
-    By far,there have are 3 implemenations of CCP on CART by others,but all of them have defects.
+Previous Work of CCP on CART From other repositories in Github and Google:
 
-1.
-https://github.com/Rudo-erek/decision-tree/tree/master/data
+| Link | Defects |
+| ------ | ------ 
+| https://github.com/Rudo-erek/decision-tree/tree/master/data | It can NOT work,and it can NOT deal with continuous Attribute.<br>The computation of R(t) is wrong,this link use Gini to compute R(t) | 
+| https://github.com/Jasper-Dong/Decision-Tree| It can work,but it can NOT deal with continuous Attribute |
+|[Decision Trees Part 3: Pruning your Tree](https://triangleinequality.wordpress.com/2013/09/01/decision-trees-part-3-pruning-your-tree/)|It can work,<br>but the author modified the original CCP,<br>which result in no candidate trees to select,<br>and so no cross-validation to select best pruned tree.<br>He set a fixed alpha before running this“modified CCP”,his method is to pursue:<br> $min&#124R(t)-R(T_t)-a(&#124T_t&#124－1)&#124$
 
-It can NOT work,and it can NOT deal with continuous Attribute.
-The computation of R(t) is wrong,this link use Gini to compute R(t)
 
-2.
-https://github.com/Jasper-Dong/Decision-Tree
-
-It can work,but it can NOT deal with continuous Attribute
-
-3.
-https://triangleinequality.wordpress.com/2013/09/01/decision-trees-part-3-pruning-your-tree/
-
-It can work,but the author modified the original CCP,which result in no candidate trees to select,
-and so no cross-validation to select best pruned tree.
-He set a fixed alpha,before run this"modified CCP",the method is to pursue min|R(t)-R(Tt)-a(|Tt|－1)|.
 
 All of above three implementations are stored and annotated in the folder:"several_wrong_implementations_CCP"
 
@@ -236,5 +232,12 @@ You may also interested in the inventer、history of Pruning Algorithms,and you 
 I have collected them together in the following Link:  
 https://blog.csdn.net/appleyuchi/article/details/83692381
 
-Don't hesitate to contact appleyuchi@foxmail.com please if you have any question.
+
+
+Don't hesitate to contact me please if you have any question:
+
+Contact Style | Information |
+-|-|-
+Email | appleyuchi@foxmail.com
+Wechat|appleyuchi
 
