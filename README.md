@@ -1,15 +1,15 @@
 This repository is targeted at popular pruning implementations(Continuous updating):
 
 
-name | full name |  Tree type|language
-------------- |------------- |------------- |
-REP | Reduced Error Pruning | ID3|Python|
-MEP | Minimum Error Pruning| C4.5|Python|
-PEP | Pessimistic Error Pruning| C4.5| Python|
-EBP|Error Based Pruning|C4.5|Python|
-EBP(will push afterwards)|Error Based Pruning|C5.0|C|
-CVP|Critical Value Pruning|CART-Classification Tree|Python|
-ECP|Error Complexity Pruning|CART-Regression Tree|Python|
+|name | full name |  Tree type|language|
+|------------- |------------- |------------- |
+|REP | Reduced Error Pruning | ID3|Python|
+|MEP | Minimum Error Pruning| C4.5|Python|
+|PEP | Pessimistic Error Pruning| C4.5| Python|
+|EBP|Error Based Pruning|C4.5|Python|
+|EBP(will push afterwards)|Error Based Pruning|C5.0|C|
+|CVP|Critical Value Pruning|CART-Classification Tree|Python|
+|ECP|Error Complexity Pruning|CART-Regression Tree|Python|
 
 --------
 
