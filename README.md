@@ -1,6 +1,11 @@
 This repository is targeted at popular pruning implementations(Continuous updating):
 
 
+FirstName &#124; LastName | Phone | Email
+--- | --- | ---
+John &#124; Doe | 99658545 | jon.doe@example.com
+
+
 
 
 
