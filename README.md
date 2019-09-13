@@ -3,7 +3,8 @@ This repository is targeted at popular pruning implementations(Continuous updati
 
 FirstName &#124; LastName | Phone | Email
 --- | --- | ---
-John &#124; Doe | 99658545 | jon.doe@example.com
+John &#124; Doe | 99658545 | min&#124;R(t)-R(T_t)-\alpha(&#124;T_t&#124;-1)&#124;
+
 
 
 
