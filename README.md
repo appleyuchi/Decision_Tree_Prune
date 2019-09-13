@@ -2,26 +2,34 @@ This repository is targeted at popular pruning implementations(Continuous updati
 
 
 
-| Link | Defects |
-|------------- |------------- |
 
 
 
-|name | full name |  Tree type|language|
-|------------- |------------- |------------- |------------- |
-|REP | Reduced Error Pruning | ID3|Python|
-|MEP | Minimum Error Pruning| C4.5|Python|
-|PEP | Pessimistic Error Pruning| C4.5| Python|
-|EBP|Error Based Pruning|C4.5|Python|
-|EBP|Error Based Pruning|C5.0|C|
-|CVP|Critical Value Pruning|CART-Classification Tree|Python|
-|ECP|Error Complexity Pruning|CART-Regression Tree|Python|
 
---------
+|name | full name |  Tree type|language|Unknown value supported|Continuous value supported|
+|------------- |------------- |------------- |------------- |------------- |------------- |
+|REP | Reduced Error Pruning | ID3|Python|No|No|
+|MEP | Minimum Error Pruning| C4.5|Python|No|Yes|
+|PEP | Pessimistic Error Pruning| C4.5| Python|No|Yes|
+|EBP|Error Based Pruning|C4.5|Python|No|Yes|
+|EBP|Error Based Pruning|C4.5|C|Yes|Yes|
+|EBP|Error Based Pruning|C5.0|C|Yes|Yes|
+|CVP|Critical Value Pruning|CART-Classification Tree|Python|No|Yes|
+|ECP|Error Complexity Pruning|CART-Regression Tree|Python|No|Yes|
 
-	Environment
-	Ubuntu Linux 16.04-Amd64
-	Python 2.7.12
+MEP、EBP、PEP、CVP are operated on the model generated from:
+Quinlan-C4.5-Release8_and_python_interface_for_EBP/Src/quinlan-src/
+which is from[1],the inventer's homepage,excluding ID3.
+
+
+Environment Requirement(Not a must):
+
+| Environment | Edition |Command to find Edition|
+|------------- |------------- |------------- |
+|XUbuntu 18.10|18.10-Amd64|uname -a|
+|Python|2.7.12|python|
+|Make|4.2.1|make --version|
+|Glibc|2.28|ldd --version|
 
 
 
@@ -35,19 +43,22 @@ This repository is targeted at popular pruning implementations(Continuous updati
 Note that :  
 ①Except ID3,MEP、EBP、PEP、CVP are operated on the model generated from:
 Quinlan-C4.5-Release8_and_python_interface_for_EBP/Src/quinlan-src/
-which is from  
-http://www.rulequest.com/Personal/c4.5r8.tar.gz  
-its author is Ross Quinlan.
-The model from Quinlan's implementation is C-type,and it will be transformed to be "Python-compliant" model afterwards.
+which is from[1],the inventer's homepage.
 
-②datasets with unKnown value is Not Supported,because under different cases or in different papers,different people have different methods to deal with unknown value.　　
+The model from Quinlan's implementation is C-type,
+so this repository will help you transform it to  "Python-compliant" model automatically.
 
-③The "C4.5-Release decision tree model" produced by quinlan's implementation in the above link is C-type model,Not python-type model,So we need to do transformation before running pruning algorithm.  
-For further details about transformation,continue reading the following contents please.
+②Datasets with unKnown value is Not Supported,
+because under different cases or in different papers,
+different people have different methods to deal with unknown value.　　
 
-④when your datasets is very very small ,you'll get very small model,then,you will NOT get a "Simplified Tree"(pruned model)from quinlan's implementation.
+
+③When your datasets is very very small ,
+you'll get very small model,then,
+you will NOT get a "Simplified Tree"(pruned model)
+from quinlan's implementation.
 This means "pruned model"="unpruned model",
-when this happend,copy the content of "result/unprune.txt" to  "result/prune.txt"please.
+when under this case,copy the content of "result/unprune.txt" to  "result/prune.txt"please.
 
 
 ----------------REP---Operation method(start)---------------------------------
@@ -76,7 +87,7 @@ For EBP(Error Based Pruning),Operation method is:
     Quinlan-C4.5-Release8_and_python_interface_for_EBP/Src/quinlan-src/
 
     cd Quinlan-C4.5-Release8_and_python_interface_for_EBP/Src
-    python shell_execute.py crx > result.txt(change "crx" here when you use other datasets please.)
+    python shell_execute.py crx > result.txt(change "crx"  please when you use other datasets.)
     python result_get.py(transform C model to Python model)  
     python predict.py
 ***************************
@@ -90,9 +101,9 @@ For EBP(Error Based Pruning),Operation method is:
 ----------------PEP--Operation method(start)---------------------------------  
 
 For PEP(Pessimistic Error Pruning):  
-1.download datasets from:  
-https://archive.ics.uci.edu/ml/machine-learning-databases/abalone/  
-2.reorder it with the final column from small to large and get the former 200 items,and save them as abalone_parts.data(this step is just for easy to visualize afterwards)  
+1.Download datasets from[2]  
+
+2.Reorder it with the final column from small to large and get the former 200 items,and save them as abalone_parts.data(this step is just for easy to visualize afterwards)  
 3.
 
 	cp abalone_parts.data abalone.names   /decision_tree/Quinlan-C4.5-Release8_and_python_interface_for_EBP/Src/quinlan-src/
@@ -103,10 +114,10 @@ https://archive.ics.uci.edu/ml/machine-learning-databases/abalone/
 	and paste this model into top.py  
 
 4.
+cp abalone_parts.data  abalone.names  decision_tree/PEP-finish/
 
-	cp abalone_parts.data  abalone.names  decision_tree/PEP-finish/
- 
-    python top.py  
+5.
+python top.py  
 
 ***************************
 	If you do not want to change datasets,
@@ -139,7 +150,7 @@ https://archive.ics.uci.edu/ml/machine-learning-databases/abalone/
 
 	3.search "critical_value" in CVP_top.py and change it to be what you want.
 	4.python CVP_top.py
-of course,you can skip the first 3 steps if you just want to see its performance with default datasets(abalone_parts and credit-a) 
+Of course,you can skip the first 3 steps if you just want to see its performance with default datasets(abalone_parts and credit-a) 
 
 ----------------CVP--Operation method(end)---------------------------------  
 
@@ -231,9 +242,23 @@ All of above three implementations are stored and annotated in the folder:"sever
 \----------------------------------------
 
 
-You may also interested in the inventer、history of Pruning Algorithms,and you may want to compare the unpruned effects and pruned effects.I have collected them together:
 
-[History of pruning algorithm development and python implementation(finished)](https://blog.csdn.net/appleyuchi/article/details/83692381)
+-------------------C5.0-EBP-Operation method(Start)-------------------
+See the file in:
+
+C50-EBP-finish/Train/Traing_Method.txt
+C50-EBP-finish/ValidateAndTest/Validation_Testing_Method.txt
+
+please.
+
+The resource of C5.0 is from [4] (For traing) and [5] (For validation and testing)
+
+-------------------C5.0-EBP-Operation method(end)-------------------
+
+
+You may also interested in the inventer、history of Pruning Algorithms,and you may want to compare the unpruned effects and pruned effects.I have collected them together[3].
+
+
 
 
 
@@ -244,4 +269,13 @@ Contact Style | Information |
 -|-|-
 Email | appleyuchi@foxmail.com
 Wechat|appleyuchi
+
+Reference:
+[1][C4.5 Package](http://www.rulequest.com/Personal/c4.5r8.tar.gz)
+[2][Abalone Datasets](https://archive.ics.uci.edu/ml/machine-learning-databases/abalone/  )
+[3][History of pruning algorithm development and python implementation(finished)](https://blog.csdn.net/appleyuchi/article/details/83692381)
+[4][C5.0](https://rulequest.com/GPL/C50.tgz)
+[5][See5/C5.0](https://rulequest.com/see5-public.tgz)
+
+
 
