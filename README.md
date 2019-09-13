@@ -160,9 +160,9 @@ Previous Work of CCP on CART From other repositories in Github and Google:
 
 | Link | Defects |
 |------------- |------------- |
-| https://github.com/Rudo-erek/decision-tree/tree/master/data | It can NOT work,and it can NOT deal with continuous Attribute.<br>The computation of R(t) is wrong,this link use Gini to compute R(t). | 
+| https://github.com/Rudo-erek/decision-tree/tree/ | It can NOT work,and it can NOT deal with continuous Attribute.<br>The computation of R(t) is wrong,this link use Gini to compute R(t). | 
 | https://github.com/Jasper-Dong/Decision-Tree| It can work,but it can NOT deal with continuous Attribute. |
-|[Decision Trees Part 3: Pruning your Tree](https://triangleinequality.wordpress.com/2013/09/01/decision-trees-part-3-pruning-your-tree/)|It can work,<br>but the author modified the original CCP,<br>which result in no candidate trees to select,<br>and so no cross-validation to select best pruned tree.<br>He set a fixed alpha before running this“modified CCP”,his method is to pursue:<br> $min&#124R(t)-R(T_t)-a(&#124T_t&#124－1)&#124$|
+|[Decision Trees Part 3: Pruning your Tree](https://triangleinequality.wordpress.com/2013/09/01/decision-trees-part-3-pruning-your-tree/)|It can work,<br>but the author modified the original CCP,<br>which result in no candidate trees to select,<br>and so no cross-validation to select best pruned tree.<br>He set a fixed alpha before running this“modified CCP”,his method is to pursue:<br> $min{&#124}R(t)-R(T_t)-a({&#124}T_t{&#124}－1){&#124}$|
 
 
 
@@ -246,7 +246,7 @@ C50-EBP-finish/ValidateAndTest/Validation_Testing_Method.txt
 
 please.
 
-The resource of C5.0 is from [4] (For traing) and [5] (For validation and testing)
+The resource of C5.0 is from [4] (For Training) and [5] (For Validation and Testing)
 
 -------------------C5.0-EBP-Operation method(end)-------------------
 
@@ -266,10 +266,15 @@ Don't hesitate to contact me please if you have any question:
 |Wechat|appleyuchi|
 
 Reference:
+
 [1][C4.5 Package](http://www.rulequest.com/Personal/c4.5r8.tar.gz)
+
 [2][Abalone Datasets](https://archive.ics.uci.edu/ml/machine-learning-databases/abalone/  )
+
 [3][History of pruning algorithm development and python implementation(finished)](https://blog.csdn.net/appleyuchi/article/details/83692381)
+
 [4][C5.0](https://rulequest.com/GPL/C50.tgz)
+
 [5][See5/C5.0](https://rulequest.com/see5-public.tgz)
 
 
