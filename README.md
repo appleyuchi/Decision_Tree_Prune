@@ -14,8 +14,8 @@ This repository is targeted at popular pruning implementations(Continuous updati
 |EBP|Error Based Pruning|C4.5|Python|No|Yes|
 |EBP|Error Based Pruning|C4.5|C|Yes|Yes|
 |EBP|Error Based Pruning|C5.0|C|Yes|Yes|
-|CVP|Critical Value Pruning|CART-Classification Tree|Python|No|Yes|
-|ECP|Error Complexity Pruning|CART-Regression Tree|Python|No|Yes|
+|CVP|Critical Value Pruning|CART-<br>Classification Tree|Python|No|Yes|
+|ECP|Error Complexity Pruning|CART-<br>Regression Tree|Python|No|Yes|
 
 ID3 is just manually written code.
 MEP、EBP、PEP、CVP are operated on the model generated from:
@@ -162,7 +162,7 @@ Previous Work of CCP on CART From other repositories in Github and Google:
 |------------- |------------- |
 | https://github.com/Rudo-erek/decision-tree/tree/ | It can NOT work,and it can NOT deal with continuous Attribute.<br>The computation of R(t) is wrong,this link use Gini to compute R(t). | 
 | https://github.com/Jasper-Dong/Decision-Tree| It can work,but it can NOT deal with continuous Attribute. |
-|[Decision Trees Part 3: Pruning your Tree](https://triangleinequality.wordpress.com/2013/09/01/decision-trees-part-3-pruning-your-tree/)|It can work,<br>but the author modified the original CCP,<br>which result in no candidate trees to select,<br>and so no cross-validation to select best pruned tree.<br>He set a fixed alpha before running this“modified CCP”,his method is to pursue:<br> $min{&#124}R(t)-R(T_t)-a({&#124}T_t{&#124}－1){&#124}$|
+|[Decision Trees Part 3: Pruning your Tree](https://triangleinequality.wordpress.com/2013/09/01/decision-trees-part-3-pruning-your-tree/)|It can work,<br>but the author modified the original CCP,<br>which result in no candidate trees to select,<br>and so no cross-validation to select best pruned tree.<br>He set a fixed alpha before running this“modified CCP”,his method is to pursue:<br> ![Formula](https://github.com/appleyuchi/Decision_Tree_Prune/blob/master/%E5%85%AC%E5%BC%8F.png)|
 
 
 
