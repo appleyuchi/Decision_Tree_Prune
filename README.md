@@ -273,7 +273,7 @@ Reference:
 
 [3][History of pruning algorithm development and python implementation(finished)](https://blog.csdn.net/appleyuchi/article/details/83692381)
 
-[4][C5.0 Packages](https://rulequest.com/GPL/C50.tgz)
+[4][C5.0 Package](https://rulequest.com/GPL/C50.tgz)
 
 [5][See5/C5.0](https://rulequest.com/see5-public.tgz)
 
