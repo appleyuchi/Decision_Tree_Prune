@@ -1,15 +1,6 @@
 This repository is targeted at popular pruning implementations(Continuous updating):
 
 
-test:
-
-| Name     | Character |
-| ---      | ---       |
-| Backtick | `         |
-| Pipe     | \|        |
-
-
-
 
 
 
