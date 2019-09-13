@@ -1,0 +1,74 @@
+Validation and Testing Method:
+
+①cd see5-public
+
+②change the following line
+String		FileStem="undefined";
+to
+String		FileStem="crx";
+
+in file global.c
+
+③copy crx.tree(the model of training) crx.names to see5-public/
+
+
+④prepare validation file or test file
+
+both validation and test file have the same suffix ".cases"
+the only difference is:
+test file has "?" at  the place of "class"
+**********************
+For example,
+in validation file crx.cases:
+a,47.25,0.75,u,g,q,h,2.75,t,t,01,f,g,00333,892,+
+in test       file crx.cases:
+a,47.25,0.75,u,g,q,h,2.75,t,t,01,f,g,00333,892,?
+**********************
+
+copy crx.cases to see5-public/
+
+⑤gcc sample.c -lm
+
+⑥./a.out
+
+Part of Experiment Result of Validation:
+
+(python3.6) appleyuchi@ubuntu:see5-public$ ./a.out
+Case		Given		Predicted
+ No		Class		Class
+
+   1		+               +               [0.98]
+   2		+               +               [0.98]
+   3		+               +               [0.98]
+   4		+               +               [0.97]
+   5		+               +               [0.74]
+   6		+               +               [0.98]
+   7		+               +               [0.98]
+   8		+               +               [0.92]
+   9		+               +               [0.91]
+  10		+               +               [0.98]
+  11		+               +               [0.98]
+  12		+               +               [0.91]
+  13		+               -               [0.85]
+  14		+               -               [0.60]
+  15		+               -               [0.84]
+
+
+
+Attention:
+The performance of  C50(R language) is limited.
+Ists link is:
+https://www.rdocumentation.org/packages/C50/versions/0.1.2
+
+
+crx.cases link:
+https://archive.ics.uci.edu/ml/machine-learning-databases/credit-screening/
+the latter part(200 cases)
+
+
+
+Download:
+https://www.rulequest.com/see5-public.tgz(For Validation)
+https://www.rulequest.com/GPL/C50.tgz(For Training and Pruning)
+
+

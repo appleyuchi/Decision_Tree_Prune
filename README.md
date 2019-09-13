@@ -8,7 +8,7 @@ This repository is targeted at popular pruning implementations(Continuous updati
 |MEP | Minimum Error Pruning| C4.5|Python|
 |PEP | Pessimistic Error Pruning| C4.5| Python|
 |EBP|Error Based Pruning|C4.5|Python|
-|EBP(will update afterwards)|Error Based Pruning|C5.0|C|
+|EBP|Error Based Pruning|C5.0|C|
 |CVP|Critical Value Pruning|CART-Classification Tree|Python|
 |ECP|Error Complexity Pruning|CART-Regression Tree|Python|
 

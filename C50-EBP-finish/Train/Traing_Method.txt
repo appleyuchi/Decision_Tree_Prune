@@ -1,0 +1,106 @@
+document:
+../c5.0 --help
+
+
+Pruned Trainning:
+../c5.0 -f crx -c 0(pruning completely)
+../c5.0 -f crx(c is 25 by default)
+../c5.0 -f crx -c 100(NO pruning)
+
+Result:
+C5.0 [Release 2.07 GPL Edition]  	Fri Sep 13 09:57:28 2019
+-------------------------------
+
+    Options:
+	Application `crx'
+
+Read 490 cases (15 attributes) from crx.data
+
+Decision tree:
+
+A9 = f: - (239/16)
+A9 = t:
+:...A15 > 228: + (106/2)
+    A15 <= 228:
+    :...A11 > 3: + (37/3)
+        A11 <= 3:
+        :...A5 = gg: + (0)
+            A5 = p:
+            :...A13 = p: - (0)
+            :   A13 = s: + (2)
+            :   A13 = g:
+            :   :...A14 <= 204: - (16/1)
+            :       A14 > 204: + (5/1)
+            A5 = g:
+            :...A7 in {n,dd,o}: + (0)
+                A7 in {h,z}: + (19)
+                A7 in {j,ff}: - (2)
+                A7 = bb:
+                :...A14 <= 164: + (3.4/0.4)
+                :   A14 > 164: - (5.6)
+                A7 = v:
+                :...A14 <= 110: + (18/1)
+                    A14 > 110:
+                    :...A15 > 8: + (4)
+                        A15 <= 8:
+                        :...A6 in {i,j,r,x,e,ff}: - (0)
+                            A6 in {c,d,k}: - (8/1)
+                            A6 = cc: + (2/1)
+                            A6 = m:
+                            :...A13 = p: - (0)
+                            :   A13 = g: + (2)
+                            :   A13 = s: - (5)
+                            A6 = q:
+                            :...A12 = t: + (4)
+                            :   A12 = f: - (2)
+                            A6 = w:
+                            :...A12 = t: - (2)
+                            :   A12 = f: + (3)
+                            A6 = aa:
+                            :...A2 <= 41: - (3)
+                                A2 > 41: + (2)
+
+
+Evaluation on training data (490 cases):
+
+	    Decision Tree   
+	  ----------------  
+	  Size      Errors  
+
+	    22   26( 5.3%)   <<
+
+
+	   (a)   (b)    <-classified as
+	  ----  ----
+	   199    18    (a): class +
+	     8   265    (b): class -
+
+
+	Attribute usage:
+
+	    100%  A9
+	     51%  A15
+	     30%  A11
+	     22%  A5
+	     17%  A7
+	     17%  A14
+	      7%  A6
+	      6%  A13
+	      2%  A12
+	      1%  A2
+
+
+Time: 0.0 secs
+
+
+
+
+
+crx.data link:
+https://archive.ics.uci.edu/ml/machine-learning-databases/credit-screening/ 
+the former part(490 cases)
+
+
+
+Official Document:
+https://rulequest.com/see5-unix.html#HOOKS

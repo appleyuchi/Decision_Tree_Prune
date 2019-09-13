@@ -1,0 +1,150 @@
+#! /bin/csh
+#---------------------------------------------------------------------
+# Multi F-fold cross-validation script
+#---------------------------------------------------------------------
+#
+# Invocation:
+#   xval [C5.0 options] [F=folds] [R=repeats] [+label] [+d]
+#
+# Carries out R F-fold cross-validations
+#
+# If +d is used, individual results from each block are left in
+#     <filestem>.o<cross-validation no>[+label]
+# Averages over cross-validations are written to
+#     <filestem>.res[+label]
+#---------------------------------------------------------------------
+
+
+#	Sort the options into those applying to C5.0 and the rest
+
+set opts	=
+set folds	= 10
+set repeats	= 1
+set label	=
+set filestem	= undefined
+set rules       = 0
+
+set i = 1
+while ( $i <= $#argv )
+    set opt = $argv[$i]
+
+    switch ( $opt )
+    case "F=*":
+	set folds = `echo $opt | sed s/F=//`
+	breaksw
+    case "R=*":
+	set repeats = `echo $opt | sed s/R=//`
+	breaksw
+    case "+d":
+	set details
+	breaksw
+    case "+*":
+	set label = $opt
+	breaksw
+    case "-f":
+	@ i++
+	set filestem = $argv[$i]
+	breaksw
+    case "-f*":
+	set filestem = `echo $opt | sed s/-f//`
+	breaksw
+    case "-t":
+    case "-m":
+    case "-c":
+    case "-u":
+    case "-S":
+    case "-I":
+	@ i++
+	set opts = ( $opts ${opt}$argv[$i] )
+	breaksw
+    case "-b":
+    case "-p":
+    case "-e":
+    case "-t*":
+    case "-g":
+    case "-s":
+    case "-w":
+    case "-u*":
+    case "-m*":
+    case "-c*":
+    case "-S*":
+    case "-I*":
+	set opts = ( $opts $opt )
+	breaksw
+    case "-r":
+	set opts = ( $opts $opt )
+	set rules = 1
+	breaksw
+    case "-X":
+	@ i++
+	set folds = $argv[$i]
+	breaksw
+    case "-X*":
+	set folds = `echo $opt | sed s/-X//`
+	breaksw
+    default:
+	echo "unrecognised or inappropriate option" $opt
+    case "-h":
+	echo ""
+	echo "Summary of options for xval:"
+	echo ""
+	echo "    F=<f>         set f folds"
+	echo "    R=<r>         repeat r times"
+	echo "    +d            retain detailed files"
+	echo "    +s            label all output files with suffix +s"
+	echo ""
+	echo "    -f <filestem> application filestem"
+	echo "    -r            use rule-based classifiers"
+	echo "    -u <bands>    order rules by utility"
+	echo "    -w            invoke attribute winnowing"
+	echo "    -b            invoke 10-trial boosting"
+	echo "    -t <trials>   number of boosting trials"
+	echo "    -p            use soft thresholds"
+	echo "    -e            focus on errors (ignore costs file)"
+	echo "    -s            find subset tests for discrete atts"
+	echo "    -m <objs>     restrict allowable splits"
+	echo "    -c <CF>       confidence level for pruning"
+	echo "    -S <percent>  training sample percentage"
+	echo "    -X <folds>    cross-validate"
+	echo "    -I <integer>  random seed [ignored]"
+	echo "    -h            print this message"
+	exit 0
+    endsw
+
+    @ i++
+end
+
+
+#	Clear the summary file
+
+cp /dev/null $filestem.xsum
+
+
+#	Repeat cross-validations, incrementing the random seed
+
+set r = 0
+while ( $r < $repeats )
+
+    set outf = $filestem.o$r$label
+    c5.0 -f $filestem $opts -X $folds -I $r >$outf
+    grep "<<" $outf >> $filestem.xsum
+
+    @ r++
+end
+
+
+#	Find the number of cases in the training and test files
+
+set junk = `grep ^Read $outf`
+@ examples = $junk[2]
+if ( -e $filestem.test ) then
+    @ examples += $junk[9]
+endif
+
+
+#	Remove the temporary file and summarize results
+
+report $examples $folds $repeats $rules <$filestem.xsum >$filestem.res$label
+
+rm $filestem.xsum
+if ( ! $?details ) rm -f $filestem.o[0-9]*$label

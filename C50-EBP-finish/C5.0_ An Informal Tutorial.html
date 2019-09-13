@@ -1,0 +1,2375 @@
+
+<!-- saved from url=(0042)https://rulequest.com/see5-unix.html#HOOKS -->
+<html><style type="text/css" id="night-mode-pro-style">html {background-color: #FFFFFF !important;} body {background-color: #FFFFFF;}</style><link type="text/css" rel="stylesheet" id="night-mode-pro-link"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>C5.0: An Informal Tutorial</title>
+
+<style type="text/css">
+<!--
+.out {	background:#FFFFDD;
+	font-size:smaller;
+	padding:2ex;
+	margin-left:8ex;
+	margin-right:8ex;
+	margin-top:3ex;
+	margin-bottom:3ex;
+	border-style:solid;
+	border-width:1px;
+	border-color:#000000 }
+
+div.content { width:700px; margin: auto; }
+-->
+</style>
+
+</head>
+
+<body bgcolor="white">
+
+<div class="content">
+
+<h1> <font color="navy"> C5.0: An Informal Tutorial </font></h1>
+
+<p>
+Welcome to C5.0, a system that extracts informative patterns from data.
+The following sections show how to prepare data files for C5.0
+and illustrate the options for using the system.
+
+</p><p>
+In this tutorial, file names and C5.0 input appear in
+<font color="navy"><code>blue fixed-width font</code></font>
+while file extensions and other general forms
+are shown <font color="green" style="background: #FFFFD0">highlighted in green</font>.
+
+</p><ul>
+<li><b><a href="https://rulequest.com/see5-unix.html#DATA">Preparing Data for C5.0</a></b>
+  <ul>
+  <li><a href="https://rulequest.com/see5-unix.html#files">Application files</a>
+  </li><li><a href="https://rulequest.com/see5-unix.html#.names">Names file</a>
+    <ul>
+    <li><a href="https://rulequest.com/see5-unix.html#name">What's in a name?</a>
+    </li><li><a href="https://rulequest.com/see5-unix.html#classes">Specifying the classes</a>
+    </li><li><a href="https://rulequest.com/see5-unix.html#explicit">Explicitly-defined attributes</a>
+    </li><li><a href="https://rulequest.com/see5-unix.html#implicit">Attributes defined by formulas</a>
+    </li><li><a href="https://rulequest.com/see5-unix.html#dates">Dates, times, and timestamps</a>
+    </li><li><a href="https://rulequest.com/see5-unix.html#select">Selecting the attributes that can appear in classifiers</a>
+    </li></ul>
+  </li><li><a href="https://rulequest.com/see5-unix.html#.data">Data file</a>
+  </li><li><a href="https://rulequest.com/see5-unix.html#.test">Test and cases files (optional)</a>
+  </li><li><a href="https://rulequest.com/see5-unix.html#.costs">Costs file (optional)</a>
+  </li></ul>
+</li><li><b><a href="https://rulequest.com/see5-unix.html#CLASSIFIERS">Constructing Classifiers</a></b>
+  <ul>
+  <li><a href="https://rulequest.com/see5-unix.html#TREES">Decision trees</a>
+  </li><li><a href="https://rulequest.com/see5-unix.html#EVALUATION">Evaluation</a>
+  </li><li><a href="https://rulequest.com/see5-unix.html#SUBSETS">Discrete value subsets</a>
+  </li><li><a href="https://rulequest.com/see5-unix.html#RULES">Rulesets</a>
+    <ul>
+    <li><a href="https://rulequest.com/see5-unix.html#utility">Rule utility ordering</a>
+    </li></ul>
+  </li><li><a href="https://rulequest.com/see5-unix.html#BOOSTING">Boosting</a>
+  </li><li><a href="https://rulequest.com/see5-unix.html#WINNOWING">Winnowing attributes</a>
+  </li><li><a href="https://rulequest.com/see5-unix.html#SOFT">Soft thresholds</a>
+  </li><li><a href="https://rulequest.com/see5-unix.html#OTHER">Advanced pruning options</a>
+  </li><li><a href="https://rulequest.com/see5-unix.html#SAMPLE">Sampling from large datasets</a>
+  </li><li><a href="https://rulequest.com/see5-unix.html#XVAL">Cross-validation trials</a>
+  </li><li><a href="https://rulequest.com/see5-unix.html#COSTS">Differential misclassification costs</a>
+  </li><li><a href="https://rulequest.com/see5-unix.html#CASEWEIGHT">Weighting individual cases</a>
+  </li></ul>
+</li><li><b><a href="https://rulequest.com/see5-unix.html#USE">Using Classifiers</a></b>
+</li><li><b><a href="https://rulequest.com/see5-unix.html#SEGFAULT">Segmentation fault errors</a></b>
+</li><li><b><a href="https://rulequest.com/see5-unix.html#LINUXGUI">Linux GUI</a></b>
+</li><li><b><a href="https://rulequest.com/see5-unix.html#HOOKS">Linking to Other Programs</a></b>
+</li><li><b><a href="https://rulequest.com/see5-unix.html#SUMMARY">Appendix: Summary of Options</a></b>
+</li></ul>
+
+<hr>
+
+<p>
+</p><h2><a name="DATA">Preparing Data for C5.0</a></h2>
+
+<p>
+We will illustrate C5.0 using a medical application -- mining a database
+of thyroid assays from the Garvan Institute of Medical Research,
+Sydney, to construct diagnostic rules for hypothyroidism.
+Each case concerns a single referral and contains information on the
+source of the referral, assays requested, patient data, and
+referring physician's comments.
+Here are three examples:
+
+</p><pre style="font-size:smaller">        <b><u>Attribute</u>                 <u>Case 1</u>    <u>Case 2</u>    <u>Case 3</u>    .....</b>
+
+	age                       41        23        46
+	sex                       F         F         M
+	on thyroxine              f         f         f
+	query on thyroxine        f         f         f
+	on antithyroid medication f         f         f
+	sick                      f         f         f
+	pregnant                  f         f         not applicable
+	thyroid surgery           f         f         f
+	I131 treatment            f         f         f
+	query hypothyroid         f         f         f
+	query hyperthyroid        f         f         f
+	lithium                   f         f         f
+	tumor                     f         f         f
+	goitre                    f         f         f
+	hypopituitary             f         f         f
+	psych                     f         f         f
+	TSH                       1.3       4.1       0.98
+	T3                        2.5       2         unknown
+	TT4                       125       102       109
+	T4U                       1.14      unknown   0.91
+	FTI                       109       unknown   unknown
+	referral source           SVHC      other     other
+	<font color="red">diagnosis                 negative  negative  negative</font>
+	ID                        3733      1442      2965
+</pre>
+
+<p>
+This is exactly the sort of task for which C5.0 was designed.
+Each case belongs to one of a small number of mutually exclusive classes
+(negative, primary, secondary, compensated).
+Properties of every case that <i>may</i> be relevant to its
+class are provided, although some cases may
+have unknown or non-applicable values for some attributes.
+There are 24 attributes in this example, but C5.0 can deal with
+any number of attributes.
+
+</p><p>
+C5.0's job is to find how to predict a case's class from
+the values of the other attributes.
+C5.0 does this by constructing a <i>classifier</i> that makes
+this prediction.  As we will see, C5.0 can construct classifiers expressed
+as <i>decision trees</i> or as sets of <i>rules</i>.
+
+</p><h3><a name="files">Application files</a></h3>
+
+Every C5.0 application has a short name called
+a <font color="green" style="background: #FFFFD0">filestem</font>;
+we will use the filestem <font color="navy"><code>hypothyroid</code></font>
+for this illustration.
+All files read or written by C5.0 for an application
+have names of the form
+<font color="green" style="background: #FFFFD0">filestem</font><font color="navy"><code>.</code></font><font color="green" style="background: #FFFFD0">extension</font>,
+where <font color="green" style="background: #FFFFD0">filestem</font> identifies the application and
+<font color="green" style="background: #FFFFD0">extension</font> describes the contents of the file.
+
+<p>
+Here is a summary table of the extensions used by C5.0 (to
+be described in later sections):
+
+</p><p>
+</p><ul><ul>
+<table cellpadding="5">
+<tbody><tr>
+  <td><font color="green" style="background: #FFFFD0">names</font>
+  </td><td>description of the application's attributes
+  </td><td>[required]
+</td></tr>
+<tr>
+  <td><font color="green" style="background: #FFFFD0">data</font>
+  </td><td>cases used to generate a classifier
+  </td><td>[required]
+</td></tr>
+<tr>
+  <td><font color="green" style="background: #FFFFD0">test</font>
+  </td><td>unseen cases used to test a classifier
+  </td><td>[optional]
+</td></tr>
+<tr>
+  <td><font color="green" style="background: #FFFFD0">cases</font>
+  </td><td>cases to be classified subsequently
+  </td><td>[optional]
+</td></tr>
+<tr>
+  <td><font color="green" style="background: #FFFFD0">costs</font>
+  </td><td>differential misclassification costs
+  </td><td>[optional]
+</td></tr>
+<tr>
+  <td><font color="green" style="background: #FFFFD0">tree</font>
+  </td><td>decision tree classifier produced by C5.0
+  </td><td>[output]
+</td></tr>
+<tr>
+  <td><font color="green" style="background: #FFFFD0">rules</font>
+  </td><td>ruleset classifier produced by C5.0
+  </td><td>[output]
+</td></tr>
+</tbody></table>
+</ul></ul>
+
+
+<h3><a name=".names">Names file</a></h3>
+
+Two files are essential for all C5.0 applications and there are three
+further optional files, each identified by its extension.
+The first essential file is
+the <font color="green" style="background: #FFFFD0">names</font> file (e.g.
+<font color="navy"><code>hypothyroid.names</code></font>) that
+describes the attributes and classes.
+There are two important subgroups of attributes:
+<ul>
+<li>
+The value of an <em>explicitly-defined attribute</em> is given directly
+in the data in one of several forms.
+A <em>discrete</em> attribute has a value drawn from
+a set of nominal values, a <em>continuous</em> attribute has a
+numeric value, a <em>date</em> attribute holds a calendar date,
+a <em>time</em> attribute holds a clock time,
+a <em>timestamp</em> attribute holds a date and time,
+and a <em>label</em> attribute serves only to identify a particular case.
+</li><li>
+The value of an <em>implicitly-defined attribute</em>
+is specified by a formula.
+</li></ul>
+
+<p>
+The file <font color="navy"><code>hypothyroid.names</code></font>
+looks like this:
+
+</p><pre class="out">diagnosis.                     | the target attribute
+
+age:                           continuous.
+sex:                           M, F.
+on thyroxine:                  f, t.
+query on thyroxine:            f, t.
+on antithyroid medication:     f, t.
+sick:                          f, t.
+pregnant:                      f, t.
+thyroid surgery:               f, t.
+I131 treatment:                f, t.
+query hypothyroid:             f, t.
+query hyperthyroid:            f, t.
+lithium:                       f, t.
+tumor:                         f, t.
+goitre:                        f, t.
+hypopituitary:                 f, t.
+psych:                         f, t.
+TSH:                           continuous.
+T3:                            continuous.
+TT4:                           continuous.
+T4U:                           continuous.
+FTI:=                          TT4 / T4U.
+referral source:               WEST, STMW, SVHC, SVI, SVHD, other.
+
+diagnosis:                     primary, compensated, secondary, negative.
+
+ID:                            label.
+</pre>
+
+<h4><a name="name">What's in a name?</a></h4>
+
+Names, labels, classes, and discrete values are represented by arbitrary
+strings of characters, with some fine print:
+<ul>
+<li> Tabs and spaces are permitted inside a name or value, but C5.0
+collapses every sequence of these characters to a single space.
+</li><li> Special characters (comma, colon, period, vertical bar `<font color="navy"><code>|</code></font>')
+can appear
+in names and values, but must be prefixed by the escape character
+`<font color="navy"><code>\</code></font>'.
+For example, the name "Filch, Grabbit, and Co." would be written
+as <nobr>`<font color="navy"><code>Filch\, Grabbit\, and Co\.</code></font>'</nobr>.
+(Colons in times and periods in numbers do not need to be escaped.)
+</li></ul>
+Whitespace (blank lines, spaces, and tab characters) is ignored
+except inside a name or value and can be used to improve legibility.
+Unless it is escaped as above,
+the vertical bar `<font color="navy"><code>|</code></font>'
+causes the remainder of the line to be ignored and is handy for
+including comments.
+This use of `<font color="navy"><code>|</code></font>' should not occur inside a value.
+
+
+<h4><a name="classes">Specifying the classes</a></h4>
+
+The first entry in the <font color="green" style="background: #FFFFD0">names</font> file specifies the classes
+in one of three formats:
+<ul>
+<li> A list of class names separated by commas, e.g.
+  <ul>
+	<font color="navy"><code>primary, compensated, secondary, negative.</code></font>
+  </ul>
+</li><li> The name of a discrete attribute (the <i>target</i> attribute)
+that contains the class value, e.g.:
+  <ul>
+	<font color="navy"><code>diagnosis.</code></font>
+  </ul>
+</li><li> The name of a continuous target attribute followed by a colon and
+one or more thresholds in increasing order and separated by commas.
+If there are <var>t</var> thresholds
+<var>X1</var>, <var>X2</var>, ..., <var>Xt</var>
+then the values of the attribute are divided into
+<var>t+1</var> ranges:
+  <ul>
+  <li> less than or equal to <var>X1</var>
+  </li><li> greater than <var>X1</var> and less than or equal to <var>X2</var>
+  </li><li> . . .
+  </li><li> greater than <var>Xt</var>.
+  </li></ul>
+Each range defines a class, so there are <var>t+1</var> classes.  For example,
+a hypothetical entry<br>
+  <ul>
+	<font color="navy"><code>age: 12, 19.</code></font><br>
+  </ul>
+would define three
+classes: <font color="navy"><code>age &lt;= 12</code></font>, <font color="navy"><code>12 &lt; age &lt;= 19</code></font>, and
+<font color="navy"><code>age &gt; 19</code></font>.
+</li></ul>
+
+<p>
+This first entry defining the classes is followed by definitions of
+the attributes in the order that they will be given for each case.
+
+</p><h4><a name="explicit">Explicitly-defined attributes</a></h4>
+
+The name of each explicitly-defined attribute is followed by a colon
+`<font color="navy"><code>:</code></font>' and a description of the values taken by the attribute.
+The attribute name is arbitrary, except that each attribute must have
+a distinct name, and <font color="navy"><code>case weight</code></font>
+is reserved for setting weights for individual cases.
+There are eight possibilities for the description of attribute values:
+
+<dl>
+<dt><font color="navy"><code>continuous</code></font>
+</dt><dd>The attribute takes numeric values.
+
+</dd><dt><font color="navy"><code>date</code></font>
+</dt><dd>The attribute's values are dates in the form <font color="green" style="background: #FFFFD0">YYYY/MM/DD</font>
+or <font color="green" style="background: #FFFFD0">YYYY-MM-DD</font>,
+e.g. <font color="navy"><code>2005/09/30</code></font> or <font color="navy"><code>2005-09-30</code></font>.
+
+</dd><dt><font color="navy"><code>time</code></font>
+</dt><dd>The attribute's values are times in the form <font color="green" style="background: #FFFFD0">HH:MM:SS</font>
+with values between <font color="navy"><code>00:00:00</code></font> and <font color="navy"><code>23:59:59</code></font>.
+
+</dd><dt><font color="navy"><code>timestamp</code></font>
+</dt><dd>The attribute's values are times in the form
+<font color="green" style="background: #FFFFD0">YYYY/MM/DD HH:MM:SS</font> or
+<font color="green" style="background: #FFFFD0">YYYY-MM-DD HH:MM:SS</font>,
+e.g. <font color="navy"><code>2005-09-30 15:04:00</code></font>.
+(Note that there is a space separating the date and time.)
+
+</dd><dt>a comma-separated list of names
+</dt><dd>The attribute takes discrete values, and these are the allowable values.
+The values may be prefaced by <font color="navy"><code>[ordered]</code></font> to indicate
+that they are given in a meaningful ordering, otherwise they will
+be taken as unordered.  For instance, the values <font color="navy"><code>low, medium, high</code></font>
+are ordered, while
+<font color="navy"><code>meat, poultry, fish, vegetables</code></font> are not.
+The former might be declared as <font color="navy"><code><pre>grade: [ordered] low, medium, high.
+</pre></code></font>
+If the attribute values have a natural order, it is better to declare them
+as such so that C5.0 can exploit the ordering.
+(<em>NB:</em> The target attribute should not be declared as ordered.)
+
+</dd><dt><font color="navy"><code>discrete</code></font> <font color="green" style="background: #FFFFD0">N</font> for some integer <var>N</var>
+</dt><dd>The attribute has discrete, unordered values,
+but the values are assembled from the data itself; <var>N</var> is
+the maximum number of such values.
+This form can be handy for unordered discrete attributes with many values,
+but its use means that the data values cannot be checked.
+(<em>NB:</em> This form cannot be used for the target attribute.)
+
+</dd><dt><font color="navy"><code>ignore</code></font>
+</dt><dd>The values of the attribute should be ignored.
+
+</dd><dt><font color="navy"><code>label</code></font>
+</dt><dd>This attribute contains an identifying label for each case,
+such as an account number or an order code.
+The value of the attribute is ignored when classifiers are constructed,
+but is used when referring to individual cases.
+A label attribute can make it easier to locate errors in the data
+and to cross-reference results to individual cases.
+If there are two or more label attributes, only the last is used.
+</dd></dl>
+
+<h4><a name="implicit">Attributes defined by formulas</a></h4>
+
+The name of each implicitly-defined attribute is followed by
+`<font color="navy"><code>:=</code></font>'
+and then a formula defining the attribute value.  The formula is
+written in the usual way, using parentheses where needed, and
+may refer to any attribute defined up to this point.
+Constants in the formula can be
+numbers written in decimal notation, dates, times,
+and discrete attribute values enclosed in string quotes `<font color="navy"><code>"</code></font>'.
+The operators and functions that can be used in the formula are
+
+<ul>
+<li> <font color="navy"><code>+</code></font>, <font color="navy"><code>-</code></font>, <font color="navy"><code>*</code></font>,
+<font color="navy"><code>/</code></font>, <font color="navy"><code>%</code></font> (mod),
+<font color="navy"><code>^</code></font> (meaning `raised to the power')
+</li><li> <font color="navy"><code>&gt;</code></font>, <font color="navy"><code>&gt;=</code></font>, <font color="navy"><code>&lt;</code></font>,
+<font color="navy"><code>&lt;=</code></font>, <font color="navy"><code>=</code></font>, <font color="navy"><code>&lt;&gt;</code></font> or
+<font color="navy"><code>!=</code></font> (both meaning `not equal')
+</li><li> <font color="navy"><code>and</code></font>, <font color="navy"><code>or</code></font>
+</li><li> <font color="navy"><code>sin(</code></font>...<font color="navy"><code>)</code></font>,
+<font color="navy"><code>cos(</code></font>...<font color="navy"><code>)</code></font>,
+<font color="navy"><code>tan(</code></font>...<font color="navy"><code>)</code></font>,
+<font color="navy"><code>log(</code></font>...<font color="navy"><code>)</code></font>,
+<font color="navy"><code>exp(</code></font>...<font color="navy"><code>)</code></font>,
+<font color="navy"><code>int(</code></font>...<font color="navy"><code>)</code></font> (meaning `integer part of')
+</li></ul>
+
+The value of such an attribute is either continuous or true/false
+depending on the formula.  For example, the attribute
+<font color="navy"><code><pre>	FTI:=  TT4 / T4U.
+</pre></code></font>
+is continuous since its value is obtained by dividing one number by
+another.  The value of a hypothetical attribute such as
+<font color="navy"><code><pre>	strange := referral source = "WEST" or age &gt; 40.
+</pre></code></font>
+would be either <font color="navy"><code>t</code></font> or <font color="navy"><code>f</code></font>
+since the value given by the formula is either true or false.
+
+<p>
+If the value of the formula cannot be determined for a particular
+case because one or more of the attributes appearing in the formula
+have unknown or non-applicable values,
+the value of the implicitly-defined attribute is unknown.
+
+</p><h4><a name="dates">Dates, times, and timestamps</a></h4>
+
+Dates are stored by C5.0 as the number of days since a particular
+starting point
+so some operations on dates make sense.
+Thus, if we have attributes
+<font color="navy"><code><pre>	d1: date.
+	d2: date.
+</pre></code></font>
+we could define
+<font color="navy"><code><pre>	interval := d2 - d1.
+	gap := d1 &lt;= d2 - 7.
+	d1-day-of-week := (d1 + 1) % 7 + 1.
+</pre></code></font>
+<font color="navy"><code>interval</code></font> then represents the number of days from
+<font color="navy"><code>d1</code></font> to <font color="navy"><code>d2</code></font> (non-inclusive) and
+<font color="navy"><code>gap</code></font> would have a true/false value signaling whether
+<font color="navy"><code>d1</code></font> is at least a week before <font color="navy"><code>d2</code></font>.
+The last definition is a slightly non-obvious way of determining
+the day of the week on which <font color="navy"><code>d1</code></font> falls, with values
+ranging from 1 (Monday) to 7 (Sunday).
+
+<p>
+Similarly, times are stored as the number of seconds since midnight.
+If the <font color="green" style="background: #FFFFD0">names</font> file includes
+<font color="navy"><code></code></font></p><pre><font color="navy"><code>	start: time.
+	finish: time.
+	elapsed := finish - start.
+</code></font></pre>
+the value of <font color="navy"><code>elapsed</code></font> is the number of seconds
+from <font color="navy"><code>start</code></font> to <font color="navy"><code>finish</code></font>.
+
+<p>
+Timestamps are a little more complex.  A timestamp is rounded to
+the nearest minute, but limitations on the precision of floating-point
+numbers mean that the values stored for timestamps from more than
+thirty years ago are approximate.
+If the <font color="green" style="background: #FFFFD0">names</font> file includes
+<font color="navy"><code></code></font></p><pre><font color="navy"><code>	departure: timestamp.
+	arrival: timestamp.
+	flight time := arrival - departure.
+</code></font></pre>
+the value of <font color="navy"><code>flight time</code></font> is the number of minutes
+from <font color="navy"><code>departure</code></font> to <font color="navy"><code>arrival</code></font>.
+
+<h4><a name="select">Selecting the attributes that can appear in classifiers</a></h4>
+
+An optional final entry in the <font color="green" style="background: #FFFFD0">names</font> file affects the
+way that C5.0 constructs classifiers.
+This entry takes one of
+the forms
+<font color="navy"><code><pre>	attributes included:
+	attributes excluded:
+</pre></code></font>
+followed by a comma-separated list of attribute names.  The first
+form restricts the attributes used in classifiers to those specifically
+named;
+the second form specifies that classifiers must not use any of the named
+attributes.
+
+<p>
+Excluding an attribute from classifiers is not the same as ignoring the
+attribute (see `<font color="navy"><code>ignore</code></font>' above).
+As an example, suppose that numeric attributes <font color="navy"><code>A</code></font>
+and <font color="navy"><code>B</code></font>
+are defined in the data, but background knowledge suggests that
+only their difference is important.
+The <font color="green" style="background: #FFFFD0">names</font> file might then contain the following entries:
+</p><pre>	. . .
+	<font color="navy"><code>A: continuous.</code></font>
+	<font color="navy"><code>B: continuous.</code></font>
+	<font color="navy"><code>Diff := A - B.</code></font>
+	   . . .
+	<font color="navy"><code>attributes excluded: A, B.</code></font>
+</pre>
+In this example the attributes <font color="navy"><code>A</code></font> and <font color="navy"><code>B</code></font>
+could not be defined
+as <font color="navy"><code>ignore</code></font> because the definition of <font color="navy"><code>Diff</code></font>
+would then be invalid.
+
+<h3><a name=".data">Data file</a></h3>
+
+The second essential file,
+the application's <font color="green" style="background: #FFFFD0">data</font> file
+(e.g. <font color="navy"><code>hypothyroid.data</code></font>)
+provides information on the
+<i>training</i>
+cases from which C5.0 will extract patterns.
+The entry for each case consists of one or more lines that give
+the values for all explicitly-defined attributes.  If the classes are listed
+in the first line of the <font color="green" style="background: #FFFFD0">names</font> file,
+the attribute values are followed by the case's class value.
+Values are separated by commas and the entry is optionally terminated by
+a period.
+Once again, anything on a line after a vertical bar `<font color="navy"><code>|</code></font>'
+is ignored.
+(If the information for a case occupies more than one line, make sure
+that the line breaks occur after commas.)
+
+<p>
+For example,
+the first three cases from file
+<font color="navy"><code>hypothyroid.data</code></font> are:
+
+<font color="navy"><code></code></font></p><pre><font color="navy"><code>	41,F,f,f,f,f,f,f,f,f,f,f,f,f,f,f,1.3,2.5,125,1.14,SVHC,negative,3733
+	23,F,f,f,f,f,f,f,f,f,f,f,f,f,f,f,4.1,2,102,?,other,negative,1442
+	46,M,f,f,f,f,N/A,f,f,f,f,f,f,f,f,f,0.98,?,109,0.91,other,negative,2965
+</code></font></pre>
+
+<font color="red">Don't forget the commas between values!</font>
+If you leave them out,
+C5.0 will not be able to process your data.
+
+<p>
+Notice that
+`<font color="navy"><code>?</code></font>' is used to denote a value that is missing or unknown.
+Similarly, `<font color="navy"><code>N/A</code></font>' denotes a value that is not applicable for
+a particular case.
+Also note
+that the cases do not contain values for the attribute <font color="navy"><code>FTI</code></font>
+since its values are computed from other attribute values.
+
+</p><h3><a name=".test">Test and cases files (optional)</a></h3>
+
+Of course, the value of predictive patterns lies in their ability to make
+accurate predictions!
+It is difficult to judge the accuracy of a classifier by measuring
+how well it does on the cases used in its construction;
+the performance of the classifier on
+new cases is much more informative.
+(For instance, any number of gurus tell us about patterns that `explain'
+the rise/fall behavior of the stock market in the past.  Even though
+these patterns may appear plausible, they are only valuable to the extent that
+they make useful predictions about future rises and falls.)
+
+<p>
+The third kind of file used
+by C5.0 consists of new <font color="green" style="background: #FFFFD0">test</font>
+cases (e.g. <font color="navy"><code>hypothyroid.test</code></font>) on which the classifier
+can be evaluated.
+This file is optional and, if used, has
+exactly the same format as the <font color="green" style="background: #FFFFD0">data</font> file.
+
+</p><p>
+Another optional file, the <font color="green" style="background: #FFFFD0">cases</font> file
+(e.g. <font color="navy"><code>hypothyroid.cases</code></font>),
+differs from a <font color="green" style="background: #FFFFD0">test</font> file only in allowing the cases'
+classes to be unknown (`<font color="navy"><code>?</code></font>').
+The <font color="green" style="background: #FFFFD0">cases</font> file is used primarily with
+the public source code
+described later on under <a href="https://rulequest.com/see5-unix.html#HOOKS">linking to other programs</a>.
+
+</p><h3><a name=".costs">Costs file (optional)</a></h3>
+
+The last kind of file, the <font color="green" style="background: #FFFFD0">costs</font> file
+(e.g. <font color="navy"><code>hypothyroid.costs</code></font>),
+is also optional and sets out
+differential misclassification costs.
+In some applications
+there is a much higher penalty for certain types of mistakes.
+In this application, a prediction that hypothyroidism is not present
+could be very costly if in fact it is.
+On the other hand, predicting incorrectly that a patient is
+hypothyroid
+may be a less serious error.
+C5.0 allows different misclassification
+costs to be associated with each combination of real class and
+predicted class.  We will return to this topic near the end of the
+tutorial.
+
+
+<h2><a name="CLASSIFIERS">Constructing Classifiers</a></h2>
+
+Once the <font color="green" style="background: #FFFFD0">names</font>, <font color="green" style="background: #FFFFD0">data</font>, and optional
+files have been set up, everything is ready to use C5.0.
+
+<p>
+The general form of the Unix command is
+</p><pre>        <font color="navy"><code>c5.0 -f</code></font> <font color="green" style="background: #FFFFD0">filestem</font> <font color="green" style="background: #FFFFD0">[options]</font></pre>
+This invokes C5.0 with the <font color="navy"><code>-f</code></font>
+option that identifies the application name
+(here <font color="navy"><code>hypothyroid</code></font>).
+If no filestem is specified using this option, C5.0 uses a default
+filestem that is almost certainly incorrect.
+(Moral: always use the <font color="navy"><code>-f</code></font> option!)
+There are several options that affect the type of classifier that
+C5.0 produces and the way that it is constructed.
+Many of the options have default values that should be satisfactory
+for most applications.
+
+<h3><a name="TREES">Decision trees</a></h3>
+
+When C5.0 is invoked with
+no options, as
+<pre>	<font color="navy"><code>c5.0 -f hypothyroid</code></font></pre>
+it constructs a decision tree and generates output
+like this:
+
+<pre class="out">C5.0 [Release 2.11a]    Sun Apr  7 08:48:18 2019
+--------------------
+
+    Options:
+        Application `hypothyroid'
+
+Class specified by attribute `diagnosis'
+
+Read 2772 cases (24 attributes) from hypothyroid.data
+
+Decision tree:
+
+TSH &lt;= 6: negative (2472/2)
+TSH &gt; 6:
+:...FTI &lt;= 65.3:
+    :...thyroid surgery = t: negative (4.2/2)
+    :   thyroid surgery = f:
+    :   :...TT4 &lt;= 61: primary (51/3.7)
+    :       TT4 &gt; 61:
+    :       :...referral source in {WEST,SVHD}: primary (0)
+    :           referral source in {STMW,SVHC,SVI}: primary (4.9/0.8)
+    :           referral source = other:
+    :           :...TSH &lt;= 22: negative (6.4/2.7)
+    :               TSH &gt; 22: primary (5.8/0.8)
+    FTI &gt; 65.3:
+    :...on thyroxine = t: negative (37.7)
+        on thyroxine = f:
+        :...thyroid surgery = t: negative (6.8)
+            thyroid surgery = f:
+            :...TT4 &gt; 153: negative (6/0.1)
+                TT4 &lt;= 153:
+                :...TT4 &lt;= 37: primary (2.5/0.2)
+                    TT4 &gt; 37: compensated (174.6/24.8)
+
+
+Evaluation on training data (2772 cases):
+
+            Decision Tree   
+          ----------------  
+          Size      Errors  
+
+            11    8( 0.3%)   &lt;&lt;
+
+
+           (a)   (b)   (c)   (d)    &lt;-classified as
+          ----  ----  ----  ----
+            58     3           2    (a): class primary
+                 154                (b): class compensated
+                               2    (c): class secondary
+                   1        2552    (d): class negative
+
+
+        Attribute usage:
+
+             90%  TSH
+             18%  thyroid surgery
+             18%  on thyroxine
+             14%  TT4
+             13%  T4U
+             13%  FTI
+              7%  referral source
+
+
+Evaluation on test data (1000 cases):
+
+            Decision Tree   
+          ----------------  
+          Size      Errors  
+
+            11    3( 0.3%)   &lt;&lt;
+
+
+           (a)   (b)   (c)   (d)    &lt;-classified as
+          ----  ----  ----  ----
+            31     1                (a): class primary
+             1    39                (b): class compensated
+                                    (c): class secondary
+                   1         927    (d): class negative
+
+
+Time: 0.0 secs
+</pre>
+
+<p>
+The first part identifies the version of C5.0, the run date,
+and the options with which the system was invoked.
+C5.0 constructs a decision tree from the 2772 training cases
+in the file <font color="navy"><code>hypothyroid.data</code></font>, and this appears next.
+Although it may not look much like a tree, this output can be
+paraphrased as:
+</p><p>
+</p><pre>   if TSH is less than or equal to 6 then <em>negative</em>
+        else
+        if TSH is greater than 6 then
+            if FTI is less than or equal to 65.3 then
+	        if thyroid surgery is true then <em>negative</em>
+		else
+		if thyroid surgery is false then
+		    if TT4 is less than or equal to 61 then <em>primary</em>
+		    else
+		    if TT4 is greater than 61 then
+			. . . .
+</pre>
+and so on.
+
+<p>
+<b>Please note:</b> This explanation oversimplifies threshold tests such as
+<font color="navy"><code>TSH &lt;= 6</code></font>; the details are discussed later in the section
+<a href="https://rulequest.com/see5-unix.html#SOFT">Soft thresholds</a>.
+
+</p><p>
+The tree employs a case's attribute values to map it
+to a <i>leaf</i> designating one of the classes.
+Every leaf of the tree is followed by a cryptic (<var>n</var>) or
+(<var>n</var>/<var>m</var>).
+For instance, the last leaf of the decision tree
+is <font color="navy"><code>compensated (174.6/24.8)</code></font>, for which <var>n</var> is 174.6 and
+<var>m</var> is 24.8.
+The value of <var>n</var> is the number of cases in the file
+<font color="navy"><code>hypothyroid.data</code></font>
+that are mapped to this leaf, and <var>m</var> (if it appears) is the number of
+them that are classified incorrectly by the leaf.
+(A non-integral number of cases can arise because, when the value of
+an attribute in the tree is not known, C5.0 splits the case
+and sends a fraction down each branch.)
+
+</p><p>
+The next section covers the evaluation of this decision tree shown in the
+second part of the output.
+Before we leave this output, though, its final line
+states the <em>elapsed</em> time for the run.
+A decision tree is usually constructed quickly, even
+when there are many thousands of cases.  Some of the options described later,
+such as ruleset generation and boosting, can slow things down considerably.
+
+</p><p>
+The progress of C5.0 on long runs can be monitored by examining the
+last few lines of the temporary
+file <font color="green" style="background: #FFFFD0">filestem</font><font color="navy"><code>.tmp</code></font>
+(e.g. <font color="navy"><code>hypothyroid.tmp</code></font>).
+This file displays the stage that C5.0 has reached and, for most stages,
+gives an indication of progress within that stage.
+
+
+</p><h3><a name="EVALUATION">Evaluation</a></h3>
+
+Classifiers constructed by C5.0 are evaluated on the training data
+from which they were generated, and also on a separate file of
+unseen test cases if available;  evaluation by cross-validation is
+discussed later.
+
+<p>
+Results of the decision tree on the cases in
+<font color="navy"><code>hypothyroid.data</code></font> are:
+
+</p><pre class="out">            Decision Tree   
+          ----------------  
+          Size      Errors  
+
+            11    8( 0.3%)   &lt;&lt;
+</pre>
+
+<font color="navy"><code>Size</code></font> is the number of non-empty leaves on the
+tree and
+<font color="navy"><code>Errors</code></font> shows
+the number and percentage of cases misclassified.
+The tree, with 11 leaves, misclassifies 8 of the 2772 given cases, an error
+rate of 0.3%.
+This might seem inconsistent with the errors recorded at the leaves --
+the leaf mentioned above shows 24.8 errors!  The discrepancy arises because
+parts of a case split as a result of unknown attribute values can
+be misclassified and yet, when the votes from all the parts are aggregated,
+the correct class can still be chosen.
+
+<p>
+When there are no more than twenty classes,
+performance on the training cases is further analyzed in a
+<i>confusion matrix</i>
+that pinpoints the kinds of errors made.
+
+
+</p><pre class="out">           (a)   (b)   (c)   (d)    &lt;-classified as
+          ----  ----  ----  ----
+            58     3           2    (a): class primary
+                 154                (b): class compensated
+                               2    (c): class secondary
+                   1        2552    (d): class negative
+</pre>
+
+In this example, the decision tree misclassifies
+<ul>
+<li>
+three of the <font color="navy"><code>primary</code></font> cases as
+<font color="navy"><code>compensated</code></font>
+and two of them as <font color="navy"><code>negative</code></font>,
+</li><li>
+both <font color="navy"><code>secondary</code></font> cases as
+<font color="navy"><code>negative</code></font>, and
+</li><li>
+one <font color="navy"><code>negative</code></font> case as
+<font color="navy"><code>compensated</code></font>.
+</li></ul>
+
+
+<p>
+When the number of classes is larger than twenty,
+a summary of performance broken down by class is shown instead.
+The entry for each class shows the number
+of cases for that class and the numbers of <i>false positives</i> and <i>false
+negatives</i>.  A false positive for class <var>C</var> is a case of
+another class that is classified as <var>C</var>, while a false
+negative for <var>C</var> is a case of class <var>C</var> that is
+classified as some other class.  Of course, the total number of errors
+must come to half the sum of the numbers of false positives and false
+negatives, since each error is counted twice--as a false negative for
+its true class, and as a false positive for the predicted class.
+
+</p><p>
+For some applications, especially those with many attributes, it
+may be useful to know how the individual attributes contribute to
+the classifier.  This is shown in the next section:
+
+</p><pre class="out">        Attribute usage:
+
+             90%  TSH
+             18%  thyroid surgery
+             18%  on thyroxine
+             14%  TT4
+             13%  T4U
+             13%  FTI
+              7%  referral source
+</pre>
+
+The figure before each attribute is the percentage of training cases
+in <font color="navy"><code>hypothyroid.data</code></font> for which the value of that
+attribute is known and is used in predicting a class.  The second
+entry, for instance, shows that the decision tree uses a known
+value of <font color="navy"><code>thyroid surgery</code></font> when classifying 18% of the
+training cases.  Attributes for which this value is less than 1%
+are not shown.  Two points are worth noting here:
+<ul>
+<li> These values are computed for the particular classifier and training
+cases; changing either would give different values.
+</li><li> When a case is classified, use of an attribute such as
+<font color="navy"><code>FTI</code></font> that is defined by a formula also counts as
+using any attributes involved in its definition (here <font color="navy"><code>TT4</code></font>
+and <font color="navy"><code>T4U</code></font>).
+</li></ul>
+
+<p>
+If there are optional unseen test cases, the
+classifier's performance on these cases is summarized in a
+format similar to that for the training cases.
+
+</p><pre class="out">            Decision Tree   
+          ----------------  
+          Size      Errors  
+
+            11    3( 0.3%)   &lt;&lt;
+
+
+           (a)   (b)   (c)   (d)    &lt;-classified as
+          ----  ----  ----  ----
+            31     1                (a): class primary
+             1    39                (b): class compensated
+                                    (c): class secondary
+                   1         927    (d): class negative
+</pre>
+
+A very simple <i>majority</i> classifier predicts
+that every new case belongs to the most common class in the
+training data.
+In this example, 2553 of the 2772 training cases belong to class
+<font color="navy"><code>negative</code></font> so that
+a majority classifier would always opt for
+<font color="navy"><code>negative</code></font>.
+The 1000 test cases from file
+<font color="navy"><code>hypothyroid.test</code></font>
+include 928 belonging to class <font color="navy"><code>negative</code></font>,
+so a simple
+majority classifier would have an error rate of 7.2%.
+The decision tree does much better than this with an error rate of 0.3%
+on the test cases!
+
+<p>
+The error rate on the test cases is almost always higher than the
+rate on the training cases.
+The later section on cross-validation
+discusses a more effective way of determining the predictive error
+rate of a classifier.
+
+</p><p>
+The confusion matrix (or false positive/false negative summary if
+there are more than twenty classes) for the test cases again provides
+more details on correct and incorrect classifications.
+
+
+</p><p>
+</p><h3><a name="SUBSETS">Discrete value subsets</a></h3>
+
+<p>
+By default, a test on
+a discrete attributes has a separate branch for
+each of its values that is present in the data.
+Tests with a high fan-out can have the undesirable side-effect
+of fragmenting the data during construction of the decision tree.
+C5.0 has an option <b><font color="navy"><code>-s</code></font></b> (lower-case <em>s</em>)
+that can mitigate this fragmentation to some
+extent: attribute values are grouped into subsets and each subtree
+is associated with a subset rather than with a single value.
+
+</p><p>
+In the hypothyroid example, invoking this option
+by the command
+</p><pre>	<font color="navy"><code>c5.0 -f hypothyroid -s</code></font></pre>
+as no effect on the tree produced.
+
+<p>
+Although it does not help for this application, the
+<b><font color="navy"><code>-s</code></font></b>
+option is recommended when there are important discrete
+attributes that have more than four or five values.
+
+</p><p>
+</p><h3><a name="RULES">Rulesets</a></h3>
+
+<p>
+Decision trees can sometimes be quite difficult to understand.  An
+important feature of C5.0 is its ability to generate
+classifiers called <i>rulesets</i> that consist of unordered
+collections of (relatively) simple if-then rules.
+
+</p><p>
+The option <b><font color="navy"><code>-r</code></font></b> causes
+classifiers to be expressed as rulesets rather than decision trees.
+The command
+
+</p><p>
+</p><pre><font color="navy"><code>	c5.0 -f hypothyroid -r
+</code></font></pre>
+
+<p>
+gives the following:
+
+</p><pre class="out">C5.0 [Release 2.11a]    Sun Apr  7 08:49:53 2019
+--------------------
+
+    Options:
+        Application `hypothyroid'
+        Rule-based classifiers
+
+Class specified by attribute `diagnosis'
+
+Read 2772 cases (24 attributes) from hypothyroid.data
+
+Rules:
+
+Rule 1: (31, lift 42.7)
+        thyroid surgery = f
+        TSH &gt; 6
+        TT4 &lt;= 37
+        -&gt;  class primary  [0.970]
+
+Rule 2: (63/6, lift 39.3)
+        TSH &gt; 6
+        FTI &lt;= 65.3
+        -&gt;  class primary  [0.892]
+
+Rule 3: (270/116, lift 10.3)
+        TSH &gt; 6
+        -&gt;  class compensated  [0.570]
+
+Rule 4: (2225/2, lift 1.1)
+        TSH &lt;= 6
+        -&gt;  class negative  [0.999]
+
+Rule 5: (296, lift 1.1)
+        on thyroxine = t
+        FTI &gt; 65.3
+        -&gt;  class negative  [0.997]
+
+Rule 6: (240, lift 1.1)
+        TT4 &gt; 153
+        -&gt;  class negative  [0.996]
+
+Rule 7: (29, lift 1.1)
+        thyroid surgery = t
+        FTI &gt; 65.3
+        -&gt;  class negative  [0.968]
+
+Default class: negative
+
+
+Evaluation on training data (2772 cases):
+
+                Rules     
+          ----------------
+            No      Errors
+
+             7   14( 0.5%)   &lt;&lt;
+
+
+           (a)   (b)   (c)   (d)    &lt;-classified as
+          ----  ----  ----  ----
+            60     3                (a): class primary
+             1   153                (b): class compensated
+                               2    (c): class secondary
+             5     3        2545    (d): class negative
+
+
+        Attribute usage:
+
+             90%  TSH
+             20%  TT4
+             14%  T4U
+             14%  FTI
+             11%  on thyroxine
+              2%  thyroid surgery
+
+
+Evaluation on test data (1000 cases):
+
+                Rules     
+          ----------------
+            No      Errors
+
+             7    5( 0.5%)   &lt;&lt;
+
+
+           (a)   (b)   (c)   (d)    &lt;-classified as
+          ----  ----  ----  ----
+            32                      (a): class primary
+             1    39                (b): class compensated
+                                    (c): class secondary
+             1     3         924    (d): class negative
+
+
+Time: 0.0 secs
+</pre>
+
+<p>
+Each rule consists of:
+</p><ul>
+<li>A rule number -- this is quite arbitrary and serves only to identify
+the rule.
+</li><li>Statistics
+<font color="navy"><code>(</code></font><var>n</var><font color="navy"><code>, lift </code></font><var>x</var><font color="navy"><code>)</code></font>
+or
+<font color="navy"><code>(</code></font><var>n</var><font color="navy"><code>/</code></font><var>m</var><font color="navy"><code>,
+lift </code></font><var>x</var><font color="navy"><code>)</code></font>
+that summarize the performance of the rule.
+Similarly to a leaf, <var>n</var> is the number of training cases covered
+by the rule and <var>m</var>, if it appears, shows how many of them
+do not belong to the class predicted by the rule.
+The rule's accuracy is estimated by the Laplace ratio
+<nobr><var>(n-m+1)/(n+2)</var></nobr>.
+The lift <var>x</var>
+is the result of dividing the rule's estimated
+accuracy by the relative frequency of the
+predicted class in the training set.
+</li><li> One or more conditions that must all be satisfied if the rule
+is to be applicable.
+</li><li> A class predicted by the rule.
+</li><li> A value between 0 and 1 that indicates
+the confidence with which this prediction is made.
+(Note: The <em>boosting</em> option described below employs an
+artificial weighting of the training cases; if it is used,
+the confidence may not reflect the true accuracy of the rule.)
+</li></ul>
+When a ruleset like this is used to classify a case, it may happen that
+several of the rules are applicable (that is, all their
+conditions are satisfied).
+If the applicable rules predict different classes, there is
+an implicit conflict that could be resolved in several ways:
+for instance,
+we could believe the rule with the highest confidence, or we could
+attempt to aggregate the rules' predictions to reach a verdict.
+C5.0 adopts the latter strategy --
+each applicable rule votes for its predicted class
+with a voting weight equal to its confidence value, the votes
+are totted up, and
+the class with the highest total vote is chosen as the final
+prediction.
+There is also a <i>default class</i>, here <font color="navy"><code>negative</code></font>,
+that is used when none of the rules apply.
+
+<p>
+Rulesets are generally easier to understand than trees
+since each rule describes a specific context associated with
+a class.
+Furthermore,
+a ruleset generated from a tree usually has fewer rules than
+than the tree has leaves, another plus for comprehensibility.
+
+</p><p>
+Another advantage of ruleset classifiers is that they
+can be more accurate predictors than decision
+trees -- a point not illustrated here, since the ruleset has an
+error rate of 0.5% on the test cases.
+For very large datasets, however, generating rules with the
+<font color="navy"><code>-r</code></font> option
+can require considerably more computer time.
+
+</p><p>
+For a given application, the attribute usage shown for a decision tree
+and for a ruleset can be a bit different.
+In the case of the tree, the attribute at the root is always
+used (provided its value is known) while an attribute further down the
+tree is used less frequently.
+For a ruleset,
+an attribute is used to classify a case if it is referenced by a
+condition of at least one rule that applies to that case;
+the order in which attributes appear in a ruleset is not relevant.
+
+</p><h4><a name="utility">Rule utility ordering</a></h4>
+
+The order of rules does not matter, so the default is to
+group them by class and sub-ordered them by
+confidence.  An alternative ordering by estimated contribution to
+predictive accuracy can be selected using the
+<font color="navy"><code><b>-u</b></code></font>
+option.  Under this option, the rule that most reduces the error rate
+on the training data
+appears first and the rule that contributes least appears last.
+Furthermore, results are reported in a selected number of
+<i>bands</i> so that the predictive accuracies of the more
+important subsets of rules are also estimated.  For example,
+if the
+option <nobr><font color="navy"><code>-u 4</code></font></nobr>
+is selected, the hypothyroid rules are reordered as
+
+<pre class="out">Rule 1: (2225/2, lift 1.1)
+        TSH &lt;= 6
+        -&gt;  class negative  [0.999]
+
+Rule 2: (270/116, lift 10.3)
+        TSH &gt; 6
+        -&gt;  class compensated  [0.570]
+
+Rule 3: (63/6, lift 39.3)
+        TSH &gt; 6
+        FTI &lt;= 65.3
+        -&gt;  class primary  [0.892]
+
+Rule 4: (296, lift 1.1)
+        on thyroxine = t
+        FTI &gt; 65.3
+        -&gt;  class negative  [0.997]
+
+Rule 5: (240, lift 1.1)
+        TT4 &gt; 153
+        -&gt;  class negative  [0.996]
+
+Rule 6: (29, lift 1.1)
+        thyroid surgery = t
+        FTI &gt; 65.3
+        -&gt;  class negative  [0.968]
+
+Rule 7: (31, lift 42.7)
+        thyroid surgery = f
+        TSH &gt; 6
+        TT4 &lt;= 37
+        -&gt;  class primary  [0.970]
+</pre>
+The rules are divided into four bands of roughly equal sizes
+and a further summary is generated for both training and test cases.
+Here is the output for test cases:
+
+<pre class="out">Evaluation on test data (1000 cases):
+
+                Rules     
+          ----------------
+            No      Errors
+
+             7    5( 0.5%)   &lt;&lt;
+
+
+           (a)   (b)   (c)   (d)    &lt;-classified as
+          ----  ----  ----  ----
+            32                      (a): class primary
+             1    39                (b): class compensated
+                                    (c): class secondary
+             1     3         924    (d): class negative
+
+Rule utility summary:
+
+        Rules         Errors
+        -----         ------
+        1-2        56( 5.6%)
+        1-4        10( 1.0%)
+        1-5         6( 0.6%)
+</pre>
+This shows that,
+when only the first two rules are used,
+the error rate on the test cases is 5.6%,
+dropping to 1.0% when the first four rules are used,
+and so on.  The performance of the entire ruleset is not
+repeated since it is shown above the utility summary.
+
+<p>
+Rule utility orderings are not given for cross-validations (see below).
+
+</p><p>
+</p><h3><a name="BOOSTING">Boosting</a></h3>
+
+<p>
+Another powerful feature incorporated in C5.0 is <i>adaptive boosting</i>, based
+on the work of Rob Schapire and Yoav Freund.
+The idea is to generate several classifiers (either decision trees
+or rulesets) rather than just one.  When a new case is to be
+classified, each classifier votes for its predicted class and the votes
+are counted to determine the final class.
+
+</p><p>
+But how can we generate several classifiers from a single dataset?
+As the first step, a single decision tree or ruleset is constructed
+as before from the training data (e.g. <font color="navy"><code>hypothyroid.data</code></font>).
+This classifier will usually make mistakes on some cases in the data;
+the first decision tree, for instance, gives the wrong class
+for 8 cases in <font color="navy"><code>hypothyroid.data</code></font>.
+When the second classifier is constructed, more attention is paid
+to these cases in an attempt to get them right.
+As a consequence, the second classifier will generally be different
+from the first.  It also will make errors on some cases,
+and these become more important during construction
+of the third classifier.
+This process continues for a pre-determined number of iterations
+or <i>trials</i>, but stops if the most recent classifiers is
+either extremely accurate or too inaccurate.
+
+</p><p>
+The option <b><font color="navy"><code>-t </code></font><var>x</var></b> instructs C5.0 to
+construct up to <var>x</var>
+classifiers in this manner; an alternative option <b><font color="navy"><code>-b</code></font></b>
+is equivalent to <nobr><font color="navy"><code>-t 10</code></font></nobr>.
+Naturally, constructing multiple classifiers
+requires more computation that building a single classifier
+-- but the effort can pay dividends!
+Trials over numerous datasets, large
+and small, show that 10-classifier boosting reduces the
+error rate for test cases by an average 25%.
+
+</p><p>
+In this example, the command
+
+</p><p>
+</p><pre><font color="navy"><code>	c5.0 -f hypothyroid -b
+</code></font></pre>
+
+<p>
+causes ten decision trees to be generated.
+The summary of the trees'
+individual and aggregated performance on the 1000 test cases is:
+
+</p><pre class="out">Trial       Decision Tree   
+-----     ----------------  
+          Size      Errors  
+
+   0        11    3( 0.3%)
+   1         5   63( 6.3%)
+   2         8   17( 1.7%)
+   3         9    6( 0.6%)
+   4        12  119(11.9%)
+   5        14   15( 1.5%)
+   6         8   54( 5.4%)
+   7        11   22( 2.2%)
+   8        15   36( 3.6%)
+   9        17   23( 2.3%)
+boost             2( 0.2%)   &lt;&lt;
+
+
+           (a)   (b)   (c)   (d)    &lt;-classified as
+          ----  ----  ----  ----
+            32                      (a): class primary
+                  40                (b): class compensated
+                                    (c): class secondary
+             1     1         926    (d): class negative
+</pre>
+
+<p>
+The performance of the classifier constructed at each trial
+is summarized on a separate line, while the line labeled
+<font color="navy"><code>boost</code></font>
+shows the result of voting all the classifiers.
+
+</p><p>
+The decision tree constructed on Trial 0 is identical to that
+produced without the <font color="navy"><code>-b</code></font> option.
+Some of the subsequent trees produced by paying more attention
+to certain cases
+have relatively high overall error rates.  Nevertheless, when the
+trees are combined by voting,
+the final predictions have a lower error rate of 0.2% on the test cases.
+
+</p><p>
+<b>Warning:</b>
+An important characteristic of datasets is the extent to which they
+are affected by <em>noise</em> -- incorrectly recorded values
+of attributes or the class, or inherent probabilistic variability in
+the classes themselves.
+Boosting is particularly effective when the data are relatively noise-free
+(such as the hypothyroid application), but can be counterproductive for
+noisy datasets.
+
+</p><p>
+</p><h3><a name="WINNOWING">Winnowing attributes</a></h3>
+
+<p>
+The decision trees and rulesets constructed by C5.0 do not generally
+use all of the attributes.  The hypothyroid application
+has 22 predictive attributes (plus a class and a label attribute)
+but only five of them appear in the tree and the ruleset.
+This ability to pick and choose among the predictors is an
+important advantage of tree-based modeling techniques.
+
+</p><p>
+Some applications, however, have an abundance of attributes!
+For instance, one approach to text classification describes each
+passage by the words that appear in it, so there is a separate attribute
+for each different word in a restricted dictionary.
+
+</p><p>
+When there are numerous alternatives for each test in the tree or
+ruleset, it is likely that at least one of them will appear to provide
+valuable predictive information.
+In applications like these it can be useful to pre-select a
+subset of the attributes that will be used to construct the
+decision tree or ruleset.
+The C5.0 mechanism to do this is called "winnowing" by
+analogy with the process for separating wheat from chaff (or, here,
+useful attributes from unhelpful ones).
+
+</p><p>
+Winnowing is not obviously relevant for the hypothyroid application
+since there are relatively few attributes.  To illustrate the idea,
+however, here are the results when the
+<b><font color="navy"><code>-w</code></font></b>
+option is invoked:
+
+</p><pre class="out">C5.0 [Release 2.11a]    Sun Apr  7 08:52:49 2019
+--------------------
+
+    Options:
+        Application `hypothyroid'
+        Winnow attributes
+
+Class specified by attribute `diagnosis'
+
+Read 2772 cases (24 attributes) from hypothyroid.data
+
+14 attributes winnowed
+Estimated importance of remaining attributes:
+
+    990%  TSH
+    270%  FTI
+    200%  on thyroxine
+     30%  thyroid surgery
+     &lt;1%  age
+     &lt;1%  T3
+     &lt;1%  TT4
+     &lt;1%  referral source
+
+Decision tree:
+
+TSH &lt;= 6: negative (2472/2)
+TSH &gt; 6:
+:...FTI &lt;= 65.3:
+    :...thyroid surgery = t:
+    :   :...FTI &lt;= 38.2: negative (2.1)
+    :   :   FTI &gt; 38.2: primary (2.1/0.1)
+    :   thyroid surgery = f:
+    :   :...TT4 &lt;= 61: primary (51/3.7)
+    :       TT4 &gt; 61:
+    :       :...referral source in {WEST,SVHD}: primary (0)
+    :           referral source in {STMW,SVHC,SVI}: primary (4.9/0.8)
+    :           referral source = other:
+    :           :...TSH &lt;= 22: negative (6.4/2.7)
+    :               TSH &gt; 22: primary (5.8/0.8)
+    FTI &gt; 65.3:
+    :...on thyroxine = t: negative (37.7)
+        on thyroxine = f:
+        :...thyroid surgery = t: negative (6.8)
+            thyroid surgery = f:
+            :...TT4 &gt; 153: negative (6/0.1)
+                TT4 &lt;= 153:
+                :...TT4 &lt;= 37: primary (2.5/0.2)
+                    TT4 &gt; 37: compensated (174.6/24.8)
+
+
+Evaluation on training data (2772 cases):
+
+            Decision Tree   
+          ----------------  
+          Size      Errors  
+
+            12    6( 0.2%)   &lt;&lt;
+
+
+           (a)   (b)   (c)   (d)    &lt;-classified as
+          ----  ----  ----  ----
+            60     3                (a): class primary
+                 154                (b): class compensated
+                               2    (c): class secondary
+                   1        2552    (d): class negative
+
+
+        Attribute usage:
+
+             90%  TSH
+             18%  thyroid surgery
+             18%  on thyroxine
+             14%  TT4
+             13%  T4U
+             13%  FTI
+              7%  referral source
+
+
+Evaluation on test data (1000 cases):
+
+            Decision Tree   
+          ----------------  
+          Size      Errors  
+
+            12    3( 0.3%)   &lt;&lt;
+
+
+           (a)   (b)   (c)   (d)    &lt;-classified as
+          ----  ----  ----  ----
+            31     1                (a): class primary
+             1    39                (b): class compensated
+                                    (c): class secondary
+                   1         927    (d): class negative
+
+
+Time: 0.0 secs
+</pre>
+After analyzing the training cases and before the decision
+tree is built, C5.0 winnows 14 of the 22 predictive attributes.
+This has the same effect as marking the attributes as excluded
+by an entry in the <font color="green" style="background: #FFFFD0">names</font> file; winnowed attributes
+can still be used in the definition of other attributes.
+In this example, <font color="navy"><code>T4U</code></font> is winnowed but is still available
+for use in the definition of <font color="navy"><code>FTI</code></font>.
+
+<p>
+The remaining attributes are then listed in order of <em>importance</em>,
+C5.0's estimate of the factor by which the true error rate or
+misclassification cost would increase if that attribute were excluded.
+If TSH were excluded, for example, C5.0 expects the error rate on unseen
+test cases to increase to 3% (990% of the current rate of 0.3%).
+This estimate is only a rough guide
+and should not be taken too literally!
+
+</p><p>
+We then see the decision tree that is constructed from the reduced
+set of attributes.  In this case it is
+slightly more elaborate
+than the original tree but has the same error rate on the test cases.
+
+</p><p>
+Since winnowing the attributes can be a time-consuming process,
+it is recommended primarily for larger applications (100,000 cases or more)
+where there is reason to suspect that 
+many of the attributes have at best marginal relevance to the
+classification task.
+
+</p><p>
+</p><h3><a name="SOFT">Soft thresholds</a></h3>
+
+<p>
+The top of our initial decision tree tests whether
+the value of the attribute <font color="navy"><code>TSH</code></font> is less than or
+equal to, or greater than, 6.  If the former holds, we go no further
+and predict that the case's class is <font color="navy"><code>negative</code></font>, otherwise
+we perform further tests before making a decision.
+Thresholds like this are sharp, so that a case with
+a hypothetical value of 5.99 for <font color="navy"><code>TSH</code></font> is treated
+quite differently from one with a value of 6.01.
+
+</p><p>
+For some domains, this sudden change is quite appropriate --
+for instance, there are hard-and-fast cutoffs for bands
+of the income tax table.  For other applications, though,
+it is more reasonable to expect classification decisions to
+change more slowly near the thresholds.
+
+</p><p>
+Each threshold in a decision tree actually consists of three parts --
+a lower bound <var>lb</var>, an upper bound <var>ub</var>, and an
+intermediate value <var>t</var>, the threshold shown in the
+original decision tree.  If the attribute value in question
+is below <var>lb</var> or above <var>ub</var>, classification is
+carried out using the single branch
+corresponding to the `&lt;=' or '&gt;' result respectively.
+If the value lies between <var>lb</var> and <var>ub</var>, <em>both</em>
+branches of the tree are investigated and the results combined.
+The relative weight of the '&lt;=' branch (green) and the '&gt;' branch (blue)
+as the value of the attribute varies is shown in this figure:
+
+</p><ul>
+<img src="./C5.0_ An Informal Tutorial_files/threshold.png" alt="Soft threshold weights" height="176" width="409">
+</ul>
+
+The values of <var>lb</var> and <var>ub</var> are determined by C5.0
+based on an analysis of the apparent sensitivity of classification
+to small changes in the threshold.  They need not be symmetric --
+a threshold can be sharper on one side than on the other.
+
+<p>
+C5.0 contains an option
+<b><font color="navy"><code>-p</code></font></b>
+to display all the information about each threshold.
+The command
+
+</p><p>
+</p><pre><font color="navy"><code>	c5.0 -f hypothyroid -p
+</code></font></pre>
+gives the following decision tree:
+
+<pre class="out">TSH &lt;= 6 (6): negative (2472/2)
+TSH &gt;= 6.1 (6):
+:...FTI &lt;= 61 (65.3):
+    :...thyroid surgery = t: negative (4.2/2)
+    :   thyroid surgery = f:
+    :   :...TT4 &lt;= 44 (61): primary (51/3.7)
+    :       TT4 &gt;= 63 (61):
+    :       :...referral source in {WEST,SVHD}: primary (0)
+    :           referral source in {STMW,SVHC,SVI}: primary (4.9/0.8)
+    :           referral source = other:
+    :           :...TSH &lt;= 14 (22): negative (6.4/2.7)
+    :               TSH &gt;= 44 (22): primary (5.8/0.8)
+    FTI &gt;= 66 (65.3):
+    :...on thyroxine = t: negative (37.7)
+        on thyroxine = f:
+        :...thyroid surgery = t: negative (6.8)
+            thyroid surgery = f:
+            :...TT4 &gt;= 159 (153): negative (6/0.1)
+                TT4 &lt;= 146 (153):
+                :...TT4 &lt;= 14 (37): primary (2.5/0.2)
+                    TT4 &gt;= 61 (37): compensated (174.6/24.8)
+</pre>
+
+<p>
+Each threshold is now of the form
+<font color="navy"><code>&lt;=</code></font> <var>lb</var> <font color="navy"><code>(</code></font><var>t</var><font color="navy"><code>)</code></font>
+or
+<font color="navy"><code>&gt;=</code></font> <var>ub</var> <font color="navy"><code>(</code></font><var>t</var><font color="navy"><code>)</code></font>.
+If a case has a value of the relevant attribute that is
+between <var>lb</var> and <var>t</var>, both
+branches are explored and the results combined with the relative weight of
+the <font color="navy"><code>&lt;=</code></font> branch ranging from 1 to 0.5.  Similarly, if a
+case has a value between <var>t</var> and <var>ub</var>, the
+relative weight of the <font color="navy"><code>&lt;=</code></font> branch ranges from 0.5 to 0.
+
+</p><p>
+A final point: soft thresholds affect only decision tree classifiers --
+they do not change the interpretation of rulesets.
+
+</p><p>
+</p><h3><a name="OTHER">Advanced pruning options</a></h3>
+
+<p>
+Three further options enable aspects of the classifier-generation
+process to be tweaked.  These are best regarded as <i>advanced</i>
+options
+that should be used sparingly (if at all), so that this
+section can be skipped without much loss.
+
+</p><p>
+C5.0 constructs decision trees in two phases.  A large tree is first
+grown to fit the data closely and is then `pruned'
+by removing parts that are predicted to have a relatively high error rate.
+This pruning process is first applied to every subtree to decide
+whether it should be replaced by a leaf or sub-branch, and then
+a global stage looks at the performance of the tree as a whole.
+</p><p>
+The option <nobr><b><font color="navy"><code>-g</code></font></b></nobr>
+disables this second pruning component and generally results in
+larger decision tees and rulesets.  For the hypothyroid application,
+the tree increases in size from 11 to 12 leaves.
+(Turning off global pruning can be beneficial for smaller applications
+with many discrete attributes.)
+
+</p><p>
+The option <nobr><b><font color="navy"><code>-c</code></font> <var>CF</var></b></nobr>
+affects the way that error rates are estimated
+and hence the severity of pruning;
+values smaller than the
+default (25%) cause more of the initial tree to be pruned,
+while larger values result in less pruning.
+
+</p><p>
+The option <nobr><b><font color="navy"><code>-m</code></font> <var>cases</var></b></nobr>
+constrains the degree to which the initial tree can fit the data.
+At each branch point in the decision tree,
+the stated minimum number of training cases must follow
+at least two of the branches.
+Values higher than the default (2 cases)
+can lead to an initial tree that fits the training data only
+approximately -- a form of pre-pruning.
+(This option is complicated by the presence of missing attribute values,
+and by the use of differential misclassification costs or weighting
+of individual cases as discussed elsewhere.
+All cause adjustments to the apparent number of cases following a branch.)
+
+</p><p>
+</p><h3><a name="SAMPLE">Sampling from large datasets</a></h3>
+
+<p>
+Even though C5.0 is relatively fast, building classifiers from
+large numbers of cases can take an inconveniently long time,
+especially when options such as boosting are employed.
+C5.0 incorporates a facility to extract a random sample from
+a dataset, construct a classifier from the sample, and then test
+the classifier on a disjoint collection of cases.
+By using a smaller set of training cases in this way, the
+process of generating a classifier is expedited,
+but at the cost of a possible reduction in the classifier's
+predictive performance.
+
+</p><p>
+The option <nobr><b><font color="navy"><code>-S </code></font><var>x</var></b></nobr>
+(upper-case <em>S</em>)
+has two consequences.
+Firstly, a random sample containing <var>x</var>% of the cases in
+the application's <font color="green" style="background: #FFFFD0">data</font> file is used to construct the classifier.
+Secondly, the classifier is evaluated on
+a non-overlapping set of test cases consisting of
+another (disjoint) sample of the same size as the training set
+(if <var>x</var> is less than 50%),
+or all cases that were not used in the training set
+(if <var>x</var> is greater than or equal to 50%).
+
+</p><p>
+In the hypothyroid example,
+using a sample of 60% would cause a classifier to be constructed
+from a randomly-selected 1663 of the 2772 cases in
+<font color="navy"><code>hypothyroid.data</code></font>, then tested on the
+remaining 1109 cases.
+
+</p><p>
+By default, the random sample changes every time that
+a classifier is constructed, so that
+successive runs of C5.0 with sampling will
+usually produce different results.
+This re-sampling can be avoided by the option
+<nobr><b><font color="navy"><code>-I </code></font><var>seed</var></b></nobr>
+that uses the integer <var>seed</var> to initialize the sampling.
+Runs with the same value of the seed and the same sampling
+percentage will always use the same training cases.
+
+</p><p>
+</p><h3><a name="XVAL">Cross-validation trials</a></h3>
+
+<p>
+As we saw earlier, the performance of a classifier on the training
+cases from which it was constructed gives a poor estimate of
+its accuracy on new cases.
+The true predictive accuracy of the classifier can be estimated
+by sampling, as above, or by using a separate <font color="green" style="background: #FFFFD0">test</font> file;
+either way, the classifier is evaluated on cases that were
+not used to build it.
+However, this estimate can be unreliable unless the numbers of
+cases used to build and evaluate the classifier are both large.
+If the cases in <font color="navy"><code>hypothyroid.data</code></font> and
+<font color="navy"><code>hypothyroid.test</code></font> were to be shuffled
+and divided into a new 2772-case training set and a 1000-case test set,
+C5.0 might construct a different classifier with a lower or higher error
+rate on the test cases.
+
+</p><p>
+One way to get a more reliable estimate of predictive accuracy
+is by <i><var>f</var>-fold cross-validation</i>.  The cases
+(including those in the <font color="green" style="background: #FFFFD0">test</font> file, if it exists)
+are divided into
+<var>f</var> blocks of roughly the same size and class distribution.
+For each block in turn, a classifier is constructed from the
+cases in the remaining blocks and tested on the cases in the
+hold-out block.  In this way, each case is used just once as
+a test case.  The error rate of a classifier produced from
+all the cases is estimated as the ratio of the total number of errors
+on the hold-out cases to the total number of cases.
+
+</p><p>
+The option <b><font color="navy"><code>-X</code></font> <var>f</var></b>
+runs such a <var>f</var>-fold cross-validation.
+For example, the command
+
+</p><p>
+</p><pre><font color="navy"><code>	c5.0 -f hypothyroid -X 10 -r
+</code></font></pre>
+selects 10-fold cross-validation using rulesets.
+After giving details of the individual rulesets,
+the output shows a summary like this:
+
+<pre class="out">Fold            Rules     
+----      ----------------
+            No      Errors
+
+   1         7        0.5%
+   2         7        0.3%
+   3         7        0.5%
+   4         8        0.5%
+   5         8        1.6%
+   6         7        0.5%
+   7         7        0.0%
+   8         7        0.0%
+   9         7        0.3%
+  10         7        0.8%
+
+  Mean     7.2        0.5%
+  SE       0.1        0.1%
+
+
+           (a)   (b)   (c)   (d)    &lt;-classified as
+          ----  ----  ----  ----
+            91     4                (a): class primary
+                 192           2    (b): class compensated
+                               2    (c): class secondary
+             5     6        3470    (d): class negative
+</pre>
+
+<p>
+This estimates the error rate of the rulesets
+produced from the
+3772 cases in <font color="navy"><code>hypothyroid.data</code></font> and <font color="navy"><code>hypothyroid.test</code></font>
+at 0.5%.
+The <i>SE</i> figures (the standard errors of the means)
+provide an estimate of the variability of these results.
+
+</p><p>
+As with sampling above, each cross-validation run will normally use
+a different random division of the data into blocks, unless this
+is prevented by using the <font color="navy"><code>-I</code></font> option.
+
+</p><p>
+The cross-validation procedure can be repeated for
+different random partitions of the cases into blocks.  The average
+error rate from these distinct cross-validations is then an even more
+reliable estimate of the error rate of the single classifier
+produced from all the cases.
+
+</p><p>
+A shell script and associated programs for carrying out multiple
+cross-validations is included with C5.0.
+The shell script <font color="navy"><code>xval</code></font> is invoked with any combination of C5.0
+options and some further options that describe the cross-validations
+themselves:
+
+</p><p>
+</p><ul>
+<table cellpadding="0">
+<tbody><tr>
+  <td><font color="navy"><code>F=</code></font><font color="green" style="background: #FFFFD0">folds</font></td>
+  <td>specifies the number of cross-validation folds (default 10)</td>
+</tr>
+
+<tr>
+  <td><font color="navy"><code>R=</code></font><font color="green" style="background: #FFFFD0">repeats</font></td>
+  <td>causes the cross-validation to be repeated <font color="green" style="background: #FFFFD0">repeats</font> times (default 1)
+</td></tr>
+
+<tr>
+  <td><font color="navy"><code>+</code></font><font color="green" style="background: #FFFFD0">suffix</font></td>
+  <td>adds the identifying suffix
+	<font color="navy"><code>+</code></font><font color="green" style="background: #FFFFD0">suffix</font> to all files</td>
+</tr>
+
+<tr>
+  <td><font color="navy"><code>+d</code></font></td>
+  <td>retains the files output by individual runs</td>
+</tr>
+</tbody></table>
+</ul>
+
+<p>
+If detailed results are retained via the <font color="navy"><code>+d</code></font> option,
+they appear in files named
+<font color="green" style="background: #FFFFD0">filestem</font><font color="navy"><code>.o</code></font><var>x</var>[<font color="navy"><code>+</code></font><font color="green" style="background: #FFFFD0">suffix</font>]
+where <var>x</var> is the cross-validation number
+(0 to <font color="green" style="background: #FFFFD0">repeats</font>-1).
+A summary of the cross-validations is written to file
+<font color="green" style="background: #FFFFD0">filestem</font><font color="navy"><code>.res</code></font>[<font color="navy"><code>+</code></font><font color="green" style="background: #FFFFD0">suffix</font>].
+
+</p><p>
+As an example, the command
+
+</p><p>
+</p><pre><font color="navy"><code>	xval -f hypothyroid -r R=10 +run1
+</code></font></pre>
+
+<p>
+has the effect of running ten 10-fold cross-validations
+using ruleset classifiers (i.e., 100 classifiers in all).
+File <font color="navy"><code>hypothyroid.res+run1</code></font> contains the following summary:
+
+</p><pre class="out">	XVal          Rules     
+	----    ----------------
+	            No    Errors
+
+	  1        7.2      0.5%  
+	  2        7.2      0.6%  
+	  3        7.2      0.5%  
+	  4        7.2      0.6%  
+	  5        6.8      0.7%  
+	  6        7.0      0.5%  
+	  7        7.1      0.6%  
+	  8        7.3      0.6%  
+	  9        7.2      0.6%  
+	 10        7.2      0.6%  
+
+	Mean       7.1      0.6%  
+	SE         0.0      0.0%  
+</pre>
+
+<p>
+
+</p><p>
+Since every cross-validation fold produces a different
+classifier using only part of the application's
+data, <b>running a cross-validation does not cause a classifier to be
+saved</b>.
+To save a classifier for later use, simply
+run C5.0 without employing cross-validation.
+
+
+</p><p>
+</p><h3><a name="COSTS">Differential misclassification costs</a></h3>
+
+<p>
+Up to this point, all errors have been treated as equal -- we have
+simply counted the number of errors made by a classifier to
+summarize its performance.
+Let us now turn to the situation in which the `cost' associated
+with a classification error depends on the predicted and true class
+of the misclassified case.
+
+</p><p>
+C5.0 allows costs to be assigned to any combination of predicted and
+true class via entries in the optional file
+<font color="green" style="background: #FFFFD0">filestem</font><font color="navy"><code>.costs</code></font>.
+Each entry has the form
+
+</p><p></p><pre>	<font color="green" style="background: #FFFFD0">predicted class</font><font color="navy"><code>,</code></font> <font color="green" style="background: #FFFFD0">true class</font><font color="navy"><code>:</code></font> <font color="green" style="background: #FFFFD0">cost</font>
+</pre>
+
+<p>
+where <font color="green" style="background: #FFFFD0">cost</font> is any non-negative value.
+The file may contain any number of entries;
+if a particular combination is not specified explicitly, its
+cost is taken to be 0 if the predicted class is correct and
+1 otherwise.
+
+</p><p>
+To illustrate the idea, suppose that it was a much more serious
+error to classify a hypothyroid patient as <font color="navy"><code>negative</code></font>
+than the converse.
+A hypothetical <font color="green" style="background: #FFFFD0">costs</font> file <font color="navy"><code>hypothyroid.costs</code></font>
+might look like this:
+
+</p><p>
+</p><pre class="out">negative, primary: 7.5
+negative, secondary: 5
+negative, compensated: 5
+</pre>
+
+<p>
+This specifies that the cost of misclassifying any
+<font color="navy"><code>primary</code></font> patient as <font color="navy"><code>negative</code></font> is 7.5,
+and any
+<font color="navy"><code>secondary</code></font>, or
+<font color="navy"><code>compensated</code></font>
+patient as <font color="navy"><code>negative</code></font> is 5.
+Since they are not given explicitly, all other errors
+have cost 1.
+In other words, failing to identify a sick patient is more costly.
+
+</p><p>
+A <font color="green" style="background: #FFFFD0">costs</font> file is automatically read by C5.0 unless the
+system is told to ignore it.
+(The option <b><font color="navy"><code>-e</code></font></b>
+causes any <font color="green" style="background: #FFFFD0">costs</font> file to be ignored and instructs C5.0
+to focus only on errors.)
+The command
+</p><pre><font color="navy"><code>	c5.0 -f hypothyroid
+</code></font></pre>
+now gives the following output:
+
+<pre class="out">C5.0 [Release 2.11a]    Sun Apr  7 08:56:12 2019
+--------------------
+
+    Options:
+        Application `hypothyroid'
+
+Class specified by attribute `diagnosis'
+
+Read 2772 cases (24 attributes) from hypothyroid.data
+Read misclassification costs from hypothyroid.costs
+
+Decision tree:
+
+TSH &lt;= 6:
+:...TT4 &gt; 55: negative (2444.3)
+:   TT4 &lt;= 55:
+:   :...query hypothyroid = f: negative (25.7/1)
+:       query hypothyroid = t: secondary (2.1/1.1)
+TSH &gt; 6:
+:...FTI &lt;= 65.3:
+    :...thyroid surgery = f: primary (68.1/11.7)
+    :   thyroid surgery = t:
+    :   :...FTI &lt;= 38.2: negative (2.1)
+    :       FTI &gt; 38.2: primary (2.1/0.1)
+    FTI &gt; 65.3:
+    :...on thyroxine = t: negative (37.7)
+        on thyroxine = f:
+        :...thyroid surgery = t: negative (6.8)
+            thyroid surgery = f:
+            :...TT4 &gt; 153: negative (6/0.1)
+                TT4 &lt;= 153:
+                :...TT4 &lt;= 37: primary (2.5/0.2)
+                    TT4 &gt; 37: compensated (174.6/24.8)
+
+
+Evaluation on training data (2772 cases):
+
+               Decision Tree       
+          -----------------------  
+          Size      Errors   Cost  
+
+            11   12( 0.4%)   0.01   &lt;&lt;
+
+
+           (a)   (b)   (c)   (d)    &lt;-classified as
+          ----  ----  ----  ----
+            60     3                (a): class primary
+             1   153                (b): class compensated
+                         1     1    (c): class secondary
+             5     1     1  2546    (d): class negative
+
+
+        Attribute usage:
+
+             94%  TT4
+             90%  TSH
+             18%  thyroid surgery
+             18%  on thyroxine
+             13%  T4U
+             13%  FTI
+              8%  query hypothyroid
+
+
+Evaluation on test data (1000 cases):
+
+               Decision Tree       
+          -----------------------  
+          Size      Errors   Cost  
+
+            11    4( 0.4%)   0.00   &lt;&lt;
+
+
+           (a)   (b)   (c)   (d)    &lt;-classified as
+          ----  ----  ----  ----
+            32                      (a): class primary
+             1    39                (b): class compensated
+                                    (c): class secondary
+             1     2         925    (d): class negative
+
+
+Time: 0.0 secs
+</pre>
+The original tree and new tree are quite similar, but we can
+compare the total cost of misclassified
+cases for the two trees.
+For the training cases, the original tree had cost 29
+(two <font color="navy"><code>primary</code></font> and two <font color="navy"><code>secondary</code></font>
+cases are classified as <font color="navy"><code>negative</code></font> and there are
+four other errors, so 2*7.5 + 2*5 + 4).  The new tree
+classifies one <font color="navy"><code>secondary</code></font> case as <font color="navy"><code>negative</code></font>
+and makes 11 other errors for a total cost of 16.
+Unfortunately, the new tree makes one additional error on the test cases
+and so is of no benefit in this example.
+
+<p>
+The new "Cost" column in the output shows the average misclassification
+cost, i.e. the total cost divided by the number of cases.
+For the new tree,  the average cost is 16/2772 for the training cases
+and 4/1000 for the test cases.
+
+
+</p><p>
+</p><h3><a name="CASEWEIGHT">Weighting individual cases</a></h3>
+
+<p>
+It is sometimes useful to attach different weights to cases
+depending on some measure of their importance.
+An application predicting whether a customer is likely to "churn," for
+example, might weight training cases by the size of the account.
+
+</p><p>
+C5.0 accommodates this by allowing a special attribute that contains
+the weight of each case.  The attribute name must be
+<font color="navy"><code>case weight</code></font> and
+it must be of type <font color="navy"><code>continuous</code></font>.  The relative weight
+assigned to each case is its value of this attribute divided by
+the average value; if the value is undefined ("<font color="navy"><code>?</code></font>"),
+not applicable ("<font color="navy"><code>N/A</code></font>"), or is less than or equal to zero,
+the case's relative weight is set to 1.
+
+</p><p>
+<em>The case weight attribute itself is not used in the classifier!</em>
+
+</p><p>
+Our sample hypothyroid application does not have any natural case-by-case
+weighting, since all patients are equal.  For the purpose of illustration,
+though, we will add an implicitly-defined attribute to
+<font color="navy"><code>hypothyroid.names</code></font> as follows:
+</p><ul>
+	<font color="navy"><code>case weight := 100-age.</code></font><br>
+</ul>
+With all default options, C5.0 now generates a different decision tree:
+<p>
+
+</p><pre class="out">TSH &lt;= 6: negative (2462.5/2.3)
+TSH &gt; 6:
+:...FTI &lt;= 64: primary (69.6/12.8)
+    FTI &gt; 64:
+    :...on thyroxine = t: negative (39.6)
+        on thyroxine = f:
+        :...thyroid surgery = t: negative (9.2)
+            thyroid surgery = f:
+            :...TT4 &gt; 153: negative (6.2/0.2)
+                TT4 &lt;= 153:
+                :...TT4 &gt; 61: compensated (179/29.3)
+                    TT4 &lt;= 61:
+                    :...TSH &lt;= 35: compensated (2.8/0.3)
+                        TSH &gt; 35: primary (3.2/0.3)
+</pre>
+The case counts at the leaves now reflect the relative weights
+of the cases.  (The counts associated with rules are affected similarly.)
+However, the error counts, rates, and costs shown in the evaluations
+use uniform case weighting.
+
+
+<p>
+A cautionary note: The use of case weighting does not guarantee that
+the classifier will be more accurate for unseen cases with higher
+weights.  Predictive accuracy on more important cases is likely
+to be improved only when cases with similar values of the predictor
+attributes also have similar values of the case weight attribute,
+i.e. when relatively important cases "clump together."
+Without this property, case weighting can introduce an unhelpful
+element of randomness into the classifier generation process.
+
+</p><p>
+</p><h2><a name="USE">Using Classifiers</a></h2>
+
+<p>
+Once a classifier has been constructed, an <i>interactive interpreter</i>
+can be used to
+predict the classes to which new cases belong.
+The command to do this is
+</p><pre><font color="navy"><code>	predict
+</code></font></pre>
+whose options are:
+<p>
+</p><ul>
+<table cellpadding="0">
+<tbody><tr>
+  <td><font color="navy"><code>-f </code></font><font color="green" style="background: #FFFFD0">filestem</font></td>
+  <td>to identify the application</td>
+</tr>
+
+<tr>
+  <td><font color="navy"><code>-r</code></font></td>
+  <td>uses ruleset classifiers rather than decision trees</td>
+</tr>
+
+<tr>
+  <td><font color="navy"><code>-p</code></font></td>
+  <td>prints the classifier as a reminder</td>
+</tr>
+</tbody></table>
+</ul>
+<p>
+This is illustrated in the following dialog that uses the first decision
+tree to predict the class of a case.  Input from the user
+is shown in bold face and the enter key as
+<b><code>¤</code></b>.
+
+</p><pre class="out">TSH: <b>7.4<code>¤</code></b>
+TT4: <b>108<code>¤</code></b>
+T4U: <b>1.08<code>¤</code></b>
+on thyroxine: <b>f<code>¤</code></b>
+thyroid surgery: <b>f<code>¤</code></b>
+
+    -&gt;	compensated  [0.85]
+	negative  [0.13]
+	primary  [0.01]
+
+Retry, new case or quit [r,n,q]: <b>r<code>¤</code></b>
+
+TSH [7.4]: <b><code>¤</code></b>
+TT4 [108]: <b><code>¤</code></b>
+T4U [1.08]: <b><code>¤</code></b>
+on thyroxine [f]: <b>t<code>¤</code></b>
+
+    -&gt;	negative  [1.00]
+
+Retry, new case or quit [r,n,q]: <b>q<code>¤</code></b>
+</pre>
+The values of some attributes might not affect the classification, so
+<font color="navy"><code>predict</code></font> prompts for the values of those attributes that
+are required.  The reply `<font color="navy"><code>?</code></font>' indicates
+that a requested attribute value is unknown.
+(Similarly, use `<font color="navy"><code>N/A</code></font>' for non-applicable values.)
+When all the relevant information has been entered, the most likely
+class (or classes) are printed, each with a confidence value.
+<p>
+Next, <font color="navy"><code>predict</code></font> asks whether the same case is to be tried
+again with changed attribute values (a kind of `what if'
+scenario), a new case is to be classified, or all cases are complete.
+If a case is retried, each prompt for an attribute value shows
+the previous value in square brackets.
+A new value can be entered, followed by the enter key, or
+the enter key alone can be used to indicate that the value is unchanged.
+
+</p><p>
+Classifiers can also be used in batch mode.
+The sample application provided in the
+<a href="http://rulequest.com/see5-win.html#HOOKS">public source code</a> 
+reads cases from a <font color="green" style="background: #FFFFD0">cases</font> file and shows
+the predicted class and the confidence for each.
+
+</p><h2> <a name="SEGFAULT">Segmentation fault errors</a></h2>
+
+<p>
+For applications with very many cases or attributes, C5.0 may crash
+with a message like <font color="navy"><code>Segmentation fault (core dumped)</code></font>.  This
+usually occurs because a C5.0 thread has exhausted its allocated stack
+space.
+
+</p><p>
+Different releases of Linux have varying default stack sizes;  for
+example, Fedora Core uses a default 10MB while Ubuntu uses 8MB.
+If you experience a segmentation fault error, you must
+override the default stack size setting by typing the following
+<em>before</em> running C5.0:
+
+</p><ul>
+<li> if you are using <em>csh</em>:
+	<font color="navy"><code>limit stacksize</code></font> <font color="green" style="background: #FFFFD0">new limit</font>
+</li><li> if you are using <em>sh</em>:
+	<font color="navy"><code> ulimit -Ss</code></font> <font color="green" style="background: #FFFFD0">new limit</font>
+</li></ul>
+
+where <font color="green" style="background: #FFFFD0">new limit</font> is the new stack size limit in kilobytes.
+For example, a csh user might type <font color="navy"><code>limit stacksize 20000</code></font>
+to increase the default stack size limit to 20MB.
+
+<p>
+<b>Please note!</b>  You should not set the stack size limit to
+<font color="navy"><code>unlimited</code></font> -- this will not change the default stack size
+limit for subsidiary threads.  You must use a specific value in KB.
+A little experimentation may be necessary to find a value that works
+with your application.
+
+
+</p><h2><a name="LINUXGUI">Linux GUI</a></h2>
+
+<p>
+Linux users who have installed a recent version of
+<a href="http://www.winehq.org/">Wine</a> can invoke a
+slightly simplified version of the See5 user interface.
+The executable program <font color="navy"><code>gui</code></font> starts the graphical
+user interface whose main window is similar to See5's, with
+five buttons:
+</p><dl>
+<dt> <font color="maroon">Locate Data</font>
+</dt><dd> invokes a browser to find the files
+for your application, or to change the current application;
+</dd><dt> <font color="maroon">Construct Classifier</font>
+</dt><dd> selects the type of classifier
+to be constructed and sets other options;
+</dd><dt> <font color="maroon">Stop</font>
+</dt><dd> interrupts the classifier-generating process;
+</dd><dt> <font color="maroon">Review Output</font>
+</dt><dd> re-displays the output from the last classifier construction (if any),
+    saved automatically in a file <font color="green" style="background: #FFFFD0">filestem</font><font color="navy"><code>.out</code></font>;
+and
+</dd><dt> <font color="maroon">Cross-Reference</font>
+</dt><dd> shows how cases in training or test data relate to (parts of)
+a classifier and vice versa.
+</dd></dl>
+For more details on these, please see the
+<a href="http://rulequest.com/see5-win.html">See5 tutorial</a>.
+
+<p>
+The graphical interface calls C5.0 directly, so use of the GUI
+has minimal impact on performance when generating a classifier.
+
+</p><p>
+<b>Please note:</b> C5.0 should be run for the first time from the
+command-line interface, not the GUI.  The first run installs the
+licence in C5.0 -- after that, C5.0 can be used from either interface.
+
+</p><h2><a name="HOOKS">Linking to Other Programs</a></h2>
+
+<p>
+The classifiers generated by C5.0 are retained in files
+<font color="green" style="background: #FFFFD0">filestem</font><font color="navy"><code>.tree</code></font> (for decision trees) and
+<font color="green" style="background: #FFFFD0">filestem</font><font color="navy"><code>.rules</code></font> (for rulesets).
+Free C source code is available
+to read these classifier files and to make predictions with them,
+enabling you to use C5.0 classifiers in other
+programs.
+
+</p><p>
+As an example, the source includes a program <font color="navy"><code>sample.c</code></font> to input new cases
+and to show how each is classified
+by boosted or single trees or rulesets.
+The program reads the application's <font color="green" style="background: #FFFFD0">names</font> file, the
+<font color="green" style="background: #FFFFD0">tree</font> or <font color="green" style="background: #FFFFD0">rules</font> file generated by C5.0,
+and an optional <font color="green" style="background: #FFFFD0">costs</font> file.  It then reads cases from
+a <font color="green" style="background: #FFFFD0">cases</font> file in a format similar to a <font color="green" style="background: #FFFFD0">data</font>
+file, except that a case's class can be given as `<font color="navy"><code>?</code></font>' meaning
+"unknown".  For each case, the program outputs the given class, the class
+predicted by the classifier, and the confidence with which this prediction
+is made.
+
+</p><p>
+Please see the file <font color="navy"><code>sample.c</code></font> for compilation
+instructions and program options.
+
+</p><p>
+<a href="http://www.rulequest.com/see5-public.tgz"><b>Click here</b></a>
+to download a gzipped tar file
+containing the public source code.
+
+
+</p><h2><a name="SUMMARY">Appendix: Summary of Options</a></h2>
+
+<p>
+</p><ul><ul>
+<table cellpadding="0">
+<tbody><tr>
+  <td><font color="navy"><code>-f</code></font> <font color="green" style="background: #FFFFD0">filestem</font>
+  </td><td>select the application
+</td></tr>
+<tr>
+  <td><font color="navy"><code>-s</code></font>
+  </td><td>partition discrete values into subsets
+</td></tr>
+<tr>
+  <td><font color="navy"><code>-r</code></font>
+  </td><td>generate rule-based classifiers
+</td></tr>
+<tr>
+  <td><font color="navy"><code>-u</code></font> <font color="green" style="background: #FFFFD0">bands</font>
+  </td><td>sort rules by their utility into bands
+</td></tr>
+<tr>
+  <td><font color="navy"><code>-b</code></font>
+  </td><td>use boosting with 10 trials
+</td></tr>
+<tr>
+  <td><font color="navy"><code>-t</code></font> <font color="green" style="background: #FFFFD0">trials</font>
+  </td><td>use boosting with the specified number of trials
+</td></tr>
+<tr>
+  <td><font color="navy"><code>-w</code></font>
+  </td><td>winnow the attributes before constructing a classifier
+</td></tr>
+<tr>
+  <td><font color="navy"><code>-p</code></font>
+  </td><td>show soft thresholds
+</td></tr>
+<tr>
+  <td><font color="navy"><code>-g</code></font>
+  </td><td>do not use global tree pruning
+</td></tr>
+<tr>
+  <td><font color="navy"><code>-c</code></font> <font color="green" style="background: #FFFFD0">CF</font>
+  </td><td>set the CF value for pruning trees
+</td></tr>
+<tr>
+  <td><font color="navy"><code>-m</code></font> <font color="green" style="background: #FFFFD0">cases</font>
+  </td><td>set the minimum cases for at least two branches of a split
+</td></tr>
+<tr>
+  <td><font color="navy"><code>-S</code></font> <font color="green" style="background: #FFFFD0">x</font>
+  </td><td>use a sample of <var>x%</var> for training and a disjoint sample for testing
+</td></tr>
+<tr>
+  <td><font color="navy"><code>-I</code></font> <font color="green" style="background: #FFFFD0">seed</font>
+  </td><td>set the sampling seed value
+</td></tr>
+<tr>
+  <td><font color="navy"><code>-X</code></font> <font color="green" style="background: #FFFFD0">folds</font>
+  </td><td>carry out a cross-validation
+</td></tr>
+<tr>
+  <td><font color="navy"><code>-e</code></font>
+  </td><td>ignore any <font color="green" style="background: #FFFFD0">costs</font> file
+</td></tr>
+<tr>
+  <td><font color="navy"><code>-h</code></font>
+  </td><td>print a short summary of the options
+</td></tr>
+</tbody></table>
+</ul></ul>
+
+
+<p>
+<table width="100%">
+  <tbody><tr>
+    <td align="left">
+      <b>© <small>RULEQUEST RESEARCH 2019</small></b>
+    </td>
+    <td align="right">
+      Last updated April 2019
+    </td>
+  </tr>
+</tbody></table>
+
+</p><hr>
+
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tbody><tr>
+    <td align="center" bgcolor="yellow"><a href="http://rulequest.com/index.html">
+	<small><b>home</b></small></a>
+    </td><td align="center" bgcolor="yellow"><a href="http://rulequest.com/products.html">
+	<small><b>products</b></small></a>
+    </td><td align="center" bgcolor="yellow"><a href="http://rulequest.com/download.html">
+	<small><b>download</b></small></a>
+    </td><td align="center" bgcolor="yellow"><a href="http://rulequest.com/eval.html">
+	<small><b>evaluations</b></small></a>
+    </td><td align="center" bgcolor="yellow"><a href="http://rulequest.com/price.html">
+	<small><b>prices</b></small></a>
+    </td><td align="center" bgcolor="yellow"><a href="http://rulequest.com/purchase.html">
+	<small><b>purchase</b></small></a>
+    </td><td align="center" bgcolor="yellow"><a href="http://rulequest.com/contact.html">
+	<small><b>contact us</b></small></a>
+  </td></tr>
+</tbody></table>
+</div>
+
+
+</body></html>
