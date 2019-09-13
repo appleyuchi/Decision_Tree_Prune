@@ -6,16 +6,16 @@ This repository is targeted at popular pruning implementations(Continuous updati
 
 
 
-|name | full name |  Tree type|language|Unknown value supported|Continuous value supported|
-|------------- |------------- |------------- |------------- |------------- |------------- |
-|REP | Reduced Error Pruning | ID3|Python|No|No|
-|MEP | Minimum Error Pruning| C4.5|Python|No|Yes|
-|PEP | Pessimistic Error Pruning| C4.5| Python|No|Yes|
-|EBP|Error Based Pruning|C4.5|Python|No|Yes|
-|EBP|Error Based Pruning|C4.5|C|Yes|Yes|
-|EBP|Error Based Pruning|C5.0|C|Yes|Yes|
-|CVP|Critical Value Pruning|CART-<br>Classification Tree|Python|No|Yes|
-|ECP|Error Complexity Pruning|CART-<br>Regression Tree|Python|No|Yes|
+|name | full name |  Tree type|On Which package is Pruning Algorithm Performed|language|Unknown value supported|Continuous value supported|
+|------------- |------------- |------------- |------------- |------------- |------------- |------------- |
+|REP | Reduced Error Pruning | ID3|Personal<br>Manually Code|Python|No|No|
+|MEP | Minimum Error Pruning| C4.5|[1]|Python|No|Yes|
+|PEP | Pessimistic Error Pruning| C4.5|[1]| Python|No|Yes|
+|EBP|Error Based Pruning|C4.5|[1]|Python|No|Yes|
+|EBP|Error Based Pruning|C4.5|[1]|C|Yes|Yes|
+|EBP|Error Based Pruning|C5.0|[4]|C|Yes|Yes|
+|CVP|Critical Value Pruning|CART-<br>Classification Tree|sklearn|Python|No|Yes|
+|ECP|Error Complexity Pruning|CART-<br>Regression Tree|sklearn|Python|No|Yes|
 
 ID3 is just manually written code.
 MEP、EBP、PEP、CVP are operated on the model generated from:
@@ -273,7 +273,7 @@ Reference:
 
 [3][History of pruning algorithm development and python implementation(finished)](https://blog.csdn.net/appleyuchi/article/details/83692381)
 
-[4][C5.0](https://rulequest.com/GPL/C50.tgz)
+[4][C5.0 Packages](https://rulequest.com/GPL/C50.tgz)
 
 [5][See5/C5.0](https://rulequest.com/see5-public.tgz)
 
