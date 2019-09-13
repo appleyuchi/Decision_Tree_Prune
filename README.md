@@ -3,7 +3,7 @@ This repository is targeted at popular pruning implementations(Continuous updati
 here is just test markdown syntax
 FirstName &#124; LastName | Phone | Email
 --- | --- | ---
-John &#124; Doe | 99658545 | min&#124;R(t)-R(Tt)-α(&#124;Tt&#124;-1)$&#124;
+John &#124; Doe | 99658545 | min&#124;R(t)-R(Tt)-α(&#124;Tt&#124;-1)&#124;
 
 
 
