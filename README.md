@@ -17,9 +17,11 @@ This repository is targeted at popular pruning implementations(Continuous updati
 |CVP|Critical Value Pruning|CART-Classification Tree|Python|No|Yes|
 |ECP|Error Complexity Pruning|CART-Regression Tree|Python|No|Yes|
 
+ID3 is just manually written code.
 MEP、EBP、PEP、CVP are operated on the model generated from:
 Quinlan-C4.5-Release8_and_python_interface_for_EBP/Src/quinlan-src/
-which is from[1],the inventer's homepage,excluding ID3.
+which is from[1],the inventer's homepage.
+
 
 
 Environment Requirement(Not a must):
@@ -41,11 +43,7 @@ Environment Requirement(Not a must):
 
 
 Note that :  
-①Except ID3,MEP、EBP、PEP、CVP are operated on the model generated from:
-Quinlan-C4.5-Release8_and_python_interface_for_EBP/Src/quinlan-src/
-which is from[1],the inventer's homepage.
-
-The model from Quinlan's implementation is C-type,
+①The model from Quinlan's implementation is C-type,
 so this repository will help you transform it to  "Python-compliant" model automatically.
 
 ②Datasets with unKnown value is Not Supported,
@@ -67,9 +65,6 @@ For REP(Reduced Error Pruning) of ID3:
 
     cd ID3-REP-post_prune-Python-draw
     python jianzhi.py
-Attention:
-
-    continuous feature and feature with unKnown value are both Not supported currently.
 ----------------REP---Operation method(end)---------------------------------
 
 ----------------EBP--Operation method(start)----------------------------------  
@@ -92,9 +87,8 @@ For EBP(Error Based Pruning),Operation method is:
     python predict.py
 ***************************
 
-    It's  an Python interface for C-type code in:  
-    http://www.rulequest.com/Personal/c4.5r8.tar.gz
-    This interface is used to get model and EBP pruned model from Quinlan's implementation.
+    It's  an Python interface for C-type code[1].
+    This interface is used to get model and EBP pruned model from Quinlan's implementation[1].
 
 ----------------EBP--Operation method(end)--------------------------------- 
 
@@ -244,6 +238,7 @@ All of above three implementations are stored and annotated in the folder:"sever
 
 
 -------------------C5.0-EBP-Operation method(Start)-------------------
+
 See the file in:
 
 C50-EBP-finish/Train/Traing_Method.txt
@@ -265,10 +260,10 @@ You may also interested in the inventer、history of Pruning Algorithms,and you 
 
 Don't hesitate to contact me please if you have any question:
 
-Contact Style | Information |
--|-|-
-Email | appleyuchi@foxmail.com
-Wechat|appleyuchi
+|Contact Style | Information|
+|------------- |------------- |
+|Email | appleyuchi@foxmail.com|
+|Wechat|appleyuchi|
 
 Reference:
 [1][C4.5 Package](http://www.rulequest.com/Personal/c4.5r8.tar.gz)
