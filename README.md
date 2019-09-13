@@ -6,7 +6,7 @@ This repository is targeted at popular pruning implementations(Continuous updati
 
 
 
-|name | full name |  Tree type|On Which package is Pruning Algorithm Performed|language|Unknown value supported|Continuous value supported|
+|Name | Full name |  Tree type|On Which package is Pruning Algorithm Performed|Language|Unknown value supported|Continuous value supported|
 |------------- |------------- |------------- |------------- |------------- |------------- |------------- |
 |REP | Reduced Error Pruning | ID3|Personal<br>Manually Code|Python|No|No|
 |MEP | Minimum Error Pruning| C4.5|[1]|Python|No|Yes|
