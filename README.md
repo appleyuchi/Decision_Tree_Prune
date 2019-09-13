@@ -1,13 +1,5 @@
 This repository is targeted at popular pruning implementations(Continuous updating):
 
-here is just test markdown syntax
-
-FirstName &#124; LastName | Phone | Email
---- | --- | ---
-John &#124; Doe | 99658545 | min&#124;R(t)-R(Tt)-α(&#124;Tt&#124;-1)&#124;
-
-
-
 
 
 
@@ -169,7 +161,7 @@ Previous Work of CCP on CART From other repositories in Github and Google:
 |------------- |------------- |
 | https://github.com/Rudo-erek/decision-tree/tree/ | It can NOT work,and it can NOT deal with continuous Attribute.<br>The computation of R(t) is wrong,this link use Gini to compute R(t). | 
 | https://github.com/Jasper-Dong/Decision-Tree| It can work,but it can NOT deal with continuous Attribute. |
-|[Decision Trees Part 3: Pruning your Tree](https://triangleinequality.wordpress.com/2013/09/01/decision-trees-part-3-pruning-your-tree/)|It can work,<br>but the author modified the original CCP,<br>which result in no candidate trees to select,<br>and so no cross-validation to select best pruned tree.<br>He set a fixed alpha before running this“modified CCP”,his method is to pursue:<br> ![Formula](https://github.com/appleyuchi/Decision_Tree_Prune/blob/master/%E5%85%AC%E5%BC%8F.png)|
+|[Decision Trees Part 3: Pruning your Tree](https://triangleinequality.wordpress.com/2013/09/01/decision-trees-part-3-pruning-your-tree/)|It can work,<br>but the author modified the original CCP,<br>which result in no candidate trees to select,<br>and so no cross-validation to select best pruned tree.<br>He set a fixed alpha before running this“modified CCP”,his method is to pursue:<br> min&#124;R(t)-R(Tt)-α(&#124;Tt&#124;-1)&#124;|
 
 
 
