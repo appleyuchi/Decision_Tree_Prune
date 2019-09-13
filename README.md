@@ -2,8 +2,13 @@ This repository is targeted at popular pruning implementations(Continuous updati
 
 
 
+| Link | Defects |
+|------------- |------------- |
+
+
+
 |name | full name |  Tree type|language|
-|------------- |------------- |------------- |
+|------------- |------------- |------------- |------------- |
 |REP | Reduced Error Pruning | ID3|Python|
 |MEP | Minimum Error Pruning| C4.5|Python|
 |PEP | Pessimistic Error Pruning| C4.5| Python|
