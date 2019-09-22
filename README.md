@@ -8,11 +8,12 @@ This repository is targeted at popular pruning implementations(Continuous updati
 |------------- |------------- |------------- |------------- |------------- |------------- |------------- |
 |REP | Reduced Error Pruning | ID3|Personal<br>Manually Code|Python|No|No|
 |MEP | Minimum Error Pruning| C4.5|[1]|Python|No|Yes|
+|CVP | Critical Value Pruning| C4.5|[1]| Python|No|Yes|
 |PEP | Pessimistic Error Pruning| C4.5|[1]| Python|No|Yes|
 |EBP|Error Based Pruning|C4.5|[1]|Python|No|Yes|
 |EBP|Error Based Pruning|C4.5|[1]|C|Yes|Yes|
 |EBP|Error Based Pruning|C5.0|[4]|C|Yes|Yes|
-|CVP|Critical Value Pruning|CART-<br>Classification Tree|sklearn|Python|No|Yes|
+|CCP|Cost Complexity Pruning|CART-<br>Classification Tree|sklearn|Python|No|Yes|
 |ECP|Error Complexity Pruning|CART-<br>Regression Tree|sklearn|Python|No|Yes|
 
 ID3 is just manually written code.
