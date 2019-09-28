@@ -55,6 +55,7 @@ when under this case,copy the content of "result/unprune.txt" to  "result/prune.
 Running Flows:
 
 1.cd ID3-REP-post_prune-Python-draw
+
 2.python jianzhi.py
 
 ----------------REP---Operation method(end)---------------------------------
