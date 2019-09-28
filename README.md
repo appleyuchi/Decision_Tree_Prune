@@ -51,6 +51,7 @@ when under this case,copy the content of "result/unprune.txt" to  "result/prune.
 
 
 ----------------REP---Operation method(start)-------------------------------
+
 Running Flows:
 
 1.cd ID3-REP-post_prune-Python-draw
@@ -113,6 +114,7 @@ python top.py
 ----------------PEP--Operation method(end)---------------------------------
 
 ----------------MEP--Operation method(start)---------------------------------  
+
 Running Flows:
 
 	1.cp abalone_parts.data abalone.names   /decision_tree/Quinlan-C4.5-Release8_and_python_interface_for_EBP/Src/quinlan-src/
@@ -127,6 +129,7 @@ Running Flows:
 ----------------MEP--Operation method(end)---------------------------------  
 
 ----------------CVP--Operation method(start)--------------------------------- 
+
 Running Flows:
 
 	1.cp abalone_parts.data abalone.names   /decision_tree/Quinlan-C4.5-Release8_and_python_interface_for_EBP/Src/quinlan-src/
@@ -214,6 +217,7 @@ All of above three implementations are stored and annotated in the folder:"sever
 ----------------CCP--Operation method(end)--------------------------------- 
 
 -------------------ECP-Operation method(start)-----------------------
+
 Running Flows:
 
 
