@@ -42,15 +42,7 @@ Environment Requirement(Not a must):
 
 
 Note that :  
-①The model from Quinlan's implementation is C-type,
-so this repository will help you transform it to  "Python-compliant" model automatically.
-
-②Datasets with unKnown value is Not Supported,
-because under different cases or in different papers,
-different people have different methods to deal with unknown value.　　
-
-
-③When your datasets is very very small ,
+In C4.5 and C5.0,when your datasets is very very small ,
 you'll get very small model,then,
 you will NOT get a "Simplified Tree"(pruned model)
 from quinlan's implementation.
@@ -58,42 +50,43 @@ This means "pruned model"="unpruned model",
 when under this case,copy the content of "result/unprune.txt" to  "result/prune.txt"please.
 
 
-----------------REP---Operation method(start)---------------------------------
+----------------REP---Operation method(start)-------------------------------
+Running Flows:
 
-For REP(Reduced Error Pruning) of ID3:
+1.cd ID3-REP-post_prune-Python-draw
+2.python jianzhi.py
 
-    cd ID3-REP-post_prune-Python-draw
-    python jianzhi.py
 ----------------REP---Operation method(end)---------------------------------
 
-----------------EBP--Operation method(start)----------------------------------  
 
-Ross Quinlan has already implemented EBP with C,
-so the following is just a Python interface.  
 
-For EBP(Error Based Pruning),Operation method is:
 
-    For any datasets choosed,you need prepare two files:
-    for example:  
-    crx.names  
-    crx.data.
-    and put them under the path: 
+
+----------------EBP--Operation method(start)--------------------------------
+
+Ross Quinlan has already implemented EBP with C[1],
+so the following is just a Python interface.
+
+
+
+
+Running Flows:
+1.
+put crx.names and crx.data(change "crx"  please when you use other datasets)
+under the path: 
     Quinlan-C4.5-Release8_and_python_interface_for_EBP/Src/quinlan-src/
+2.
 
     cd Quinlan-C4.5-Release8_and_python_interface_for_EBP/Src
-    python shell_execute.py crx > result.txt(change "crx"  please when you use other datasets.)
-    python result_get.py(transform C model to Python model)  
+    python shell_execute.py crx > result.txt
+    python result_get.py(transform C model to Python model)
     python predict.py
-***************************
 
-    It's  an Python interface for C-type code[1].
-    This interface is used to get model and EBP pruned model from Quinlan's implementation[1].
+----------------EBP--Operation method(end)---------------------------------
 
-----------------EBP--Operation method(end)--------------------------------- 
+----------------PEP--Operation method(start)-------------------------------
 
-----------------PEP--Operation method(start)---------------------------------  
-
-For PEP(Pessimistic Error Pruning):  
+Running Flows:
 1.Download datasets from[2]  
 
 2.Reorder it with the final column from small to large and get the former 200 items,and save them as abalone_parts.data(this step is just for easy to visualize afterwards)  
@@ -120,6 +113,7 @@ python top.py
 ----------------PEP--Operation method(end)---------------------------------
 
 ----------------MEP--Operation method(start)---------------------------------  
+Running Flows:
 
 	1.cp abalone_parts.data abalone.names   /decision_tree/Quinlan-C4.5-Release8_and_python_interface_for_EBP/Src/quinlan-src/
     python shell_execute.py abalone > result.txt
@@ -132,7 +126,8 @@ python top.py
 
 ----------------MEP--Operation method(end)---------------------------------  
 
-----------------CVP--Operation method(start)---------------------------------  
+----------------CVP--Operation method(start)--------------------------------- 
+Running Flows:
 
 	1.cp abalone_parts.data abalone.names   /decision_tree/Quinlan-C4.5-Release8_and_python_interface_for_EBP/Src/quinlan-src/
     python shell_execute.py abalone > result.txt
@@ -219,6 +214,7 @@ All of above three implementations are stored and annotated in the folder:"sever
 ----------------CCP--Operation method(end)--------------------------------- 
 
 -------------------ECP-Operation method(start)-----------------------
+Running Flows:
 
 
         1.change your datasets path in file sklearn_ECP_TOP.py
@@ -238,15 +234,15 @@ All of above three implementations are stored and annotated in the folder:"sever
 
 -------------------C5.0-EBP-Operation method(Start)-------------------
 
-See the file in:
-
+Training Flows:
 C50-EBP-finish/Train/Traing_Method.txt
 
+Validation Flows:
 C50-EBP-finish/ValidateAndTest/Validation_Testing_Method.txt
 
-please.
 
-The resource of C5.0 is from [4] (For Training) and [5] (For Validation and Testing)
+The resource of C5.0 is from [4] (For Training)
+and [5] (For Validation and Testing)
 
 -------------------C5.0-EBP-Operation method(end)-------------------
 
@@ -255,10 +251,15 @@ You may also interested in the inventer、history of Pruning Algorithms,and you 
 
 
 
+\----------------------------Formatting  For Kaggle---------------------------------------
+
+Change .csv to .data and .names.
+See folder:
+sCSV_Formatting
 
 
 
-Don't hesitate to contact me please if you have any question:
+\----------------------------Contact me------------------------------------------------
 
 |Contact Style | Information|
 |------------- |------------- |

@@ -1,0 +1,82 @@
+因为kaggle的ｃｓｖ文件和C5.0的文本格式要求是不一致的，所以下面要进行细致的转化.
+一些小细节:
+.names:每行末尾是句号.
+.ｄａｔａ:每行末尾是类别.
+
+在改为自己的数据集时，下面的步骤不能直接照抄，需要进行修改的步骤有：
+②中需要修改自己想要修改小数位数的特征名称（小数位数太长容易出问题）
+还需要指定类别名称
+⑥中要把自己想要删除的特征名称写入
+⑦中指定类别名称
+
+#######################下面是具体步骤#######################
+
+①train.csv中所有取值中的":"(不包含双引号)替换为"_"
+sed -i s/:/_/g ./train.csv
+
+
+ｔｒａｉｎ.csv中所有取值中的单引号"'"(不包含双引号)替换为"_"
+sed -i s/\'/_/g ./train.csv
+
+
+
+# ②生成.names文件
+# 这里注意，对于离散特征的全长不能超过16位，例如：
+# d11=98.91000366210937
+# 整数2位，小数１４位，这种情况下，最后一位小数极易产生变化,导致精度损失。
+# 所以为了获取特征取值顺利，下面的命令中对取值小数后面的位数进行了限制（具体见names_file_generate.py）
+
+python names_file_generate.py > fraud.names
+#python代码中产生的ｎａｎ全部替换为?
+sed -i s/nan/?/g ./train1.csv
+
+
+③",,"替换成",?,"(不包括双引号)
+cat train1.csv | perl -pe 's/,(?=,)/,?/g' > train2.csv
+
+
+
+
+
+
+
+④对最后一栏的空缺值单独进行填充为？（因为①中的ｌｉｎｕｘ命令无法照顾到最后一栏）
+cat train2.csv | sed 's#,$#,?#' > train3.data
+
+
+⑤""替换成？
+sed -i s/\"\"/"?"/g ./train3.data
+
+
+
+⑥删除ＴｒａｎｓａｃｔｉｏｎID
+python delete_col.py
+
+
+⑦class这一栏（例如isFraud）要移动到train.data的最后一列
+python move_class.py
+
+
+
+⑧删除.data文件第一行（都是列名）
+sed -i "1d" train.data
+
+
+
+
+⑨重命名train.data为fraud.data
+mv train.data fraud.data
+
+
+⑩复制文件到Ｃ5.0目录下面
+cp fraud.names ../C50-EBP-finish/Train/
+cp fraud.data ../C50-EBP-finish/Train/
+rm train1.csv
+rm train2.csv
+rm train2.data
+rm train3.data
+
+
+
+# 最后，跑不通的时候，一定不要使用那么多的数据，用十几条小数据就行了。
+# 一定是.names的顺序和.data文件的特征是顺序没有对应上。

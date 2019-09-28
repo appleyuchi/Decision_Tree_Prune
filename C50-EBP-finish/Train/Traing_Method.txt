@@ -1,3 +1,9 @@
+
+首先编译（这个git clone 以后只运行一次即可）：
+make all
+
+
+
 document:
 ../c5.0 --help
 
