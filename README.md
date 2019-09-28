@@ -43,10 +43,15 @@ Environment Requirement(Not a must):
 
 Note that :  
 In C4.5 and C5.0,when your datasets is very very small ,
+
 you'll get very small model,then,
+
 you will NOT get a "Simplified Tree"(pruned model)
+
 from quinlan's implementation.
+
 This means "pruned model"="unpruned model",
+
 when under this case,copy the content of "result/unprune.txt" to  "result/prune.txt"please.
 
 
@@ -89,9 +94,11 @@ under the path:
 ----------------PEP--Operation method(start)-------------------------------
 
 Running Flows:
-1.Download datasets from[2]  
+1.
+Download datasets from[2]  
 
-2.Reorder it with the final column from small to large and get the former 200 items,and save them as abalone_parts.data(this step is just for easy to visualize afterwards)  
+2.
+Reorder it with the final column from small to large and get the former 200 items,and save them as abalone_parts.data(this step is just for easy to visualize afterwards)  
 3.
 
 	cp abalone_parts.data abalone.names   /decision_tree/Quinlan-C4.5-Release8_and_python_interface_for_EBP/Src/quinlan-src/
