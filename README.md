@@ -80,9 +80,11 @@ so the following is just a Python interface.
 Running Flows:
 
 1.
+
 put crx.names and crx.data(change "crx"  please when you use other datasets)
 under the path: 
     Quinlan-C4.5-Release8_and_python_interface_for_EBP/Src/quinlan-src/
+    
 2.
 
     cd Quinlan-C4.5-Release8_and_python_interface_for_EBP/Src
