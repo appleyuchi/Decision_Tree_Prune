@@ -273,7 +273,7 @@ You may also interested in the inventer、history of Pruning Algorithms,and you 
 
 Change .csv to .data and .names.
 See folder:
-sCSV_Formatting
+CSV_Formatting
 
 
 
@@ -282,7 +282,6 @@ sCSV_Formatting
 |Contact Style | Information|
 |------------- |------------- |
 |Email | appleyuchi@foxmail.com|
-|Wechat|appleyuchi|
 
 Reference:
 
