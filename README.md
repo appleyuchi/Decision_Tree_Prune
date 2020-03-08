@@ -265,7 +265,11 @@ and [5] (For Validation and Testing)
 -------------------C5.0-EBP-Operation method(end)-------------------
 
 
-You may also interested in the inventer、history of Pruning Algorithms,and you may want to compare the unpruned effects and pruned effects.I have collected them together[3].
+You may also interested in the inventer、history of Pruning Algorithms,
+
+and you may want to compare the unpruned effects and pruned effects.
+
+I have collected them together[3].
 
 
 
@@ -285,7 +289,7 @@ CSV_Formatting
 
 \---------------------------update------------------------------------------------
 
-[issue 12887](https://github.com/scikit-learn/scikit-learn/pull/12887) of Sklearn Group fixes[issue 6557](https://github.com/scikit-learn/scikit-learn/issues/6557).
+[issue 12887](https://github.com/scikit-learn/scikit-learn/pull/12887) of Sklearn Group fixes [issue 6557](https://github.com/scikit-learn/scikit-learn/issues/6557).
 
 However,R(t) of [issue 12887](https://github.com/scikit-learn/scikit-learn/pull/12887)   is different from what is written in[6]
 
