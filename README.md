@@ -287,7 +287,7 @@ CSV_Formatting
 
 [issue 12887](https://github.com/scikit-learn/scikit-learn/pull/12887) of Sklearn Group fixes[issue 6557](https://github.com/scikit-learn/scikit-learn/issues/6557).
 
-However,R(t) of [issue 12887]  is different from what is written in[6]
+However,R(t) of [issue 12887](https://github.com/scikit-learn/scikit-learn/pull/12887)   is different from what is written in[6]
 
 Reference:
 
