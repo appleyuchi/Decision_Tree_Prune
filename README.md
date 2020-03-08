@@ -284,8 +284,11 @@ CSV_Formatting
 |Email | appleyuchi@foxmail.com|
 
 \---------------------------update------------------------------------------------
+
 [issue 12887](https://github.com/scikit-learn/scikit-learn/pull/12887) of Sklearn Group fixes
+
 [issue 6557](https://github.com/scikit-learn/scikit-learn/issues/6557).
+
 However,it R(t) is different from what is written in[6]
 
 
