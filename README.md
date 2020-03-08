@@ -283,17 +283,20 @@ CSV_Formatting
 |------------- |------------- |
 |Email | appleyuchi@foxmail.com|
 
+\---------------------------update------------------------------------------------
+[issue 12887](https://github.com/scikit-learn/scikit-learn/pull/12887) of Sklearn Group fixes
+[issue 6557](https://github.com/scikit-learn/scikit-learn/issues/6557).
+However,it R(t) is different from what is written in[6]
+
+
 Reference:
 
 [1][C4.5 Package](http://www.rulequest.com/Personal/c4.5r8.tar.gz)
-
 [2][Abalone Datasets](https://archive.ics.uci.edu/ml/machine-learning-databases/abalone/  )
-
 [3][History of pruning algorithm development and python implementation(finished)](https://blog.csdn.net/appleyuchi/article/details/83692381)
-
 [4][C5.0 Package](https://rulequest.com/GPL/C50.tgz)
-
 [5][See5/C5.0](https://rulequest.com/see5-public.tgz)
+[6] Breiman L (1984)《 Classification and regression trees》
 
 
 
