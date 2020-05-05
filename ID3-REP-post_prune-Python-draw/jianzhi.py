@@ -144,7 +144,7 @@ def majorityCnt(classList):
         if vote not in classCount.keys():
             classCount[vote]=0
         classCount[vote]+=1
-    return max(classCount)
+    return max(classCount, key=classCount.get)
 
 
 #这个用于预剪枝
